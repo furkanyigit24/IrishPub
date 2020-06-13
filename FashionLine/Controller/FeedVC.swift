@@ -33,15 +33,6 @@ class FeedVC: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     }()
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Profile picture
-//        view.addSubview(profilePicture)
-//        profilePicture.anchor(top: view.topAnchor, left: nil, bottom: nil, right: view.rightAnchor, paddingTop: 87, paddingLeft: 0, paddingBottom: 0, paddingRight: 24, width: 30, height: 30)
-//        profilePicture.layer.cornerRadius = 15
-        // FashionLine Name Label
-        //        view.addSubview(fashionLineNameLabel)
-        //        fashionLineNameLabel.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 82, paddingLeft: 25, paddingBottom: 0, paddingRight: 157, width: 0, height: 0)
-        //        view.addSubview(horizontalLine)
-        //        horizontalLine.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 126.5, paddingLeft: 23.5, paddingBottom: 0, paddingRight: 23.5, width: 0, height: 1)
         collectionView.backgroundColor = .white
         navigationController?.navigationBar.isHidden = true
         // Uncomment the following line to preserve selection between presentations
@@ -66,7 +57,7 @@ class FeedVC: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     // MARK: - UICollectionViewFlowLayout
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = view.frame.width * 0.9555
-        let height = CGFloat(322.4812)
+        let height = view.frame.height * 0.35
         return CGSize(width: width, height: height)
     }
     
@@ -74,7 +65,7 @@ class FeedVC: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1
+        return 2
     }
     
     
@@ -86,6 +77,16 @@ class FeedVC: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! FeedCell
         // Configure the cell
+        if indexPath.row == 0 {
+            cell.titleLabel.text = "Kombin Önerilerim"
+            cell.combineCommentLabel.isHidden = true
+            cell.combineCommentButton.isHidden = true
+            cell.titleBottomLabel.text = "10101010"
+        }
+        else if indexPath.row == 1 {
+            cell.titleLabel.text = "Günün Kombinleri"
+            cell.combineNotificationLabel.isHidden = true
+        }
         return cell
     }
     // Header size

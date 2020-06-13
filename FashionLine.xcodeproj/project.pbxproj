@@ -12,6 +12,7 @@
 		DC10166324912231000B4D81 /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC10166224912231000B4D81 /* FeedCell.swift */; };
 		DC101665249125F2000B4D81 /* CustomImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC101664249125F2000B4D81 /* CustomImageView.swift */; };
 		DC10166724927C2D000B4D81 /* FeedHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC10166624927C2C000B4D81 /* FeedHeaderCell.swift */; };
+		DC10166924951A7B000B4D81 /* SubCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC10166824951A7B000B4D81 /* SubCustomCell.swift */; };
 		DCCD057A248BCFC400105231 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCCD0579248BCFC400105231 /* AppDelegate.swift */; };
 		DCCD057C248BCFC400105231 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCCD057B248BCFC400105231 /* SceneDelegate.swift */; };
 		DCCD057E248BCFC400105231 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCCD057D248BCFC400105231 /* ViewController.swift */; };
@@ -55,6 +56,7 @@
 		DC10166224912231000B4D81 /* FeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCell.swift; sourceTree = "<group>"; };
 		DC101664249125F2000B4D81 /* CustomImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomImageView.swift; sourceTree = "<group>"; };
 		DC10166624927C2C000B4D81 /* FeedHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedHeaderCell.swift; sourceTree = "<group>"; };
+		DC10166824951A7B000B4D81 /* SubCustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubCustomCell.swift; sourceTree = "<group>"; };
 		DCCD0576248BCFC400105231 /* FashionLine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FashionLine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCCD0579248BCFC400105231 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DCCD057B248BCFC400105231 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -127,8 +129,9 @@
 		DC101661249121D0000B4D81 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				DC10166224912231000B4D81 /* FeedCell.swift */,
 				DC10166624927C2C000B4D81 /* FeedHeaderCell.swift */,
+				DC10166224912231000B4D81 /* FeedCell.swift */,
+				DC10166824951A7B000B4D81 /* SubCustomCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -438,6 +441,7 @@
 			files = (
 				DC10166724927C2D000B4D81 /* FeedHeaderCell.swift in Sources */,
 				DCCD05B9248EB26100105231 /* CombineVC.swift in Sources */,
+				DC10166924951A7B000B4D81 /* SubCustomCell.swift in Sources */,
 				DC10166324912231000B4D81 /* FeedCell.swift in Sources */,
 				DCCD057E248BCFC400105231 /* ViewController.swift in Sources */,
 				DCCD05B7248EB1B000105231 /* FeedVC.swift in Sources */,
