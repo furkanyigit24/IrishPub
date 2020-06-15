@@ -19,9 +19,15 @@ class MainVC: UITabBarController, UITabBarControllerDelegate {
     func configureViewControllers() {
         
         // home feed controller
-        let feedVC = constructNavController(unselectedImage: #imageLiteral(resourceName: "home_unselected"), selectedImage: #imageLiteral(resourceName: "home_selected"), rootViewController: FeedVC(collectionViewLayout: UICollectionViewFlowLayout()))
+        guard let darkStarImage = UIImage(named: "darkStar")?.withRenderingMode(.alwaysOriginal) else { return }
+        guard let redStarImage = UIImage(named: "redStar")?.withRenderingMode(.alwaysOriginal) else { return }
+        
+        let feedVC = constructNavController(unselectedImage: darkStarImage, selectedImage:
+            redStarImage, rootViewController: FeedVC(collectionViewLayout: UICollectionViewFlowLayout()))
         // search feed controller
-        let combineVC = constructNavController(unselectedImage: #imageLiteral(resourceName: "search_unselected"), selectedImage: #imageLiteral(resourceName: "search_selected"), rootViewController: CombineVC())
+        guard let darkAddButtonImage = UIImage(named: "darkAddButton")?.withRenderingMode(.alwaysOriginal) else { return }
+        guard let redAddButtonImage = UIImage(named: "redAddButton")?.withRenderingMode(.alwaysOriginal) else { return }
+        let combineVC = constructNavController(unselectedImage: darkAddButtonImage, selectedImage: redAddButtonImage, rootViewController: CombineVC())
         // profile controller
         let wardrobeVC = constructNavController(unselectedImage: #imageLiteral(resourceName: "profile_unselected"), selectedImage: #imageLiteral(resourceName: "profile_selected"), rootViewController: WardrobeVC())
         

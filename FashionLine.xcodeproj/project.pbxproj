@@ -13,6 +13,7 @@
 		DC101665249125F2000B4D81 /* CustomImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC101664249125F2000B4D81 /* CustomImageView.swift */; };
 		DC10166724927C2D000B4D81 /* FeedHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC10166624927C2C000B4D81 /* FeedHeaderCell.swift */; };
 		DC10166924951A7B000B4D81 /* SubCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC10166824951A7B000B4D81 /* SubCustomCell.swift */; };
+		DC10166B24957A2B000B4D81 /* CombinesOfDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC10166A24957A2B000B4D81 /* CombinesOfDay.swift */; };
 		DCCD057A248BCFC400105231 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCCD0579248BCFC400105231 /* AppDelegate.swift */; };
 		DCCD057C248BCFC400105231 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCCD057B248BCFC400105231 /* SceneDelegate.swift */; };
 		DCCD057E248BCFC400105231 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCCD057D248BCFC400105231 /* ViewController.swift */; };
@@ -57,6 +58,7 @@
 		DC101664249125F2000B4D81 /* CustomImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomImageView.swift; sourceTree = "<group>"; };
 		DC10166624927C2C000B4D81 /* FeedHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedHeaderCell.swift; sourceTree = "<group>"; };
 		DC10166824951A7B000B4D81 /* SubCustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubCustomCell.swift; sourceTree = "<group>"; };
+		DC10166A24957A2B000B4D81 /* CombinesOfDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombinesOfDay.swift; sourceTree = "<group>"; };
 		DCCD0576248BCFC400105231 /* FashionLine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FashionLine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCCD0579248BCFC400105231 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DCCD057B248BCFC400105231 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -132,6 +134,7 @@
 				DC10166624927C2C000B4D81 /* FeedHeaderCell.swift */,
 				DC10166224912231000B4D81 /* FeedCell.swift */,
 				DC10166824951A7B000B4D81 /* SubCustomCell.swift */,
+				DC10166A24957A2B000B4D81 /* CombinesOfDay.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -446,6 +449,7 @@
 				DCCD057E248BCFC400105231 /* ViewController.swift in Sources */,
 				DCCD05B7248EB1B000105231 /* FeedVC.swift in Sources */,
 				DCCD05B5248E9D5300105231 /* Extensions.swift in Sources */,
+				DC10166B24957A2B000B4D81 /* CombinesOfDay.swift in Sources */,
 				DCCD05B2248BFA5E00105231 /* MainVC.swift in Sources */,
 				DCCD05BB248EB2FB00105231 /* WardrobeVC.swift in Sources */,
 				DC101665249125F2000B4D81 /* CustomImageView.swift in Sources */,

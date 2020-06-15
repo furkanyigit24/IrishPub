@@ -12,25 +12,6 @@ private let reuseIdentifier = "Cell"
 private let feedHeader = "FeedHeader"
 
 class FeedVC: UICollectionViewController, UICollectionViewDelegateFlowLayout {
-    let profilePicture: UIButton = {
-        let pp = UIButton(type: .system)
-        pp.backgroundColor = UIColor(hexString: "#707070")
-        return pp
-    }()
-    let fashionLineNameLabel: UILabel = {
-        let rn = UILabel()
-        rn.numberOfLines = 0
-        rn.text = "FashionLine"
-        rn.font = UIFont.systemFont(ofSize: 34)
-        rn.font = UIFont(font: .SFUIText, weight: .heavy , size: 34)
-        rn.textColor = UIColor(hexString: "#E61515", alpha: 0.82)
-        return rn
-    }()
-    let horizontalLine: UIView = {
-        let hl = UIView()
-        hl.backgroundColor = UIColor(hexString: "#707070")
-        return hl
-    }()
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.backgroundColor = .white
@@ -40,6 +21,7 @@ class FeedVC: UICollectionViewController, UICollectionViewDelegateFlowLayout {
         
         // Register cell classes
         self.collectionView!.register(FeedCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        self.collectionView!.register(CombinesOfDay.self, forCellWithReuseIdentifier: combinesSubCellId)
         self.collectionView!.register(FeedHeaderCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: feedHeader)
         // Do any additional setup after loading the view.
     }
@@ -76,16 +58,15 @@ class FeedVC: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! FeedCell
+        let combinesCell = collectionView.dequeueReusableCell(withReuseIdentifier: combinesSubCellId, for: indexPath) as! CombinesOfDay
         // Configure the cell
         if indexPath.row == 0 {
             cell.titleLabel.text = "Kombin Önerilerim"
-            cell.combineCommentLabel.isHidden = true
-            cell.combineCommentButton.isHidden = true
-            cell.titleBottomLabel.text = "10101010"
+            return cell
         }
         else if indexPath.row == 1 {
-            cell.titleLabel.text = "Günün Kombinleri"
-            cell.combineNotificationLabel.isHidden = true
+            combinesCell.titleLabel.text = "Günün Kombinleri"
+            return combinesCell
         }
         return cell
     }

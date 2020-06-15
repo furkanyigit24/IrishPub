@@ -18,6 +18,8 @@ class SubCustomCell: UICollectionViewCell, UICollectionViewDataSource, UICollect
     }()
     let titleBottomLabel: UILabel = {
         let lb  = UILabel()
+        lb.textAlignment = .center
+        lb.numberOfLines = 0
         lb.font = UIFont.boldSystemFont(ofSize: 12)
         lb.font = UIFont.boldSystemFont(ofSize: 12)
         lb.translatesAutoresizingMaskIntoConstraints = false
@@ -25,11 +27,14 @@ class SubCustomCell: UICollectionViewCell, UICollectionViewDataSource, UICollect
     }()
     override init(frame: CGRect) {
         super.init(frame: frame)
+        let width = frame.width
+        let height = frame.height
         addSubview(postImageView)
-        postImageView.anchor(top: topAnchor, left: leftAnchor, bottom: nil, right: nil, paddingTop: 8, paddingLeft: 8, paddingBottom: 0, paddingRight: 0, width: 40, height: 40)
-        postImageView.layer.cornerRadius = 20
         addSubview(titleBottomLabel)
-        titleBottomLabel.anchor(top: nil, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 0, paddingLeft: 5, paddingBottom: 5, paddingRight: 5, width: 0, height: 0)
+        postImageView.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 0, paddingLeft: 1, paddingBottom: 20, paddingRight: 1, width: width, height: height)
+        postImageView.layer.cornerRadius = 20
+        postImageView.clipsToBounds = true
+        titleBottomLabel.anchor(top: postImageView.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, paddingTop: 1, paddingLeft: 1, paddingBottom: 0, paddingRight: 1, width: 0, height: 0)
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

@@ -11,7 +11,7 @@ import UIKit
 class FeedHeaderCell: UICollectionViewCell {
     let profilePicture: UIButton = {
         let pp = UIButton(type: .system)
-        pp.backgroundColor = UIColor(hexString: "#707070")
+        pp.setImage(UIImage(named: "profilePicture")?.withRenderingMode(.alwaysOriginal), for: .normal)
         return pp
     }()
     let fashionLineNameLabel: UILabel = {

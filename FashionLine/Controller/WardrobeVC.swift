@@ -11,7 +11,7 @@ import UIKit
 class WardrobeVC: UIViewController {
     let profilePicture: UIButton = {
         let pp = UIButton(type: .system)
-        pp.backgroundColor = UIColor(hexString: "#707070")
+        pp.setImage(UIImage(named: "profilePicture")?.withRenderingMode(.alwaysOriginal), for: .normal)
         return pp
     }()
     let signUpButton: UIButton = {
@@ -34,16 +34,12 @@ class WardrobeVC: UIViewController {
     }()
     let quickGoogleButton: UIButton = {
         let pp = UIButton(type: .system)
-        pp.setTitle("Google", for: .normal)
-        pp.setTitleColor(UIColor(hexString: "#E61515"), for: UIControl.State.normal)
-        pp.backgroundColor = UIColor(hexString: "#707070")
+        pp.setImage(UIImage(named: "signUpGoogle")?.withRenderingMode(.alwaysOriginal), for: .normal)
         return pp
     }()
     let quickAppleButton: UIButton = {
         let pp = UIButton(type: .system)
-        pp.setTitle("Apple", for: .normal)
-        pp.setTitleColor(UIColor(hexString: "#E61515"), for: UIControl.State.normal)
-        pp.backgroundColor = UIColor(hexString: "#707070")
+        pp.setImage(UIImage(named: "signUpApple")?.withRenderingMode(.alwaysOriginal), for: .normal)
         return pp
     }()
     let fashionLineNameLabel: UILabel = {
