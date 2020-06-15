@@ -17,6 +17,7 @@ class WardrobeVC: UIViewController {
     let signUpButton: UIButton = {
         let pp = UIButton(type: .system)
         pp.setTitle("Üye Ol", for: .normal)
+        pp.titleLabel?.font = UIFont.init(name: "SFProText-Regular", size: 17)
         pp.setTitleColor(UIColor(hexString: "#E61515"), for: UIControl.State.normal)
         pp.layer.borderColor = UIColor(hexString: "#707070").cgColor
         pp.layer.borderWidth = 1
@@ -27,8 +28,7 @@ class WardrobeVC: UIViewController {
         let rn = UILabel()
         rn.numberOfLines = 0
         rn.text = "Hızlı Kayıt"
-        rn.font = UIFont.systemFont(ofSize: 23)
-        rn.font = UIFont.init(name: "SFProDisplay", size: 23)
+        rn.font = UIFont.init(name: "SFProDisplay-RegularItalic", size: 23)
         rn.textColor = UIColor(hexString: "#707070")
         return rn
     }()
@@ -46,8 +46,7 @@ class WardrobeVC: UIViewController {
         let rn = UILabel()
         rn.numberOfLines = 0
         rn.text = "FashionLine"
-        rn.font = UIFont.systemFont(ofSize: 34)
-        rn.font = UIFont(font: .SFUIText, weight: .heavy , size: 34)
+        rn.font = UIFont.init(name: "SFProDisplay-Bold", size: 34)
         rn.textColor = UIColor(hexString: "#E61515", alpha: 0.82)
         return rn
     }()
@@ -55,8 +54,7 @@ class WardrobeVC: UIViewController {
         let rn = UILabel()
         rn.numberOfLines = 0
         rn.text = "Hoşgeldin!"
-        rn.font = UIFont.systemFont(ofSize: 34)
-        rn.font = UIFont.init(name: "SFProDisplay", size: 33)
+        rn.font = UIFont.init(name: "SFProDisplay-Regular", size: 34)
         rn.textColor = UIColor(hexString: "#000000")
         return rn
     }()
@@ -64,32 +62,28 @@ class WardrobeVC: UIViewController {
         let tf = UITextField()
         tf.placeholder = "E-posta"
         tf.backgroundColor = UIColor(white: 0, alpha: 0.0)
-        tf.font = UIFont.init(name: "SFProText-MediumItalic", size: 20)
-        tf.font = UIFont.systemFont(ofSize: 14)
+        tf.font = UIFont.init(name: "SFProText-MediumItalic", size: 14)
         return tf
     }()
     let nameTextField: UITextField = {
         let tf = UITextField()
         tf.placeholder = "Adın"
         tf.backgroundColor = UIColor(white: 0, alpha: 0.0)
-        tf.font = UIFont.init(name: "SFProText-MediumItalic", size: 20)
-        tf.font = UIFont.systemFont(ofSize: 14)
+        tf.font = UIFont.init(name: "SFProText-MediumItalic", size: 14)
         return tf
     }()
     let heightTextField: UITextField = {
         let tf = UITextField()
         tf.placeholder = "Boyun"
         tf.backgroundColor = UIColor(white: 0, alpha: 0.0)
-        tf.font = UIFont.init(name: "SFProText-MediumItalic", size: 20)
-        tf.font = UIFont.systemFont(ofSize: 14)
+        tf.font = UIFont.init(name: "SFProText-MediumItalic", size: 14)
         return tf
     }()
     let weightTextField: UITextField = {
         let tf = UITextField()
         tf.placeholder = "Kilon"
         tf.backgroundColor = UIColor(white: 0, alpha: 0.0)
-        tf.font = UIFont.init(name: "SFProText-MediumItalic", size: 20)
-        tf.font = UIFont.systemFont(ofSize: 14)
+        tf.font = UIFont.init(name: "SFProText-MediumItalic", size: 14)
         return tf
     }()
     
@@ -97,24 +91,21 @@ class WardrobeVC: UIViewController {
         let tf = UITextField()
         tf.placeholder = "Cinsiyet"
         tf.backgroundColor = UIColor(white: 0, alpha: 0.0)
-        tf.font = UIFont.init(name: "SFProText-MediumItalic", size: 20)
-        tf.font = UIFont.systemFont(ofSize: 14)
+        tf.font = UIFont.init(name: "SFProText-MediumItalic", size: 14)
         return tf
     }()
     let ageTextField: UITextField = {
         let tf = UITextField()
         tf.placeholder = "Yaşın"
         tf.backgroundColor = UIColor(white: 0, alpha: 0.0)
-        tf.font = UIFont.init(name: "SFProText-MediumItalic", size: 20)
-        tf.font = UIFont.systemFont(ofSize: 14)
+        tf.font = UIFont.init(name: "SFProText-MediumItalic", size: 14)
         return tf
     }()
     let styleTextField: UITextField = {
         let tf = UITextField()
         tf.placeholder = "Ne tür giyinmeyi seversin"
         tf.backgroundColor = UIColor(white: 0, alpha: 0.0)
-        tf.font = UIFont.init(name: "SFProText-MediumItalic", size: 20)
-        tf.font = UIFont.systemFont(ofSize: 14)
+        tf.font = UIFont.init(name: "SFProText-MediumItalic", size: 14)
         return tf
     }()
     let horizontalLine1: UIView = {
@@ -191,7 +182,7 @@ class WardrobeVC: UIViewController {
         quickAppleButton.anchor(top: quickGoogleButton.bottomAnchor, left: view.leftAnchor, bottom: nil, right: nil, paddingTop: 10, paddingLeft: 38, paddingBottom: 0, paddingRight: 0, width: 217, height: 39)
         // Email Label
         view.addSubview(eMailTextField)
-        eMailTextField.anchor(top: quickAppleButton.bottomAnchor, left: view.leftAnchor, bottom: nil, right: nil, paddingTop: 40, paddingLeft: 55.5, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
+        eMailTextField.anchor(top: quickAppleButton.bottomAnchor, left: view.leftAnchor, bottom: nil, right: nil, paddingTop: 20, paddingLeft: 55.5, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
         view.addSubview(horizontalLine2)
         horizontalLine2.anchor(top: eMailTextField.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 2.5, paddingLeft: 55.5, paddingBottom: 0, paddingRight: 99.5, width: 0, height: 1)
         // Name Label

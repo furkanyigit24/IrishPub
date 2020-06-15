@@ -24,8 +24,7 @@ class CombinesOfDay: UICollectionViewCell, UICollectionViewDataSource, UICollect
     let titleLabel: UILabel = {
         let lb  = UILabel()
         lb.text = "Section Title"
-        lb.font = UIFont.boldSystemFont(ofSize: 24)
-        lb.font = UIFont.boldSystemFont(ofSize: 24)
+        lb.font = UIFont.init(name: "SFProDisplay-Regular", size: 34)
         lb.translatesAutoresizingMaskIntoConstraints = false
         return lb
     }()
@@ -37,8 +36,9 @@ class CombinesOfDay: UICollectionViewCell, UICollectionViewDataSource, UICollect
     let combineCommentLabel: UILabel = {
         let lb  = UILabel()
         lb.text = "Kombin Yorumlat"
-        lb.font = UIFont.boldSystemFont(ofSize: 14)
-        lb.font = UIFont.boldSystemFont(ofSize: 14)
+        lb.numberOfLines = 0
+        lb.font = UIFont.init(name: "SFProText-Medium", size: 10)
+        lb.textColor = UIColor(hexString: "#8E8E93", alpha: 1)
         lb.translatesAutoresizingMaskIntoConstraints = false
         return lb
     }()

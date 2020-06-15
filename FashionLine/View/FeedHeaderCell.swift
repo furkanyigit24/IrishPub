@@ -18,8 +18,7 @@ class FeedHeaderCell: UICollectionViewCell {
         let rn = UILabel()
         rn.numberOfLines = 0
         rn.text = "FashionLine"
-        rn.font = UIFont.systemFont(ofSize: 34)
-        rn.font = UIFont(font: .SFUIText, weight: .heavy , size: 34)
+        rn.font = UIFont.init(name: "SFProDisplay-Bold", size: 34)
         rn.textColor = UIColor(hexString: "#E61515", alpha: 0.82)
         return rn
     }()

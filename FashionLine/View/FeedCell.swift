@@ -24,16 +24,14 @@ class FeedCell: UICollectionViewCell, UICollectionViewDataSource, UICollectionVi
     let titleLabel: UILabel = {
         let lb  = UILabel()
         lb.text = "Section Title"
-        lb.font = UIFont.boldSystemFont(ofSize: 24)
-        lb.font = UIFont.boldSystemFont(ofSize: 24)
+        lb.font = UIFont.init(name: "SFProDisplay-Regular", size: 34)
         lb.translatesAutoresizingMaskIntoConstraints = false
         return lb
     }()
     let combineNotificationLabel: UILabel = {
         let lb  = UILabel()
         lb.text = "Yeni kombininiz geldi! 12dk önce"
-        lb.font = UIFont.boldSystemFont(ofSize: 14)
-        lb.font = UIFont.boldSystemFont(ofSize: 14)
+        lb.font = UIFont.init(name: "SFProDisplay-Regular", size: 14)
         lb.translatesAutoresizingMaskIntoConstraints = false
         return lb
     }()
