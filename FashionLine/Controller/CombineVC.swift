@@ -7,13 +7,8 @@
 //
 
 import UIKit
-
+var setCombine: Bool?
 class CombineVC: UIViewController {
-    let profilePicture: UIButton = {
-        let pp = UIButton(type: .system)
-        pp.setImage(UIImage(named: "profilePicture")?.withRenderingMode(.alwaysOriginal), for: .normal)
-        return pp
-    }()
     let fashionLineNameLabel: UILabel = {
         let rn = UILabel()
         rn.numberOfLines = 0
@@ -83,6 +78,24 @@ class CombineVC: UIViewController {
         pp.text = "Stil Mentorları"
         return pp
     }()
+    let signedUpMainMessage: UILabel = {
+        let rn = UILabel()
+        rn.numberOfLines = 0
+        rn.text = "Harika!"
+        rn.textAlignment = .center
+        rn.font = UIFont.init(name: "SFProDisplay-Regular", size: 40)
+        rn.textColor = UIColor(hexString: "#000000")
+        return rn
+    }()
+    let signedUpSubMessage: UILabel = {
+        let rn = UILabel()
+        rn.numberOfLines = 0
+        rn.text = "Mentorlarımız senin içinen güzel kombinleri seçmeye başladılar bile!"
+        rn.textAlignment = .center
+        rn.font = UIFont.init(name: "SFProDisplay-Regular", size: 23)
+        rn.textColor = UIColor(hexString: "#000000")
+        return rn
+    }()
     let horizontalLine1: UIView = {
         let hl = UIView()
         hl.backgroundColor = UIColor(hexString: "#707070")
@@ -113,11 +126,11 @@ class CombineVC: UIViewController {
         // Navigation Contoller
         view.backgroundColor = .white
         navigationController?.navigationBar.isHidden = true
-        
-        // Profile picture
-        view.addSubview(profilePicture)
-        profilePicture.anchor(top: view.topAnchor, left: nil, bottom: nil, right: view.rightAnchor, paddingTop: 87, paddingLeft: 0, paddingBottom: 0, paddingRight: 24, width: 30, height: 30)
-        profilePicture.layer.cornerRadius = 15
+        setUpViews()
+        signUpButton.addTarget(self, action: #selector(sendCombine), for: .touchUpInside)
+    }
+    // MARK: - Set Up Views
+    fileprivate func setUpViews() {
         // FashionLine Name Label
         view.addSubview(fashionLineNameLabel)
         fashionLineNameLabel.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 82, paddingLeft: 25, paddingBottom: 0, paddingRight: 157, width: 0, height: 0)
@@ -156,5 +169,36 @@ class CombineVC: UIViewController {
         view.addSubview(signUpButton)
         signUpButton.anchor(top: horizontalLine5.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 30, paddingLeft: 38, paddingBottom: 0, paddingRight: 57, width: 280, height: 44)
         signUpButton.layer.cornerRadius = 22
+    }
+    @objc func sendCombine(){
+        // Navigation Contoller
+        setCombine = true
+        view.backgroundColor = .white
+        navigationController?.navigationBar.isHidden = true
+        signUpButton.isHidden = true
+        horizontalLine5.isHidden = true
+        weightTextField.isHidden = true
+        horizontalLine4.isHidden = true
+        heightTextField.isHidden = true
+        horizontalLine3.isHidden = true
+        imageButton.isHidden = true
+        artistLabel.isHidden = true
+        welcomeLabel.isHidden = true
+        eMailTextField.isHidden = true
+        horizontalLine2.isHidden = true
+        nameTextField.isHidden = true
+        // FashionLine Name Label
+        view.addSubview(fashionLineNameLabel)
+        fashionLineNameLabel.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 82, paddingLeft: 25, paddingBottom: 0, paddingRight: 157, width: 0, height: 0)
+        view.addSubview(horizontalLine1)
+        horizontalLine1.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 126.5, paddingLeft: 23.5, paddingBottom: 0, paddingRight: 23.5, width: 0, height: 1)
+        // Main message & Sub message
+        view.addSubview(signedUpMainMessage)
+        signedUpMainMessage.anchor(top: horizontalLine1.bottomAnchor, left: view.leftAnchor, bottom: nil, right: nil, paddingTop: 156.5, paddingLeft: 109, paddingBottom: 0, paddingRight: 0, width: 118, height: 48)
+        signedUpMainMessage.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        
+        view.addSubview(signedUpSubMessage)
+        signedUpSubMessage.anchor(top: signedUpMainMessage.bottomAnchor, left: view.leftAnchor, bottom: nil, right: nil, paddingTop: 24, paddingLeft: 45, paddingBottom: 0, paddingRight: 0, width: 280, height: 84)
+        signedUpSubMessage.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     }
 }

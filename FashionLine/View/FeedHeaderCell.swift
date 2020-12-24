@@ -9,6 +9,7 @@
 import UIKit
 
 class FeedHeaderCell: UICollectionViewCell {
+    var delegate: FeedHeaderCellDelegate?
     let profilePicture: UIButton = {
         let pp = UIButton(type: .system)
         pp.setImage(UIImage(named: "profilePicture")?.withRenderingMode(.alwaysOriginal), for: .normal)
@@ -30,8 +31,6 @@ class FeedHeaderCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUpConstraints()
-        addSubview(fashionLineNameLabel)
-        addSubview(horizontalLine)
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -46,5 +45,10 @@ class FeedHeaderCell: UICollectionViewCell {
         addSubview(profilePicture)
         profilePicture.anchor(top: nil, left: nil, bottom: horizontalLine.bottomAnchor, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 9.5, paddingRight: 24, width: 30, height: 30)
         profilePicture.layer.cornerRadius = 15
+        profilePicture.addTarget(self, action: #selector(handleProfilePicTapped), for: .touchUpInside)
+    }
+    // MARK: - Handle Operations
+    @objc func handleProfilePicTapped(){
+        delegate?.handleProfilePicTapped(for: self)
     }
 }

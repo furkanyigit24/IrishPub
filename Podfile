@@ -8,6 +8,16 @@ target 'FashionLine' do
   # Pods for FashionLine
   pod 'IQKeyboardManagerSwift'
 
+  # add the Firebase pod for Google Analytics
+  pod 'Firebase/Analytics'
+  pod 'Firebase/Auth'
+  pod 'Firebase/Core'
+  pod 'Firebase/Firestore'
+  pod 'Firebase/Storage'
+
+  # add pods for any other desired Firebase products
+  # https://firebase.google.com/docs/ios/setup#available-pods
+
   target 'FashionLineTests' do
     inherit! :search_paths
     # Pods for testing

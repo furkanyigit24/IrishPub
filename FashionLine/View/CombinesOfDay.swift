@@ -7,9 +7,11 @@
 //
 
 import UIKit
+import Firebase
 let combinesSubCellId : String = "combinesSubCellID"
 
 class CombinesOfDay: UICollectionViewCell, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    var bottomTitle = Users.sharedInstance
     let collectionView : UICollectionView = {
         // init the layout
         let layout = UICollectionViewFlowLayout()
@@ -76,24 +78,13 @@ class CombinesOfDay: UICollectionViewCell, UICollectionViewDataSource, UICollect
         fatalError("init(coder:) has not been implemented")
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+        return bottomTitle.nameArray.count
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: combinesSubCellId, for: indexPath) as! CombinesSubCustomCell
 
         cell.backgroundColor = .white // yellow
-            if indexPath.row == 0{
-                cell.titleBottomLabel.text = "Özer Önal"
-            }
-            else if indexPath.row == 1{
-                cell.titleBottomLabel.text = "Taylan Bahadır"
-            }
-            else if indexPath.row == 2{
-                cell.titleBottomLabel.text = "Berat Onur Coşkun"
-            }
-            else if indexPath.row == 3{
-                cell.titleBottomLabel.text = "Anıl Kaya"
-            }
+        cell.titleBottomLabel.text = bottomTitle.nameArray[indexPath.item]
         
         return cell
     }

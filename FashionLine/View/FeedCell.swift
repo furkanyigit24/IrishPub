@@ -7,9 +7,11 @@
 //
 
 import UIKit
+import Firebase
 let subCellId : String = "subCellID"
 
 class FeedCell: UICollectionViewCell, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    var bottomTitle = Users.sharedInstance
     let collectionView : UICollectionView = {
         // init the layout
         let layout = UICollectionViewFlowLayout()
@@ -35,6 +37,22 @@ class FeedCell: UICollectionViewCell, UICollectionViewDataSource, UICollectionVi
         lb.translatesAutoresizingMaskIntoConstraints = false
         return lb
     }()
+    let combineNotificationLabelNotSentYet: UILabel = {
+        let lb  = UILabel()
+        lb.text = "Henüz bir istek oluşturmadın."
+        lb.textAlignment = .center
+        lb.font = UIFont.init(name: "SFProDisplay-Bold", size: 15)
+        lb.translatesAutoresizingMaskIntoConstraints = false
+        return lb
+    }()
+    let combineNotificationSubLabelNotSentYet: UILabel = {
+        let lb  = UILabel()
+        lb.text = "Hemen aşağıdaki Kombin sekmesine tıklayarak kombin talebinde bulunabilirsin!"
+        lb.numberOfLines = 0
+        lb.font = UIFont.init(name: "SFProDisplay-RegularItalic", size: 15)
+        lb.translatesAutoresizingMaskIntoConstraints = false
+        return lb
+    }()
     let titleBottomLabel: UILabel = {
         let lb  = UILabel()
         lb.font = UIFont.boldSystemFont(ofSize: 12)
@@ -44,16 +62,33 @@ class FeedCell: UICollectionViewCell, UICollectionViewDataSource, UICollectionVi
     }()
     override init(frame: CGRect) {
         super.init(frame: frame)
-        collectionView.register(SubCustomCell.self, forCellWithReuseIdentifier: subCellId)
+        if setCombine == true
+        {
+            setupViews()
+        } else{
+            NotSentRequest()
+        }
+        
+        
+    }
+    fileprivate func NotSentRequest() {
+        addSubview(titleLabel)
+        titleLabel.anchor(top: topAnchor, left: leftAnchor, bottom: nil, right: nil, paddingTop: 0, paddingLeft: 2, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
+        addSubview(combineNotificationLabelNotSentYet)
+        combineNotificationLabelNotSentYet.anchor(top: titleLabel.bottomAnchor, left: leftAnchor, bottom: nil, right: nil, paddingTop: 49, paddingLeft: 75, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
+        addSubview(combineNotificationSubLabelNotSentYet)
+        combineNotificationSubLabelNotSentYet.anchor(top: combineNotificationLabelNotSentYet.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, paddingTop: 10, paddingLeft: 75, paddingBottom: 0, paddingRight: 54, width: 0, height: 0)
+    }
+    
+    func setupViews(){
         addSubview(titleLabel)
         titleLabel.anchor(top: topAnchor, left: leftAnchor, bottom: nil, right: nil, paddingTop: 0, paddingLeft: 2, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
         addSubview(combineNotificationLabel)
         combineNotificationLabel.anchor(top: titleLabel.bottomAnchor, left: leftAnchor, bottom: nil, right: nil, paddingTop: 8, paddingLeft: 2, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
         addSubview(titleBottomLabel)
         titleBottomLabel.anchor(top: nil, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 0, paddingLeft: 5, paddingBottom: 5, paddingRight: 5, width: 0, height: 0)
-        setupViews()
-    }
-    func setupViews(){
+        //Collection View
+        collectionView.register(SubCustomCell.self, forCellWithReuseIdentifier: subCellId)
         addSubview(collectionView)
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -65,24 +100,25 @@ class FeedCell: UICollectionViewCell, UICollectionViewDataSource, UICollectionVi
         fatalError("init(coder:) has not been implemented")
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+        return bottomTitle.nameCombineArray.count
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: subCellId, for: indexPath) as! SubCustomCell
-
+        
         cell.backgroundColor = .white // yellow
-            if indexPath.row == 0{
-                cell.titleBottomLabel.text = "H&M"
-            }
-            else if indexPath.row == 1{
-                cell.titleBottomLabel.text = "Zara"
-            }
-            else if indexPath.row == 2{
-                cell.titleBottomLabel.text = "Bershka"
-            }
-            else if indexPath.row == 3{
-                cell.titleBottomLabel.text = "Stradivarius"
-            }
+        cell.titleBottomLabel.text = bottomTitle.nameCombineArray[indexPath.item]
+        //            if indexPath.row == 0{
+        //                cell.titleBottomLabel.text = "H&M"
+        //            }
+        //            else if indexPath.row == 1{
+        //                cell.titleBottomLabel.text = "Zara"
+        //            }
+        //            else if indexPath.row == 2{
+        //                cell.titleBottomLabel.text = "Bershka"
+        //            }
+        //            else if indexPath.row == 3{
+        //                cell.titleBottomLabel.text = "Stradivarius"
+        //            }
         
         return cell
     }

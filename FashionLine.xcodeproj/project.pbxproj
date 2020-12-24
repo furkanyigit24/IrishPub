@@ -20,6 +20,8 @@
 		DC1016C22497E9E6000B4D81 /* SF-Pro-Text-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = DC1016B92497E6F7000B4D81 /* SF-Pro-Text-Regular.otf */; };
 		DC1016C32497EA28000B4D81 /* SF-Pro-Text-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = DC10168F2497E6E1000B4D81 /* SF-Pro-Text-Medium.otf */; };
 		DC1016C42497EB7B000B4D81 /* SF-Pro-Text-MediumItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = DC1016782497E6D6000B4D81 /* SF-Pro-Text-MediumItalic.otf */; };
+		DCA10F0C2592761700DD22DD /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCA10F0B2592761700DD22DD /* Protocols.swift */; };
+		DCA10F0E25934D1100DD22DD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DCA10F0D25934D0F00DD22DD /* GoogleService-Info.plist */; };
 		DCCD057A248BCFC400105231 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCCD0579248BCFC400105231 /* AppDelegate.swift */; };
 		DCCD057C248BCFC400105231 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCCD057B248BCFC400105231 /* SceneDelegate.swift */; };
 		DCCD057E248BCFC400105231 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCCD057D248BCFC400105231 /* ViewController.swift */; };
@@ -31,6 +33,7 @@
 		DCCD05B7248EB1B000105231 /* FeedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCCD05B6248EB1B000105231 /* FeedVC.swift */; };
 		DCCD05B9248EB26100105231 /* CombineVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCCD05B8248EB26100105231 /* CombineVC.swift */; };
 		DCCD05BB248EB2FB00105231 /* WardrobeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCCD05BA248EB2FB00105231 /* WardrobeVC.swift */; };
+		DCFA33522594D3C600680B23 /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCFA33512594D3C600680B23 /* Users.swift */; };
 		FA956603B75ED96B71A22CDE /* Pods_FashionLineTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17B07D0DE99A5C68378AC3AF /* Pods_FashionLineTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -146,6 +149,8 @@
 		DC1016BC2497E6F8000B4D81 /* SF-Pro-Display-BlackItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-BlackItalic.otf"; sourceTree = "<group>"; };
 		DC1016BD2497E6F9000B4D81 /* SF-Compact-Text-SemiboldItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Compact-Text-SemiboldItalic.otf"; sourceTree = "<group>"; };
 		DC1016BE2497E6FA000B4D81 /* SF-Pro-Rounded-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Rounded-Regular.otf"; sourceTree = "<group>"; };
+		DCA10F0B2592761700DD22DD /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
+		DCA10F0D25934D0F00DD22DD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DCCD0576248BCFC400105231 /* FashionLine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FashionLine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCCD0579248BCFC400105231 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DCCD057B248BCFC400105231 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -161,6 +166,7 @@
 		DCCD05B6248EB1B000105231 /* FeedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedVC.swift; sourceTree = "<group>"; };
 		DCCD05B8248EB26100105231 /* CombineVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineVC.swift; sourceTree = "<group>"; };
 		DCCD05BA248EB2FB00105231 /* WardrobeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WardrobeVC.swift; sourceTree = "<group>"; };
+		DCFA33512594D3C600680B23 /* Users.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
 		DD3A4D6E055D98A9CD1ADA24 /* Pods-FashionLineTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FashionLineTests.release.xcconfig"; path = "Target Support Files/Pods-FashionLineTests/Pods-FashionLineTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -317,6 +323,7 @@
 		DCCD056D248BCFC400105231 = {
 			isa = PBXGroup;
 			children = (
+				DCA10F0D25934D0F00DD22DD /* GoogleService-Info.plist */,
 				DCCD0578248BCFC400105231 /* FashionLine */,
 				DCCD0577248BCFC400105231 /* Products */,
 				DC10166C2497E68B000B4D81 /* Fonts */,
@@ -339,7 +346,7 @@
 			isa = PBXGroup;
 			children = (
 				DCCD05B3248E9D3200105231 /* Utilities */,
-				DCCD05AE248BF40000105231 /* Login */,
+				DCFA33502594D3A800680B23 /* Model */,
 				DC101661249121D0000B4D81 /* View */,
 				DCCD05A9248BE52A00105231 /* Controller */,
 				DCCD0579248BCFC400105231 /* AppDelegate.swift */,
@@ -355,6 +362,7 @@
 		DCCD05A9248BE52A00105231 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				DCCD05AE248BF40000105231 /* Login */,
 				DCCD05B1248BFA5E00105231 /* MainVC.swift */,
 				DCCD05B6248EB1B000105231 /* FeedVC.swift */,
 				DCCD05B8248EB26100105231 /* CombineVC.swift */,
@@ -376,8 +384,17 @@
 			children = (
 				DCCD05B4248E9D5300105231 /* Extensions.swift */,
 				DC101664249125F2000B4D81 /* CustomImageView.swift */,
+				DCA10F0B2592761700DD22DD /* Protocols.swift */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		DCFA33502594D3A800680B23 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				DCFA33512594D3C600680B23 /* Users.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -491,6 +508,7 @@
 			files = (
 				DC1016C42497EB7B000B4D81 /* SF-Pro-Text-MediumItalic.otf in Resources */,
 				DC1016C32497EA28000B4D81 /* SF-Pro-Text-Medium.otf in Resources */,
+				DCA10F0E25934D1100DD22DD /* GoogleService-Info.plist in Resources */,
 				DC1016C22497E9E6000B4D81 /* SF-Pro-Text-Regular.otf in Resources */,
 				DC1016C12497E964000B4D81 /* SF-Pro-Display-Regular.otf in Resources */,
 				DC1016C02497E8DD000B4D81 /* SF-Pro-Display-RegularItalic.otf in Resources */,
@@ -624,6 +642,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DCA10F0C2592761700DD22DD /* Protocols.swift in Sources */,
 				DC10166724927C2D000B4D81 /* FeedHeaderCell.swift in Sources */,
 				DCCD05B9248EB26100105231 /* CombineVC.swift in Sources */,
 				DC10166924951A7B000B4D81 /* SubCustomCell.swift in Sources */,
@@ -631,6 +650,7 @@
 				DCCD057E248BCFC400105231 /* ViewController.swift in Sources */,
 				DCCD05B7248EB1B000105231 /* FeedVC.swift in Sources */,
 				DCCD05B5248E9D5300105231 /* Extensions.swift in Sources */,
+				DCFA33522594D3C600680B23 /* Users.swift in Sources */,
 				DC10166B24957A2B000B4D81 /* CombinesOfDay.swift in Sources */,
 				DCCD05B2248BFA5E00105231 /* MainVC.swift in Sources */,
 				DCCD05BB248EB2FB00105231 /* WardrobeVC.swift in Sources */,
