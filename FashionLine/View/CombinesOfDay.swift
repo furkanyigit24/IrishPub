@@ -11,6 +11,17 @@ import Firebase
 let combinesSubCellId : String = "combinesSubCellID"
 
 class CombinesOfDay: UICollectionViewCell, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    var shared = Users.sharedInstance
+    var nameArray = [String]()
+    var linkArray = [String]()
+    var timeArray = [String]()
+    var heightArray = [String]()
+    var genderArray = [String]()
+    var ePostaArray = [String]()
+    var weightArray = [String]()
+    var styleArray = [String]()
+    var ageArray = [String]()
+    var passwordArray = [String]()
     var bottomTitle = Users.sharedInstance
     let collectionView : UICollectionView = {
         // init the layout
@@ -64,6 +75,7 @@ class CombinesOfDay: UICollectionViewCell, UICollectionViewDataSource, UICollect
         addSubview(titleBottomLabel)
         titleBottomLabel.anchor(top: nil, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 0, paddingLeft: 5, paddingBottom: 5, paddingRight: 5, width: 0, height: 0)
         setupViews()
+        getDataFromFirestore()
 
     }
     func setupViews(){
@@ -74,17 +86,83 @@ class CombinesOfDay: UICollectionViewCell, UICollectionViewDataSource, UICollect
         collectionView.anchor(top: titleLabel.bottomAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 20, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
         
     }
+    // MARK: -- Firestore Data
+    func getDataFromFirestore(){
+        
+        let db = Firestore.firestore()
+        db.collection("Kullanıcılar").addSnapshotListener { (snapshot, error) in
+            if error != nil{
+                print(error?.localizedDescription)
+            }else{
+                if snapshot?.isEmpty != true && snapshot != nil {
+                    self.nameArray.removeAll(keepingCapacity: false)
+                    self.heightArray.removeAll(keepingCapacity: false)
+                    self.genderArray.removeAll(keepingCapacity: false)
+                    self.ePostaArray.removeAll(keepingCapacity: false)
+                    self.weightArray.removeAll(keepingCapacity: false)
+                    self.styleArray.removeAll(keepingCapacity: false)
+                    self.ageArray.removeAll(keepingCapacity: false)
+                    self.passwordArray.removeAll(keepingCapacity: false)
+                    
+                    for document in snapshot!.documents {
+                        let documentID = document.documentID
+                        
+                        if let userInfo = document.get("KişiselBilgiler") as? [String: Any]{
+                            for (key,value) in userInfo {
+                                if key == "Ad" {
+                                    guard let name = value as? String else { return }
+                                    self.nameArray.append(name)
+                                }
+                                else if key == "Boy" {
+                                    guard let height = value as? String else { return }
+                                    self.heightArray.append(height)
+                                }
+                                else if key == "Cinsiyet" {
+                                    guard let gender = value as? String else { return }
+                                    self.genderArray.append(gender)
+                                }
+                                else if key == "Eposta" {
+                                    guard let eMail = value as? String else { return }
+                                    self.ePostaArray.append(eMail)
+                                }
+                                else if key == "Kilo" {
+                                    guard let weight = value as? String else { return }
+                                    self.weightArray.append(weight)
+                                }
+                                else if key == "Tarz" {
+                                    guard let style = value as? String else { return }
+                                    self.styleArray.append(style)
+                                }
+                                else if key == "Yaş" {
+                                    guard let age = value as? String else { return }
+                                    self.ageArray.append(age)
+                                }
+                                else if key == "Şifre" {
+                                    guard let password = value as? String else { return }
+                                    self.passwordArray.append(password)
+                                }
+                                else {
+                                    print("Kişisel Bilgiler sözlüğü Swift içersinde oluşturulan dizilere aktarılamadı")
+                                }
+                            }
+                        }
+                    }
+                    self.collectionView.reloadData()
+                }
+            }
+        }
+    }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return bottomTitle.nameArray.count
+        return nameArray.count
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: combinesSubCellId, for: indexPath) as! CombinesSubCustomCell
 
         cell.backgroundColor = .white // yellow
-        cell.titleBottomLabel.text = bottomTitle.nameArray[indexPath.item]
+        cell.titleBottomLabel.text = nameArray[indexPath.item]
         
         return cell
     }

@@ -17,14 +17,14 @@ class FeedVC: UICollectionViewController, UICollectionViewDelegateFlowLayout, UI
     
     override func viewWillAppear(_ animated: Bool) {
         tabBarController?.tabBar.isHidden = false
+        registrationOfHeaderAndCell()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.backgroundColor = .white
         navigationController?.navigationBar.isHidden = true
-        collectionView.reloadData()
-        registrationOfHeaderAndCell()
+        
         // Do any additional setup after loading the view.
     }
     

@@ -11,6 +11,10 @@ import Firebase
 let subCellId : String = "subCellID"
 
 class FeedCell: UICollectionViewCell, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    var nameCombineArray = [String]()
+    var stylerCommentArray = [String]()
+    var linkArray = [String]()
+    var timeArray = [String]()
     var bottomTitle = Users.sharedInstance
     let collectionView : UICollectionView = {
         // init the layout
@@ -62,14 +66,53 @@ class FeedCell: UICollectionViewCell, UICollectionViewDataSource, UICollectionVi
     }()
     override init(frame: CGRect) {
         super.init(frame: frame)
-        if setCombine == true
-        {
             setupViews()
-        } else{
-            NotSentRequest()
+       fetchFirebaseData()
+            //NotSentRequest()
+   
+    }
+    func fetchFirebaseData() {
+        
+        let db = Firestore.firestore()
+        db.collection("Kullanıcılar").addSnapshotListener { (snapshot, error) in
+            if error != nil{
+                print(error?.localizedDescription)
+            }else{
+                if snapshot?.isEmpty != true && snapshot != nil {
+                    self.nameCombineArray.removeAll(keepingCapacity: false)
+                    self.linkArray.removeAll(keepingCapacity: false)
+                    self.timeArray.removeAll(keepingCapacity: false)
+                    self.stylerCommentArray.removeAll(keepingCapacity: false)
+                    for document in snapshot!.documents {
+                        if let userInfoCombine = document.get("Kombin") as? [String: Any]{
+                            for (key,value) in userInfoCombine {
+                                if key == "Adı" {
+                                    guard let nameCombine = value as? String else { return }
+                                    self.nameCombineArray.append(nameCombine)
+                                }
+                                else if key == "Linki" {
+                                    guard let link = value as? String else { return }
+                                    self.linkArray.append(link)
+                                }
+                                else if key == "Saati" {
+                                    guard let time = value as? String else { return }
+                                    self.timeArray.append(time)
+                                }
+                                else if key == "StilistYorumu" {
+                                    guard let stylerComment = value as? String else { return }
+                                    self.stylerCommentArray.append(stylerComment)
+                                }
+                                else {
+                                    print("Kombin sözlüğü Swift içersinde oluşturulan dizilere aktarılamadı")
+                                }
+                            }
+                        }
+                    }
+                    self.collectionView.reloadData()
+                }
+            }
+            self.collectionView.reloadData()
         }
-        
-        
     }
     fileprivate func NotSentRequest() {
         addSubview(titleLabel)
@@ -100,13 +143,13 @@ class FeedCell: UICollectionViewCell, UICollectionViewDataSource, UICollectionVi
         fatalError("init(coder:) has not been implemented")
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return bottomTitle.nameCombineArray.count
+        return nameCombineArray.count
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: subCellId, for: indexPath) as! SubCustomCell
         
         cell.backgroundColor = .white // yellow
-        cell.titleBottomLabel.text = bottomTitle.nameCombineArray[indexPath.item]
+        cell.titleBottomLabel.text = nameCombineArray[indexPath.item]
         //            if indexPath.row == 0{
         //                cell.titleBottomLabel.text = "H&M"
         //            }
