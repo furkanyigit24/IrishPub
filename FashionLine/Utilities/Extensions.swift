@@ -119,3 +119,36 @@ extension UIFont {
         self.init(name: fontName, size: size)
     }
 }
+extension UINavigationController {
+    func pushViewControllerFromRight(controller: UIViewController){
+        let navController = UINavigationController(rootViewController: controller)
+        navController.modalPresentationStyle = .fullScreen
+        let transition = CATransition()
+        transition.duration = 0.5
+        transition.type = CATransitionType.push
+        transition.subtype = CATransitionSubtype.fromRight
+        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        view.window!.layer.add(transition, forKey: kCATransition)
+        self.present(navController, animated: false, completion: nil)
+    }
+    func pushViewControllerFromLeft(controller: UIViewController){
+        let navController = UINavigationController(rootViewController: controller)
+        navController.modalPresentationStyle = .fullScreen
+        let transition = CATransition()
+        transition.duration = 0.5
+        transition.type = CATransitionType.push
+        transition.subtype = CATransitionSubtype.fromLeft
+        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        view.window!.layer.add(transition, forKey: kCATransition)
+        self.present(navController, animated: false, completion: nil)
+    }
+    func dismissLeftToRight(){
+        let transition = CATransition()
+        transition.duration = 0.5
+        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        transition.type = CATransitionType.push
+        transition.subtype = CATransitionSubtype.fromLeft
+        self.view.window!.layer.add(transition, forKey: nil)
+        self.dismiss(animated: false, completion: nil)
+    }
+}

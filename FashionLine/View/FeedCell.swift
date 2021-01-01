@@ -64,66 +64,264 @@ class FeedCell: UICollectionViewCell, UICollectionViewDataSource, UICollectionVi
         lb.translatesAutoresizingMaskIntoConstraints = false
         return lb
     }()
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        //fetchFirebaseData()
+        //requestedView()
+        snapshotListener()
+        requestedListener()
+    }
+    func willChangeValue<Value>(for keyPath: KeyPath<FeedCell, Value>) {
+        //fetchFirebaseData()
+    }
     override init(frame: CGRect) {
         super.init(frame: frame)
-            setupViews()
-       fetchFirebaseData()
-            //NotSentRequest()
-   
+        
+//        requestedView()
+//        setupViews()
+//        fetchFirebaseData()
+        //configureRefresh()
+        //NotSentRequest()
+        snapshotListener()
+        requestedListener()
+        
     }
     func fetchFirebaseData() {
-        
         let db = Firestore.firestore()
-        db.collection("Kullanıcılar").addSnapshotListener { (snapshot, error) in
-            if error != nil{
-                print(error?.localizedDescription)
-            }else{
-                if snapshot?.isEmpty != true && snapshot != nil {
-                    self.nameCombineArray.removeAll(keepingCapacity: false)
-                    self.linkArray.removeAll(keepingCapacity: false)
-                    self.timeArray.removeAll(keepingCapacity: false)
-                    self.stylerCommentArray.removeAll(keepingCapacity: false)
-                    for document in snapshot!.documents {
-                        if let userInfoCombine = document.get("Kombin") as? [String: Any]{
-                            for (key,value) in userInfoCombine {
-                                if key == "Adı" {
-                                    guard let nameCombine = value as? String else { return }
-                                    self.nameCombineArray.append(nameCombine)
-                                }
-                                else if key == "Linki" {
-                                    guard let link = value as? String else { return }
-                                    self.linkArray.append(link)
-                                }
-                                else if key == "Saati" {
-                                    guard let time = value as? String else { return }
-                                    self.timeArray.append(time)
-                                }
-                                else if key == "StilistYorumu" {
-                                    guard let stylerComment = value as? String else { return }
-                                    self.stylerCommentArray.append(stylerComment)
-                                }
-                                else {
-                                    print("Kombin sözlüğü Swift içersinde oluşturulan dizilere aktarılamadı")
-                                }
-                            }
+        guard let currentEmail = Auth.auth().currentUser?.email?.uppercased() as? String else{ return }
+        let docRef = db.collection("Kullanıcılar").document(currentEmail)
+        
+        docRef.getDocument { (document, error) in
+            if let document = document, document.exists {
+                guard let dataDescription = document.data() else { return }
+                print("XXX: \(dataDescription)")
+                guard let newDictionary = dataDescription as? [String:Any] else { return }
+                for (key,value) in newDictionary {
+                    if key == "Request" {
+                        guard let val = value as? String else { return }
+                        switch val {
+                        case "requested":
+                            self.requestedView()
+                            self.setupViews()
+                        case "notRequested":
+                            self.NotSentRequest()
+                        default:
+                            self.NotSentRequest()
+                            print("Default")
                         }
+                        self.collectionView.reloadData()
                     }
                     self.collectionView.reloadData()
                 }
+                self.collectionView.reloadData()
+            } else {
+                print("Document does not exist")
             }
             self.collectionView.reloadData()
         }
     }
+    func snapshotListener(){
+        let db = Firestore.firestore()
+        self.requestedListener()
+        guard let currentEmail = Auth.auth().currentUser?.email?.uppercased() as? String else{ return }
+        db.collection("Kullanıcılar").document(currentEmail)
+            .addSnapshotListener { documentSnapshot, error in
+                
+                self.nameCombineArray.removeAll(keepingCapacity: false)
+                self.linkArray.removeAll(keepingCapacity: false)
+                self.timeArray.removeAll(keepingCapacity: false)
+                self.stylerCommentArray.removeAll(keepingCapacity: false)
+                
+              guard let document = documentSnapshot else {
+                print("Error fetching document: \(error!)")
+                return
+              }
+              guard let data = document.data() else {
+                print("Document data was empty.")
+                return
+              }
+              print("XXX \(data)")
+                guard let newDictionary = data as? [String:Any] else { return }
+                for (key,value) in newDictionary {
+                    if key == "Request" {
+                        guard let val = value as? String else { return }
+                        switch val {
+                        case "requested":
+                            self.requestedListener()
+                            self.setupViews()
+                        case "notRequested":
+                            self.NotSentRequest()
+                        default:
+                            self.NotSentRequest()
+                            print("Default")
+                        }
+                        self.collectionView.reloadData()
+                    }
+                    self.collectionView.reloadData()
+                }
+            }
+    }
+    func requestedListener(){
+        let db = Firestore.firestore()
+        guard let currentEmail = Auth.auth().currentUser?.email?.uppercased() as? String else{ return }
+        db.collection("Kullanıcılar").document(currentEmail)
+            .addSnapshotListener { documentSnapshot, error in
+                
+                self.nameCombineArray.removeAll(keepingCapacity: false)
+                self.linkArray.removeAll(keepingCapacity: false)
+                self.timeArray.removeAll(keepingCapacity: false)
+                self.stylerCommentArray.removeAll(keepingCapacity: false)
+                
+              guard let document = documentSnapshot else {
+                print("Error fetching document: \(error!)")
+                return
+              }
+              guard let data = document.data() else {
+                print("Document data was empty.")
+                return
+              }
+              print("XXX \(data)")
+              guard let newDictionary = data as? [String:Any] else { return }
+              for (key,value) in newDictionary {
+                  guard let combinesDict = newDictionary as? [String:Any] else { return }
+                  if key == "Combines"{
+                      guard let valueDict = value as? [String:Any] else { return }
+                      for (key,value) in valueDict {
+                          if key == "1.kombin" || key == "2.kombin" || key == "3.Kombin"{
+                              guard let stringKey = value as? [String:String] else { return }
+                              for (key,value) in stringKey {
+                                  guard let namekey = key as? String else { return }
+                                  switch namekey {
+                                  case "Ad":
+                                      self.nameCombineArray.append(value)
+                                      self.collectionView.reloadData()
+                                  default:
+                                      print("Default")
+                                  }
+                                  self.collectionView.reloadData()
+                              }
+                              self.collectionView.reloadData()
+                          }
+                          self.collectionView.reloadData()
+                      }
+                      self.collectionView.reloadData()
+                  }
+                  self.collectionView.reloadData()
+              }
+            }
+    }
+    func requestedView(){
+        let db = Firestore.firestore()
+        guard let currentEmail = Auth.auth().currentUser?.email?.uppercased() as? String else{ return }
+        let docRef = db.collection("Kullanıcılar").document(currentEmail)
+        
+        docRef.getDocument { (document, error) in
+            if let document = document, document.exists {
+                
+                self.nameCombineArray.removeAll(keepingCapacity: false)
+                self.linkArray.removeAll(keepingCapacity: false)
+                self.timeArray.removeAll(keepingCapacity: false)
+                self.stylerCommentArray.removeAll(keepingCapacity: false)
+                
+                guard let dataDescription = document.data() else { return }
+                print("XXX: \(dataDescription)")
+                guard let newDictionary = dataDescription as? [String:Any] else { return }
+                for (key,value) in newDictionary {
+                    guard let combinesDict = newDictionary as? [String:Any] else { return }
+                    if key == "Combines"{
+                        guard let valueDict = value as? [String:Any] else { return }
+                        for (key,value) in valueDict {
+                            if key == "1.kombin" || key == "2.kombin" || key == "3.Kombin"{
+                                guard let stringKey = value as? [String:String] else { return }
+                                for (key,value) in stringKey {
+                                    guard let namekey = key as? String else { return }
+                                    switch namekey {
+                                    case "Ad":
+                                        self.nameCombineArray.append(value)
+                                        self.collectionView.reloadData()
+                                    default:
+                                        print("Default")
+                                    }
+                                    self.collectionView.reloadData()
+                                }
+                                self.collectionView.reloadData()
+                            }
+                            self.collectionView.reloadData()
+                        }
+                        self.collectionView.reloadData()
+                    }
+                    self.collectionView.reloadData()
+                }
+                self.collectionView.reloadData()
+            } else {
+                print("Document does not exist")
+            }
+            self.collectionView.reloadData()
+        }
+        //        let db = Firestore.firestore()
+        //        db.collection("Kullanıcılar").addSnapshotListener { (snapshot, error) in
+        //            if error != nil{
+        //                print(error?.localizedDescription)
+        //            }else{
+        //                if snapshot?.isEmpty != true && snapshot != nil {
+        //                    self.nameCombineArray.removeAll(keepingCapacity: false)
+        //                    self.linkArray.removeAll(keepingCapacity: false)
+        //                    self.timeArray.removeAll(keepingCapacity: false)
+        //                    self.stylerCommentArray.removeAll(keepingCapacity: false)
+        //                    for document in snapshot!.documents {
+        //                        if let userInfoCombine = document.get("Kombin") as? [String: Any]{
+        //                            for (key,value) in userInfoCombine {
+        //                                if key == "Adı" {
+        //                                    guard let nameCombine = value as? String else { return }
+        //                                    self.nameCombineArray.append(nameCombine)
+        //                                }
+        //                                else if key == "Linki" {
+        //                                    guard let link = value as? String else { return }
+        //                                    self.linkArray.append(link)
+        //                                }
+        //                                else if key == "Saati" {
+        //                                    guard let time = value as? String else { return }
+        //                                    self.timeArray.append(time)
+        //                                }
+        //                                else if key == "StilistYorumu" {
+        //                                    guard let stylerComment = value as? String else { return }
+        //                                    self.stylerCommentArray.append(stylerComment)
+        //                                }
+        //                                else {
+        //                                    print("Kombin sözlüğü Swift içersinde oluşturulan dizilere aktarılamadı")
+        //                                }
+        //                            }
+        //                        }
+        //                    }
+        //                    self.collectionView.reloadData()
+        //                }
+        //            }
+        //            self.collectionView.reloadData()
+        //        }
+    }
     fileprivate func NotSentRequest() {
+        combineNotificationLabel.isHidden = true
         addSubview(titleLabel)
         titleLabel.anchor(top: topAnchor, left: leftAnchor, bottom: nil, right: nil, paddingTop: 0, paddingLeft: 2, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
         addSubview(combineNotificationLabelNotSentYet)
         combineNotificationLabelNotSentYet.anchor(top: titleLabel.bottomAnchor, left: leftAnchor, bottom: nil, right: nil, paddingTop: 49, paddingLeft: 75, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
         addSubview(combineNotificationSubLabelNotSentYet)
         combineNotificationSubLabelNotSentYet.anchor(top: combineNotificationLabelNotSentYet.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, paddingTop: 10, paddingLeft: 75, paddingBottom: 0, paddingRight: 54, width: 0, height: 0)
+        //Collection View
+        addSubview(combineNotificationLabel)
+        combineNotificationLabel.anchor(top: titleLabel.bottomAnchor, left: leftAnchor, bottom: nil, right: nil, paddingTop: 8, paddingLeft: 2, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
+        collectionView.register(SubCustomCell.self, forCellWithReuseIdentifier: subCellId)
+        addSubview(collectionView)
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.backgroundColor = .purple //purple
+        collectionView.anchor(top: combineNotificationLabel.bottomAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 5, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
+        collectionView.isHidden = true
+        
     }
     
     func setupViews(){
+        combineNotificationLabel.isHidden = false
+        collectionView.isHidden = false
         addSubview(titleLabel)
         titleLabel.anchor(top: topAnchor, left: leftAnchor, bottom: nil, right: nil, paddingTop: 0, paddingLeft: 2, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
         addSubview(combineNotificationLabel)
@@ -162,12 +360,21 @@ class FeedCell: UICollectionViewCell, UICollectionViewDataSource, UICollectionVi
         //            else if indexPath.row == 3{
         //                cell.titleBottomLabel.text = "Stradivarius"
         //            }
-        
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = frame.width * 0.28
         let height = frame.height * 0.55
         return CGSize(width: width, height: height)
+    }
+    func configureRefresh(){
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
+        collectionView.refreshControl = refreshControl
+    }
+    @objc func handleRefresh(){
+        nameCombineArray.removeAll(keepingCapacity: false)
+        fetchFirebaseData()
+        collectionView.reloadData()
     }
 }
