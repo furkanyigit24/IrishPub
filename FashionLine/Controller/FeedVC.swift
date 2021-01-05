@@ -24,10 +24,43 @@ class FeedVC: UICollectionViewController, UICollectionViewDelegateFlowLayout, UI
         super.viewDidLoad()
         collectionView.backgroundColor = .white
         navigationController?.navigationBar.isHidden = true
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Log Out", style: .plain, target: self, action: #selector(handleLogut))
         
         // Do any additional setup after loading the view.
     }
-    
+    @objc func handleLogut() {
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        alertController.addAction(UIAlertAction(title: "Log Out", style: .destructive, handler: { (_) in
+            do {
+                try Auth.auth().signOut()
+                let loginVC = LoginVC()
+                let navController = UINavigationController(rootViewController: loginVC)
+                navController.modalPresentationStyle = .fullScreen
+                self.present(navController, animated: true, completion: nil)
+                print("Succesfully loged user out")
+            } catch{
+                print("Failed signed out")
+            }
+        }))
+        
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        present(alertController, animated: true, completion: nil)
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        let indexPath = IndexPath(row: 0, section: 0)
+        collectionView.deleteItems(at: [indexPath])
+        registrationOfHeaderAndCell()
+        
+    }
+    override func viewDidDisappear(_ animated: Bool) {
+        let indexPath = IndexPath(row: 0, section: 0)
+        collectionView.deleteItems(at: [indexPath])
+        registrationOfHeaderAndCell()
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        registrationOfHeaderAndCell()
+        registrationOfHeaderAndCell()
+    }
     fileprivate func registrationOfHeaderAndCell() {
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false

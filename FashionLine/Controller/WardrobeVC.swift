@@ -32,7 +32,7 @@ class WardrobeVC: UIViewController {
     
     let signUpButton: UIButton = {
         let pp = UIButton(type: .system)
-        pp.setTitle("Üye Ol", for: .normal)
+        pp.setTitle("Güncelle", for: .normal)
         pp.titleLabel?.font = UIFont.init(name: "SFProText-Regular", size: 17)
         pp.setTitleColor(UIColor(hexString: "#E61515"), for: UIControl.State.normal)
         pp.layer.borderColor = UIColor(hexString: "#707070").cgColor
@@ -42,7 +42,7 @@ class WardrobeVC: UIViewController {
     }()
     let signInButton: UIButton = {
         let pp = UIButton(type: .system)
-        pp.setTitle("Giriş Yap", for: .normal)
+        pp.setTitle("Sil", for: .normal)
         pp.titleLabel?.font = UIFont.init(name: "SFProText-Regular", size: 17)
         pp.setTitleColor(UIColor(hexString: "#E61515"), for: UIControl.State.normal)
         pp.layer.borderColor = UIColor(hexString: "#707070").cgColor
@@ -53,23 +53,34 @@ class WardrobeVC: UIViewController {
     let quickLabel: UILabel = {
         let rn = UILabel()
         rn.numberOfLines = 0
-        rn.text = "Giriş Yap"
-        rn.font = UIFont.init(name: "SFProDisplay-RegularItalic", size: 23)
+        rn.text = "Oylamaya sunduğunuz kombininiz 24 saat sonra otomatik olarak silinir"
+        rn.font = UIFont.init(name: "SFProDisplay-RegularItalic", size: 15)
         rn.textColor = UIColor(hexString: "#707070")
         return rn
     }()
-    let eMailTextFieldForSignIn: UITextField = {
-        let tf = UITextField()
-        tf.placeholder = "E-posta"
+    let userNameLabel: UILabel = {
+        let tf = UILabel()
+        tf.text = "Ashley"
         tf.backgroundColor = UIColor(white: 0, alpha: 0.0)
-        tf.font = UIFont.init(name: "SFProText-MediumItalic", size: 14)
+        tf.font = UIFont.init(name: "SFProText-MediumItalic-SemiBold", size: 14)
+        tf.textColor = UIColor(hexString: "#000000")
         return tf
     }()
-    let passwordSignIn: UITextField = {
-        let tf = UITextField()
-        tf.placeholder = "Şifre"
+    let conceptLabel: UILabel = {
+        let tf = UILabel()
+        tf.text = "Bir akşam yemeğine davetliyim. 3 Kız bu yemeğe gidiyoruz."
+        tf.numberOfLines = 0
         tf.backgroundColor = UIColor(white: 0, alpha: 0.0)
-        tf.font = UIFont.init(name: "SFProText-MediumItalic", size: 14)
+        tf.font = UIFont.init(name: "SFProText-Regular", size: 14)
+        tf.textColor = UIColor(hexString: "#707070")
+        return tf
+    }()
+    let pointLabel: UILabel = {
+        let tf = UILabel()
+        tf.text = "Puanın: 8.8"
+        tf.numberOfLines = 1
+        tf.font = UIFont.init(name: "SFProText-Bold", size: 14)
+        tf.textColor = UIColor(hexString: "#000000")
         return tf
     }()
     let fashionLineNameLabel: UILabel = {
@@ -83,7 +94,7 @@ class WardrobeVC: UIViewController {
     let welcomeLabel: UILabel = {
         let rn = UILabel()
         rn.numberOfLines = 0
-        rn.text = "Hoşgeldin!"
+        rn.text = "Yorumlardaki Güncel Kombinim"
         rn.font = UIFont.init(name: "SFProDisplay-Regular", size: 34)
         rn.textColor = UIColor(hexString: "#000000")
         return rn
@@ -91,7 +102,7 @@ class WardrobeVC: UIViewController {
     let getMembershipNow: UILabel = {
         let rn = UILabel()
         rn.numberOfLines = 0
-        rn.text = "Üye Değilsen Hemen Üye Ol!"
+        rn.text = "Kişisel Bilgilerim"
         rn.font = UIFont.init(name: "SFProDisplay-RegularItalic", size: 23)
         rn.textColor = UIColor(hexString: "#707070")
         return rn
@@ -151,6 +162,21 @@ class WardrobeVC: UIViewController {
         tf.backgroundColor = UIColor(white: 0, alpha: 0.0)
         tf.font = UIFont.init(name: "SFProText-MediumItalic", size: 14)
         return tf
+    }()
+    lazy var profileImageView: CustomImageView = {
+        let iv = CustomImageView()
+        iv.contentMode = .scaleAspectFill
+        iv.clipsToBounds = true
+        iv.backgroundColor = .lightGray
+        iv.layer.cornerRadius = 22.5
+        iv.clipsToBounds = true
+        
+        return iv
+    }()
+    let profilePicture: UIButton = {
+        let pp = UIButton(type: .system)
+        pp.setImage(UIImage(named: "profilePicture")?.withRenderingMode(.alwaysOriginal), for: .normal)
+        return pp
     }()
     let horizontalLine1: UIView = {
         let hl = UIView()
@@ -228,42 +254,44 @@ class WardrobeVC: UIViewController {
         fashionLineNameLabel.anchor(top: containerView.topAnchor, left: containerView.leftAnchor, bottom: nil, right: containerView.rightAnchor, paddingTop: 82, paddingLeft: 25, paddingBottom: 0, paddingRight: 157, width: 0, height: 0)
         containerView.addSubview(horizontalLine1)
         horizontalLine1.anchor(top: containerView.topAnchor, left: containerView.leftAnchor, bottom: nil, right: containerView.rightAnchor, paddingTop: 126.5, paddingLeft: 23.5, paddingBottom: 0, paddingRight: 23.5, width: 0, height: 1)
+        // Logout label
+        containerView.addSubview(profilePicture)
+        profilePicture.anchor(top: nil, left: nil, bottom: horizontalLine1.bottomAnchor, right: containerView.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 9.5, paddingRight: 24, width: 30, height: 30)
+        profilePicture.layer.cornerRadius = 15
+        profilePicture.addTarget(self, action: #selector(handleLogutTapped), for: .touchUpInside)
         // Welcome Label
         containerView.addSubview(welcomeLabel)
-        welcomeLabel.anchor(top: containerView.topAnchor, left: containerView.leftAnchor, bottom: nil, right: nil, paddingTop: 130, paddingLeft: 30.5, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
+        welcomeLabel.anchor(top: containerView.topAnchor, left: containerView.leftAnchor, bottom: nil, right: containerView.rightAnchor, paddingTop: 130, paddingLeft: 15, paddingBottom: 0, paddingRight: 77.5, width: 0, height: 0)
         // Quick Label
         containerView.addSubview(quickLabel)
-        quickLabel.anchor(top: welcomeLabel.bottomAnchor, left: containerView.leftAnchor, bottom: nil, right: nil, paddingTop: 5, paddingLeft: 31, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
-        // SignIn and Password
-        containerView.addSubview(eMailTextFieldForSignIn)
-        eMailTextFieldForSignIn.anchor(top: quickLabel.bottomAnchor, left: containerView.leftAnchor, bottom: nil, right: nil, paddingTop: 5, paddingLeft: 55.5, paddingBottom: 0, paddingRight: 99.5, width: 217, height: 39)
-        containerView.addSubview(horizontalLine9)
-        horizontalLine9.anchor(top: eMailTextFieldForSignIn.bottomAnchor, left: containerView.leftAnchor, bottom: nil, right: containerView.rightAnchor, paddingTop: 2.5, paddingLeft: 55.5, paddingBottom: 0, paddingRight: 99.5, width: 0, height: 1)
-        containerView.addSubview(passwordSignIn)
-        passwordSignIn.anchor(top: eMailTextFieldForSignIn.bottomAnchor, left: containerView.leftAnchor, bottom: nil, right: nil, paddingTop: 7.5, paddingLeft: 55.5, paddingBottom: 0, paddingRight: 99.5, width: 217, height: 39)
-        containerView.addSubview(horizontalLine10)
-        horizontalLine10.anchor(top: passwordSignIn.bottomAnchor, left: containerView.leftAnchor, bottom: nil, right: containerView.rightAnchor, paddingTop: 2.5, paddingLeft: 55.5, paddingBottom: 0, paddingRight: 99.5, width: 0, height: 1)
+        quickLabel.anchor(top: welcomeLabel.bottomAnchor, left: containerView.leftAnchor, bottom: nil, right: containerView.rightAnchor, paddingTop: 5, paddingLeft: 15, paddingBottom: 0, paddingRight: 105, width: 0, height: 0)
+        // Profile Image View
+        containerView.addSubview(profileImageView)
+        profileImageView.anchor(top: quickLabel.bottomAnchor, left: containerView.leftAnchor, bottom: nil, right: nil, paddingTop: 15, paddingLeft: 26, paddingBottom: 0, paddingRight: 0, width: 45, height: 45)
+        // Name & Concept & Point
+        containerView.addSubview(userNameLabel)
+        userNameLabel.anchor(top: quickLabel.bottomAnchor, left: profileImageView.rightAnchor, bottom: nil, right: nil, paddingTop: 8, paddingLeft: 12, paddingBottom: 0, paddingRight: 99.5, width: 0, height: 0)
+        //        containerView.addSubview(horizontalLine9)
+        //        horizontalLine9.anchor(top: userNameLabel.bottomAnchor, left: containerView.leftAnchor, bottom: nil, right: containerView.rightAnchor, paddingTop: 2.5, paddingLeft: 55.5, paddingBottom: 0, paddingRight: 99.5, width: 0, height: 1)
+        containerView.addSubview(conceptLabel)
+        conceptLabel.anchor(top: userNameLabel.bottomAnchor, left: profileImageView.rightAnchor, bottom: nil, right: containerView.rightAnchor, paddingTop: 2, paddingLeft: 12, paddingBottom: 0, paddingRight: 37, width: 217, height: 39)
+        containerView.addSubview(pointLabel)
+        pointLabel.anchor(top: conceptLabel.bottomAnchor, left: containerView.leftAnchor, bottom: nil, right: nil, paddingTop: 2, paddingLeft: 83, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
+        //        containerView.addSubview(horizontalLine10)
+        //        horizontalLine10.anchor(top: conceptLabel.bottomAnchor, left: containerView.leftAnchor, bottom: nil, right: containerView.rightAnchor, paddingTop: 2.5, paddingLeft: 55.5, paddingBottom: 0, paddingRight: 99.5, width: 0, height: 1)
+        
         // SignIn Button
         containerView.addSubview(signInButton)
-        signInButton.anchor(top: passwordSignIn.bottomAnchor, left: containerView.leftAnchor, bottom: nil, right: containerView.rightAnchor, paddingTop: 18.5, paddingLeft: 38, paddingBottom: 0, paddingRight: 57, width: 280, height: 44)
-        signInButton.layer.cornerRadius = 22
-        signInButton.addTarget(self, action: #selector(handleSignIn), for: .touchUpInside)
+        signInButton.anchor(top: pointLabel.bottomAnchor, left: nil, bottom: nil, right: nil, paddingTop: 18.5, paddingLeft: 38, paddingBottom: 0, paddingRight: 57, width: 185, height: 28)
+        signInButton.centerXAnchor.constraint(equalTo: containerView.centerXAnchor).isActive = true
+        signInButton.layer.cornerRadius = 14
+        signInButton.addTarget(self, action: #selector(deleteTapped), for: .touchUpInside)
         // Get membership now
         containerView.addSubview(getMembershipNow)
         getMembershipNow.anchor(top: signInButton.bottomAnchor, left: containerView.leftAnchor, bottom: nil, right: containerView.rightAnchor, paddingTop: 40, paddingLeft: 38, paddingBottom: 0, paddingRight: 54, width: 0, height: 0)
-        // Email Label
-        containerView.addSubview(eMailTextField)
-        eMailTextField.anchor(top: getMembershipNow.bottomAnchor, left: containerView.leftAnchor, bottom: nil, right: nil, paddingTop: 5, paddingLeft: 55.5, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
-        containerView.addSubview(horizontalLine2)
-        horizontalLine2.anchor(top: eMailTextField.bottomAnchor, left: containerView.leftAnchor, bottom: nil, right: containerView.rightAnchor, paddingTop: 2.5, paddingLeft: 55.5, paddingBottom: 0, paddingRight: 99.5, width: 0, height: 1)
-        // Password for SignUp
-        containerView.addSubview(passwordSignUp)
-        passwordSignUp.anchor(top: horizontalLine2.bottomAnchor, left: containerView.leftAnchor, bottom: nil, right: nil, paddingTop: 7.5, paddingLeft: 55.5, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
-        containerView.addSubview(horizontalLine11)
-        horizontalLine11.anchor(top: passwordSignUp.bottomAnchor, left: containerView.leftAnchor, bottom: nil, right: containerView.rightAnchor, paddingTop: 2.5, paddingLeft: 55.5, paddingBottom: 0, paddingRight: 99.5, width: 0, height: 1)
         // Name Label
         containerView.addSubview(nameTextField)
-        nameTextField.anchor(top: horizontalLine11.bottomAnchor, left: containerView.leftAnchor, bottom: nil, right: nil, paddingTop: 7.5, paddingLeft: 55.5, paddingBottom: 0, paddingRight: 99.5, width: 0, height: 0)
+        nameTextField.anchor(top: getMembershipNow.bottomAnchor, left: containerView.leftAnchor, bottom: nil, right: nil, paddingTop: 5, paddingLeft: 55.5, paddingBottom: 0, paddingRight: 99.5, width: 0, height: 0)
         containerView.addSubview(horizontalLine3)
         horizontalLine3.anchor(top: nameTextField.bottomAnchor, left: containerView.leftAnchor, bottom: nil, right: containerView.rightAnchor, paddingTop: 2.5, paddingLeft: 55.5, paddingBottom: 0, paddingRight: 99.5, width: 0, height: 1)
         // Height Label
@@ -293,14 +321,38 @@ class WardrobeVC: UIViewController {
         horizontalLine8.anchor(top: styleTextField.bottomAnchor, left: containerView.leftAnchor, bottom: nil, right: containerView.rightAnchor, paddingTop: 2.5, paddingLeft: 55.5, paddingBottom: 0, paddingRight: 99.5, width: 0, height: 1)
         //SignUp Button
         containerView.addSubview(signUpButton)
-        signUpButton.anchor(top: horizontalLine8.bottomAnchor, left: containerView.leftAnchor, bottom: nil, right: containerView.rightAnchor, paddingTop: 30, paddingLeft: 38, paddingBottom: 0, paddingRight: 57, width: 280, height: 44)
-        signUpButton.layer.cornerRadius = 22
-        signUpButton.addTarget(self, action: #selector(handleSignUp), for: .touchUpInside)
+        signUpButton.anchor(top: horizontalLine8.bottomAnchor, left: nil, bottom: nil, right: nil, paddingTop: 30, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 185, height: 28)
+        signUpButton.centerXAnchor.constraint(equalTo: containerView.centerXAnchor).isActive = true
+        signUpButton.layer.cornerRadius = 14
+        signUpButton.addTarget(self, action: #selector(refreshTapped), for: .touchUpInside)
     }
-    // MARK: - SignUp && SignIn
-    @objc func handleSignUp(){
-        guard let email = eMailTextField.text else { return }
-        guard let password = passwordSignUp.text else { return }
+    // MARK: - Handle Operations
+    @objc func handleLogutTapped(){
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        alertController.addAction(UIAlertAction(title: "Log Out", style: .destructive, handler: { (_) in
+            do {
+                try Auth.auth().signOut()
+                let loginVC = LoginVC()
+                let navController = UINavigationController(rootViewController: loginVC)
+                navController.modalPresentationStyle = .fullScreen
+                self.present(navController, animated: true, completion: nil)
+                print("Succesfully loged user out")
+            } catch{
+                print("Failed signed out")
+            }
+        }))
+        
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        present(alertController, animated: true, completion: nil)
+    }
+    @objc func refreshTapped(){
+        guard let nameLabel = nameTextField.text else { return }
+        guard let heightLabel = heightTextField.text else { return }
+        guard let sexLabel = sexTextField.text else { return }
+        guard let weightLabel = weightTextField.text else { return }
+        guard let styleLabel = styleTextField.text else { return }
+        guard let ageLabel = ageTextField.text else { return }
+        
         let db = Firestore.firestore()
         let uuidDocument = UUID().uuidString
         
@@ -309,9 +361,7 @@ class WardrobeVC: UIViewController {
                 "Ad": nameTextField.text,
                 "Boy": heightTextField.text,
                 "Cinsiyet": sexTextField.text,
-                "Eposta": eMailTextField.text,
                 "Kilo": weightTextField.text,
-                "Şifre": passwordSignUp.text,
                 "Tarz": styleTextField.text,
                 "Yaş": ageTextField.text
             ],
@@ -320,50 +370,28 @@ class WardrobeVC: UIViewController {
                 "Linki": nameTextField.text,
                 "Saati": nameTextField.text,
                 "StilistYorumu": nameTextField.text
-            ]
+            ],
+            "Request": "notRequested"
         ]
         
-        if email != "" && password != ""{
+        if nameLabel != "" && heightLabel != "" && sexLabel != "" && weightLabel != "" && styleLabel != "" && ageLabel != ""{
             
-            Auth.auth().createUser(withEmail: email, password: password) { (authdata, error) in
-                if error != nil{
-                    self.makeAlert(titleInput: "Error", messageInput: error?.localizedDescription ?? "Error ")
-                }
-                else {
-                    db.collection("Kullanıcılar").document("\(Auth.auth().currentUser!.email!).\(uuidDocument)").setData(userData) { err in
-                        if let err = err {
-                            print("Error writing document: \(err)")
-                        } else {
-                            print("Document successfully written!")
-                        }
-                    }
-                    _ = self.navigationController?.popViewController(animated: true)
+            db.collection("Kullanıcılar").document("\(Auth.auth().currentUser!.email!.uppercased())").setData(userData, merge: true) { err in
+                if let err = err {
+                    print("Error writing document: \(err)")
+                } else {
+                    print("Document successfully written!")
                 }
             }
+            _ = self.navigationController?.popViewController(animated: true)
         }
         else {
-            makeAlert(titleInput: "Error", messageInput: "Username/Pasword is invalid")
+            makeAlert(titleInput: "Hata", messageInput: "Tüm bilgileri doldurmalısın :)")
         }
     }
-    @objc func handleSignIn(){
+    @objc func deleteTapped(){
         
-        // properties
-        guard
-            let email = eMailTextFieldForSignIn.text,
-            let password = passwordSignIn.text else { return }
-        flag = "signedIn"
-        if email != "" && password != ""{
-            
-            Auth.auth().signIn(withEmail: email, password: password) { (authdata, error) in
-                
-                if error != nil {
-                    self.makeAlert(titleInput: "Error", messageInput: "Username/Pasword is invalid")
-                } else {
-                    _ = self.navigationController?.popViewController(animated: true)
-                }
-            }
-        }else{
-            makeAlert(titleInput: "Error", messageInput: "Username/Pasword is invalid")
-        }
+        // Remove
+        
     }
 }

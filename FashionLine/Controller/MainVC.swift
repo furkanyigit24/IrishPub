@@ -19,7 +19,9 @@ class MainVC: UITabBarController, UITabBarControllerDelegate {
         super.viewDidLoad()
         self.delegate = self
         configureViewControllers()
-        self.selectedIndex = 1
+        // user validation
+        checkIfUserIsLoggedIn()
+        self.selectedIndex = 0
     }
     
     func configureViewControllers() {
@@ -52,4 +54,19 @@ class MainVC: UITabBarController, UITabBarControllerDelegate {
         // return nav controller
         return navController
     }
+    func checkIfUserIsLoggedIn() {
+        if Auth.auth().currentUser == nil {
+            DispatchQueue.main.async {
+                let loginVC = LoginVC()
+                let navController = UINavigationController(rootViewController: loginVC)
+                
+                // UPDATE: iOS 13 presentation fix
+                navController.modalPresentationStyle = .fullScreen
+                
+                self.present(navController, animated: true, completion: nil)
+            }
+            return
+        }
+    }
+    
 }

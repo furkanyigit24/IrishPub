@@ -7,8 +7,10 @@
 //
 
 import UIKit
-var setCombine: Bool?
+import Firebase
+
 class CombineVC: UIViewController {
+
     let fashionLineNameLabel: UILabel = {
         let rn = UILabel()
         rn.numberOfLines = 0
@@ -25,7 +27,7 @@ class CombineVC: UIViewController {
         rn.textColor = UIColor(hexString: "#000000")
         return rn
     }()
-    let eMailTextField: UITextField = {
+    let toWhereTextField: UITextField = {
         let tf = UITextField()
         tf.placeholder = "Nereye Gideceksin?"
         tf.backgroundColor = UIColor(white: 0, alpha: 0.0)
@@ -33,7 +35,7 @@ class CombineVC: UIViewController {
         tf.font = UIFont.systemFont(ofSize: 14)
         return tf
     }()
-    let nameTextField: UITextField = {
+    let timeTextField: UITextField = {
         let tf = UITextField()
         tf.placeholder = "Saat kaçta gideceksin?"
         tf.backgroundColor = UIColor(white: 0, alpha: 0.0)
@@ -41,7 +43,7 @@ class CombineVC: UIViewController {
         tf.font = UIFont.systemFont(ofSize: 14)
         return tf
     }()
-    let heightTextField: UITextField = {
+    let combineTextField: UITextField = {
         let tf = UITextField()
         tf.placeholder = "Nasıl bir kombin istersin?"
         tf.backgroundColor = UIColor(white: 0, alpha: 0.0)
@@ -49,7 +51,7 @@ class CombineVC: UIViewController {
         tf.font = UIFont.systemFont(ofSize: 14)
         return tf
     }()
-    let weightTextField: UITextField = {
+    let noteTextField: UITextField = {
         let tf = UITextField()
         tf.placeholder = "Eklemek istediğin notlar"
         tf.backgroundColor = UIColor(white: 0, alpha: 0.0)
@@ -121,16 +123,56 @@ class CombineVC: UIViewController {
         hl.backgroundColor = UIColor(hexString: "#707070")
         return hl
     }()
+    override func viewWillAppear(_ animated: Bool) {
+        snapshotListener()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         // Navigation Contoller
         view.backgroundColor = .white
         navigationController?.navigationBar.isHidden = true
-        setUpViews()
+        snapshotListener()
         signUpButton.addTarget(self, action: #selector(sendCombine), for: .touchUpInside)
     }
+    func snapshotListener(){
+        let db = Firestore.firestore()
+        guard var currentEmail = Auth.auth().currentUser?.email?.uppercased() as? String else{ return }
+        db.collection("Kullanıcılar").document(currentEmail)
+            .addSnapshotListener { documentSnapshot, error in
+                
+                guard let document = documentSnapshot else {
+                    print("Error fetching document: \(error!)")
+                    return
+                }
+                guard let data = document.data() else {
+                    print("Document data was empty.")
+                    return
+                }
+                print("XXX \(data)")
+                guard let newDictionary = data as? [String:Any] else { return }
+                for (key,value) in newDictionary {
+                    if key == "Request" {
+                        guard let val = value as? String else { return }
+                        switch val {
+                        case "requested":
+                            self.notSentViews()
+                        case "notRequested":
+                            self.notSentViews()
+                        case "pendingRequest":
+                            self.sentView()
+                        default:
+                            self.notSentViews()
+                            print("Default")
+                        }
+                    }
+                }
+                self.reloadInputViews()
+        }
+    }
     // MARK: - Set Up Views
-    fileprivate func setUpViews() {
+    fileprivate func notSentViews() {
+        signedUpMainMessage.removeFromSuperview()
+        signedUpSubMessage.removeFromSuperview()
         // FashionLine Name Label
         view.addSubview(fashionLineNameLabel)
         fashionLineNameLabel.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 82, paddingLeft: 25, paddingBottom: 0, paddingRight: 157, width: 0, height: 0)
@@ -146,47 +188,46 @@ class CombineVC: UIViewController {
         view.addSubview(welcomeLabel)
         welcomeLabel.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: nil, right: nil, paddingTop: 149, paddingLeft: 30.5, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
         // Email Label
-        view.addSubview(eMailTextField)
-        eMailTextField.anchor(top: artistLabel.bottomAnchor, left: view.leftAnchor, bottom: nil, right: nil, paddingTop: 60, paddingLeft: 1, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
+        view.addSubview(toWhereTextField)
+        toWhereTextField.anchor(top: artistLabel.bottomAnchor, left: view.leftAnchor, bottom: nil, right: nil, paddingTop: 60, paddingLeft: 1, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
         view.addSubview(horizontalLine2)
-        horizontalLine2.anchor(top: eMailTextField.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 2.5, paddingLeft: 1, paddingBottom: 0, paddingRight: 1, width: 0, height: 1)
+        horizontalLine2.anchor(top: toWhereTextField.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 2.5, paddingLeft: 1, paddingBottom: 0, paddingRight: 1, width: 0, height: 1)
         // Name Label
-        view.addSubview(nameTextField)
-        nameTextField.anchor(top: horizontalLine2.bottomAnchor, left: view.leftAnchor, bottom: nil, right: nil, paddingTop: 27, paddingLeft: 1, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
+        view.addSubview(timeTextField)
+        timeTextField.anchor(top: horizontalLine2.bottomAnchor, left: view.leftAnchor, bottom: nil, right: nil, paddingTop: 27, paddingLeft: 1, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
         view.addSubview(horizontalLine3)
-        horizontalLine3.anchor(top: nameTextField.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 2.5, paddingLeft: 1, paddingBottom: 0, paddingRight: 1, width: 0, height: 1)
+        horizontalLine3.anchor(top: timeTextField.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 2.5, paddingLeft: 1, paddingBottom: 0, paddingRight: 1, width: 0, height: 1)
         // Height Label
-        view.addSubview(heightTextField)
-        heightTextField.anchor(top: horizontalLine3.bottomAnchor, left: view.leftAnchor, bottom: nil, right: nil, paddingTop: 27, paddingLeft: 1, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
+        view.addSubview(combineTextField)
+        combineTextField.anchor(top: horizontalLine3.bottomAnchor, left: view.leftAnchor, bottom: nil, right: nil, paddingTop: 27, paddingLeft: 1, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
         view.addSubview(horizontalLine4)
-        horizontalLine4.anchor(top: heightTextField.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 2.5, paddingLeft: 1, paddingBottom: 0, paddingRight: 1, width: 0, height: 1)
+        horizontalLine4.anchor(top: combineTextField.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 2.5, paddingLeft: 1, paddingBottom: 0, paddingRight: 1, width: 0, height: 1)
         // Weight label
-        view.addSubview(weightTextField)
-        weightTextField.anchor(top: horizontalLine4.bottomAnchor, left: view.leftAnchor, bottom: nil, right: nil, paddingTop: 27, paddingLeft: 1, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
+        view.addSubview(noteTextField)
+        noteTextField.anchor(top: horizontalLine4.bottomAnchor, left: view.leftAnchor, bottom: nil, right: nil, paddingTop: 27, paddingLeft: 1, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
         view.addSubview(horizontalLine5)
-        horizontalLine5.anchor(top: weightTextField.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 2.5, paddingLeft: 1, paddingBottom: 0, paddingRight: 1, width: 0, height: 1)
+        horizontalLine5.anchor(top: noteTextField.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 2.5, paddingLeft: 1, paddingBottom: 0, paddingRight: 1, width: 0, height: 1)
         //SignUp Button
         view.addSubview(signUpButton)
         signUpButton.anchor(top: horizontalLine5.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 30, paddingLeft: 38, paddingBottom: 0, paddingRight: 57, width: 280, height: 44)
         signUpButton.layer.cornerRadius = 22
     }
-    @objc func sendCombine(){
+    fileprivate func sentView() {
         // Navigation Contoller
-        setCombine = true
         view.backgroundColor = .white
         navigationController?.navigationBar.isHidden = true
-        signUpButton.isHidden = true
-        horizontalLine5.isHidden = true
-        weightTextField.isHidden = true
-        horizontalLine4.isHidden = true
-        heightTextField.isHidden = true
-        horizontalLine3.isHidden = true
-        imageButton.isHidden = true
-        artistLabel.isHidden = true
-        welcomeLabel.isHidden = true
-        eMailTextField.isHidden = true
-        horizontalLine2.isHidden = true
-        nameTextField.isHidden = true
+        signUpButton.removeFromSuperview()
+        horizontalLine5.removeFromSuperview()
+        noteTextField.removeFromSuperview()
+        horizontalLine4.removeFromSuperview()
+        combineTextField.removeFromSuperview()
+        horizontalLine3.removeFromSuperview()
+        imageButton.removeFromSuperview()
+        artistLabel.removeFromSuperview()
+        welcomeLabel.removeFromSuperview()
+        toWhereTextField.removeFromSuperview()
+        horizontalLine2.removeFromSuperview()
+        timeTextField.removeFromSuperview()
         // FashionLine Name Label
         view.addSubview(fashionLineNameLabel)
         fashionLineNameLabel.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 82, paddingLeft: 25, paddingBottom: 0, paddingRight: 157, width: 0, height: 0)
@@ -200,5 +241,53 @@ class CombineVC: UIViewController {
         view.addSubview(signedUpSubMessage)
         signedUpSubMessage.anchor(top: signedUpMainMessage.bottomAnchor, left: view.leftAnchor, bottom: nil, right: nil, paddingTop: 24, paddingLeft: 45, paddingBottom: 0, paddingRight: 0, width: 280, height: 84)
         signedUpSubMessage.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+    }
+    
+    @objc func sendCombine(){
+        guard let toWhereLabel = toWhereTextField.text else { return }
+        guard let timeLabel = timeTextField.text else { return }
+        guard let combineLabel = combineTextField.text else { return }
+        guard let noteLabel = noteTextField.text else { return }
+        
+        let db = Firestore.firestore()
+        let uuidDocument = UUID().uuidString
+        
+        let userData: [String: Any] =  [ "Combines": [
+        "1.kombin": [
+        "Ad": toWhereLabel,
+        "Linki": timeLabel,
+        "Saati": combineLabel,
+        "StilistYorumu": noteLabel
+        ],
+        "2.kombin": [
+        "Ad": "",
+        "Linki": "",
+        "Saati": "",
+        "StilistYorumu": ""
+        ],
+        "3.kombin": [
+        "Ad": "",
+        "Linki": "",
+        "Saati": "",
+        "StilistYorumu": ""
+        ],
+        ],
+        "Request": "pendingRequest"
+        ]
+        
+        if toWhereLabel != "" && timeLabel != "" && combineLabel != "" && noteLabel != ""{
+            
+            db.collection("Kullanıcılar").document("\(Auth.auth().currentUser!.email!.uppercased())").setData(userData, merge: true) { err in
+                if let err = err {
+                    print("Error writing document: \(err)")
+                } else {
+                    print("Document successfully written!")
+                }
+            }
+            _ = self.navigationController?.popViewController(animated: true)
+        }
+        else {
+            makeAlert(titleInput: "Hata", messageInput: "Tüm bilgileri doldurmalısın :)")
+        }
     }
 }

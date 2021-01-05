@@ -22,6 +22,7 @@
 		DC1016C42497EB7B000B4D81 /* SF-Pro-Text-MediumItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = DC1016782497E6D6000B4D81 /* SF-Pro-Text-MediumItalic.otf */; };
 		DCA10F0C2592761700DD22DD /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCA10F0B2592761700DD22DD /* Protocols.swift */; };
 		DCA10F0E25934D1100DD22DD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DCA10F0D25934D0F00DD22DD /* GoogleService-Info.plist */; };
+		DCB5B9ED25A46E230079BEB0 /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCB5B9EC25A46E230079BEB0 /* SignUpVC.swift */; };
 		DCCD057A248BCFC400105231 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCCD0579248BCFC400105231 /* AppDelegate.swift */; };
 		DCCD057C248BCFC400105231 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCCD057B248BCFC400105231 /* SceneDelegate.swift */; };
 		DCCD057E248BCFC400105231 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCCD057D248BCFC400105231 /* ViewController.swift */; };
@@ -151,6 +152,7 @@
 		DC1016BE2497E6FA000B4D81 /* SF-Pro-Rounded-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Rounded-Regular.otf"; sourceTree = "<group>"; };
 		DCA10F0B2592761700DD22DD /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		DCA10F0D25934D0F00DD22DD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		DCB5B9EC25A46E230079BEB0 /* SignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
 		DCCD0576248BCFC400105231 /* FashionLine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FashionLine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCCD0579248BCFC400105231 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DCCD057B248BCFC400105231 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -375,6 +377,7 @@
 			isa = PBXGroup;
 			children = (
 				DCCD05AF248BF42500105231 /* LoginVC.swift */,
+				DCB5B9EC25A46E230079BEB0 /* SignUpVC.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -658,6 +661,7 @@
 				DCCD057A248BCFC400105231 /* AppDelegate.swift in Sources */,
 				DCCD05B0248BF42500105231 /* LoginVC.swift in Sources */,
 				DCCD057C248BCFC400105231 /* SceneDelegate.swift in Sources */,
+				DCB5B9ED25A46E230079BEB0 /* SignUpVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
