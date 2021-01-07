@@ -11,6 +11,7 @@ import Firebase
 let subCellId : String = "subCellID"
 
 class FeedCell: UICollectionViewCell, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    var shared = Users.sharedInstance
     var nameCombineArray = [String]()
     var stylerCommentArray = [String]()
     var linkArray = [String]()
@@ -144,6 +145,12 @@ class FeedCell: UICollectionViewCell, UICollectionViewDataSource, UICollectionVi
                                     switch namekey {
                                     case "Ad":
                                         self.nameCombineArray.append(value)
+                                    case "Linki":
+                                        self.linkArray.append(value)
+                                    case "Saati":
+                                        self.timeArray.append(value)
+                                    case "StilistYorumu":
+                                        self.stylerCommentArray.append(value)
                                     default:
                                         print("Default")
                                     }
@@ -212,9 +219,10 @@ class FeedCell: UICollectionViewCell, UICollectionViewDataSource, UICollectionVi
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: subCellId, for: indexPath) as! SubCustomCell
-        
+        cell.delegate = self
         cell.backgroundColor = .white // yellow
         cell.titleBottomLabel.text = nameCombineArray[indexPath.item]
+        cell.linkLabel.text = linkArray[indexPath.item]
         //            if indexPath.row == 0{
         //                cell.titleBottomLabel.text = "H&M"
         //            }
@@ -233,5 +241,14 @@ class FeedCell: UICollectionViewCell, UICollectionViewDataSource, UICollectionVi
         let width = frame.width * 0.28
         let height = frame.height * 0.55
         return CGSize(width: width, height: height)
+    }
+}
+extension FeedCell: SubCustomCellDelegate{
+    func handleCellTapped(for cell: SubCustomCell) {
+        shared.linkLabel = cell.linkLabel.text
+        shared.linkArray.append(contentsOf: linkArray)
+        print("\(shared.linkLabel)")
+        guard let url = URL(string: shared.linkLabel ?? "") else { return }
+        UIApplication.shared.open(url)
     }
 }

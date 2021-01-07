@@ -11,7 +11,7 @@ import Foundation
 class Users{
     // MARK: - Properties
     static let sharedInstance = Users()
-    
+    var linkLabel: String?
     var nameArray = [String]()
     var nameCombineArray = [String]()
     var linkArray = [String]()

@@ -11,3 +11,6 @@ import Foundation
 protocol FeedHeaderCellDelegate{
     func handleProfilePicTapped(for cell: FeedHeaderCell)
 }
+protocol SubCustomCellDelegate{
+    func handleCellTapped(for cell: SubCustomCell)
+}
