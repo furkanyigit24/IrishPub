@@ -8,20 +8,14 @@
 
 import UIKit
 import Firebase
+import SDWebImage
 let combinesSubCellId : String = "combinesSubCellID"
 
 class CombinesOfDay: UICollectionViewCell, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     var shared = Users.sharedInstance
     var nameArray = [String]()
     var linkArray = [String]()
-    var timeArray = [String]()
-    var heightArray = [String]()
-    var genderArray = [String]()
-    var ePostaArray = [String]()
-    var weightArray = [String]()
-    var styleArray = [String]()
-    var ageArray = [String]()
-    var passwordArray = [String]()
+    var imageArray = [String]()
     var bottomTitle = Users.sharedInstance
     let collectionView : UICollectionView = {
         // init the layout
@@ -41,20 +35,6 @@ class CombinesOfDay: UICollectionViewCell, UICollectionViewDataSource, UICollect
         lb.translatesAutoresizingMaskIntoConstraints = false
         return lb
     }()
-    let combineCommentButton: UIButton = {
-        let pp = UIButton(type: .system)
-        pp.setImage(UIImage(named: "plusButton"), for: .normal)
-        return pp
-    }()
-    let combineCommentLabel: UILabel = {
-        let lb  = UILabel()
-        lb.text = "Kombin Yorumlat"
-        lb.numberOfLines = 0
-        lb.font = UIFont.init(name: "SFProText-Medium", size: 10)
-        lb.textColor = UIColor(hexString: "#8E8E93", alpha: 1)
-        lb.translatesAutoresizingMaskIntoConstraints = false
-        return lb
-    }()
     let titleBottomLabel: UILabel = {
         let lb  = UILabel()
         lb.font = UIFont.boldSystemFont(ofSize: 12)
@@ -67,11 +47,7 @@ class CombinesOfDay: UICollectionViewCell, UICollectionViewDataSource, UICollect
         collectionView.register(CombinesSubCustomCell.self, forCellWithReuseIdentifier: combinesSubCellId)
         addSubview(titleLabel)
         titleLabel.anchor(top: topAnchor, left: leftAnchor, bottom: nil, right: nil, paddingTop: 0, paddingLeft: 2, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
-        addSubview(combineCommentButton)
-        combineCommentButton.anchor(top: topAnchor, left: nil, bottom: nil, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 24, width: 30, height: 30)
-        combineCommentButton.layer.cornerRadius = 15
-        addSubview(combineCommentLabel)
-        combineCommentLabel.anchor(top: combineCommentButton.bottomAnchor, left: nil, bottom: nil, right: rightAnchor, paddingTop: 1, paddingLeft: 0, paddingBottom: 0, paddingRight: 1, width: 0, height: 0)
+
         addSubview(titleBottomLabel)
         titleBottomLabel.anchor(top: nil, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 0, paddingLeft: 5, paddingBottom: 5, paddingRight: 5, width: 0, height: 0)
         setupViews()
@@ -90,56 +66,32 @@ class CombinesOfDay: UICollectionViewCell, UICollectionViewDataSource, UICollect
     func getDataFromFirestore(){
         
         let db = Firestore.firestore()
-        db.collection("Kullanıcılar").addSnapshotListener { (snapshot, error) in
+        db.collection("Kombinler").addSnapshotListener { (snapshot, error) in
             if error != nil{
                 print(error?.localizedDescription)
             }else{
                 if snapshot?.isEmpty != true && snapshot != nil {
+                    
                     self.nameArray.removeAll(keepingCapacity: false)
-                    self.heightArray.removeAll(keepingCapacity: false)
-                    self.genderArray.removeAll(keepingCapacity: false)
-                    self.ePostaArray.removeAll(keepingCapacity: false)
-                    self.weightArray.removeAll(keepingCapacity: false)
-                    self.styleArray.removeAll(keepingCapacity: false)
-                    self.ageArray.removeAll(keepingCapacity: false)
-                    self.passwordArray.removeAll(keepingCapacity: false)
+                    self.linkArray.removeAll(keepingCapacity: false)
+                    self.imageArray.removeAll(keepingCapacity: false)
                     
                     for document in snapshot!.documents {
                         let documentID = document.documentID
                         
-                        if let userInfo = document.get("KişiselBilgiler") as? [String: Any]{
+                        if let userInfo = document.get("Kombin") as? [String: Any]{
                             for (key,value) in userInfo {
                                 if key == "Ad" {
                                     guard let name = value as? String else { return }
                                     self.nameArray.append(name)
                                 }
-                                else if key == "Boy" {
-                                    guard let height = value as? String else { return }
-                                    self.heightArray.append(height)
+                                else if key == "Link" {
+                                    guard let link = value as? String else { return }
+                                    self.linkArray.append(link)
                                 }
-                                else if key == "Cinsiyet" {
-                                    guard let gender = value as? String else { return }
-                                    self.genderArray.append(gender)
-                                }
-                                else if key == "Eposta" {
-                                    guard let eMail = value as? String else { return }
-                                    self.ePostaArray.append(eMail)
-                                }
-                                else if key == "Kilo" {
-                                    guard let weight = value as? String else { return }
-                                    self.weightArray.append(weight)
-                                }
-                                else if key == "Tarz" {
-                                    guard let style = value as? String else { return }
-                                    self.styleArray.append(style)
-                                }
-                                else if key == "Yaş" {
-                                    guard let age = value as? String else { return }
-                                    self.ageArray.append(age)
-                                }
-                                else if key == "Şifre" {
-                                    guard let password = value as? String else { return }
-                                    self.passwordArray.append(password)
+                                else if key == "Resim" {
+                                    guard let image = value as? String else { return }
+                                    self.imageArray.append(image)
                                 }
                                 else {
                                     print("Kişisel Bilgiler sözlüğü Swift içersinde oluşturulan dizilere aktarılamadı")
@@ -160,9 +112,12 @@ class CombinesOfDay: UICollectionViewCell, UICollectionViewDataSource, UICollect
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: combinesSubCellId, for: indexPath) as! CombinesSubCustomCell
-
+        
+        cell.delegate = self
         cell.backgroundColor = .white // yellow
         cell.titleBottomLabel.text = nameArray[indexPath.item]
+        cell.linkLabel.text = linkArray[indexPath.item]
+        cell.postImageView.sd_setImage(with: URL(string: self.imageArray[indexPath.item]))
         
         return cell
     }
@@ -172,7 +127,17 @@ class CombinesOfDay: UICollectionViewCell, UICollectionViewDataSource, UICollect
         return CGSize(width: width, height: height)
     }
 }
+extension CombinesOfDay: CombinesOfDayDelegate{
+    func handleCellTapped(for cell: CombinesSubCustomCell) {
+        shared.linkLabel = cell.linkLabel.text
+        shared.linkArray.append(contentsOf: linkArray)
+        print("\(shared.linkLabel)")
+        guard let url = URL(string: shared.linkLabel ?? "") else { return }
+        UIApplication.shared.open(url)
+    }
+}
 class CombinesSubCustomCell: UICollectionViewCell, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout  {
+    var delegate: CombinesOfDayDelegate?
     lazy var postImageView: CustomImageView = {
         let iv = CustomImageView()
         iv.contentMode = .scaleAspectFill
@@ -181,6 +146,15 @@ class CombinesSubCustomCell: UICollectionViewCell, UICollectionViewDataSource, U
         return iv
     }()
     let titleBottomLabel: UILabel = {
+        let lb  = UILabel()
+        lb.textAlignment = .center
+        lb.numberOfLines = 0
+        lb.font = UIFont.boldSystemFont(ofSize: 12)
+        lb.font = UIFont.boldSystemFont(ofSize: 12)
+        lb.translatesAutoresizingMaskIntoConstraints = false
+        return lb
+    }()
+    let linkLabel: UILabel = {
         let lb  = UILabel()
         lb.textAlignment = .center
         lb.numberOfLines = 0
@@ -199,7 +173,13 @@ class CombinesSubCustomCell: UICollectionViewCell, UICollectionViewDataSource, U
         postImageView.layer.cornerRadius = 20
         postImageView.clipsToBounds = true
         titleBottomLabel.anchor(top: postImageView.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, paddingTop: 1, paddingLeft: 1, paddingBottom: 0, paddingRight: 1, width: 0, height: 0)
+        let tappedCell: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleCellTapped))
+            self.addGestureRecognizer(tappedCell)
     }
+    // MARK: -- Handling Operations
+           @objc func handleCellTapped() {
+            delegate?.handleCellTapped(for: self)
+           }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

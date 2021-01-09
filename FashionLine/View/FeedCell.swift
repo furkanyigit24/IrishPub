@@ -8,9 +8,16 @@
 
 import UIKit
 import Firebase
+import SDWebImage
+
 let subCellId : String = "subCellID"
+protocol TransferDelegate{
+    func transferValueOfRequest(request: String)
+}
 
 class FeedCell: UICollectionViewCell, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    var delegate: CombinesSuggestionsHeaderTDelegate?
+    var transferDelegate: TransferDelegate?
     var shared = Users.sharedInstance
     var nameCombineArray = [String]()
     var stylerCommentArray = [String]()
@@ -37,7 +44,7 @@ class FeedCell: UICollectionViewCell, UICollectionViewDataSource, UICollectionVi
     }()
     let combineNotificationLabel: UILabel = {
         let lb  = UILabel()
-        lb.text = "Yeni kombininiz geldi! 12dk önce"
+        lb.text = "Yeni kombinleriniz ve Stilist yorumlarınız geldi!"
         lb.font = UIFont.init(name: "SFProDisplay-Regular", size: 14)
         lb.translatesAutoresizingMaskIntoConstraints = false
         return lb
@@ -95,11 +102,14 @@ class FeedCell: UICollectionViewCell, UICollectionViewDataSource, UICollectionVi
                         guard let val = value as? String else { return }
                         switch val {
                         case "requested":
+                            self.transferDelegate?.transferValueOfRequest(request: "requested")
                             self.requestedListener()
                             self.setupViews()
                         case "notRequested":
+                            self.transferDelegate?.transferValueOfRequest(request: "notRequested")
                             self.NotSentRequest()
                         case "pendingRequest":
+                            self.transferDelegate?.transferValueOfRequest(request: "pendingRequest")
                             self.pendingRequest()
                         default:
                             self.NotSentRequest()
@@ -165,6 +175,7 @@ class FeedCell: UICollectionViewCell, UICollectionViewDataSource, UICollectionVi
     // Pending View
     fileprivate func pendingRequest() {
         combineNotificationLabel.isHidden = true
+        collectionView.removeFromSuperview()
         addSubview(titleLabel)
         titleLabel.anchor(top: topAnchor, left: leftAnchor, bottom: nil, right: nil, paddingTop: 0, paddingLeft: 2, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
         addSubview(combineNotificationLabelNotSentYet)
@@ -180,6 +191,7 @@ class FeedCell: UICollectionViewCell, UICollectionViewDataSource, UICollectionVi
     // Not Requested View
     fileprivate func NotSentRequest() {
         combineNotificationLabel.isHidden = true
+        collectionView.removeFromSuperview()
         addSubview(titleLabel)
         titleLabel.anchor(top: topAnchor, left: leftAnchor, bottom: nil, right: nil, paddingTop: 0, paddingLeft: 2, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
         addSubview(combineNotificationLabelNotSentYet)
@@ -195,7 +207,6 @@ class FeedCell: UICollectionViewCell, UICollectionViewDataSource, UICollectionVi
     // Requested View
     func setupViews(){
         combineNotificationLabel.isHidden = false
-        collectionView.isHidden = false
         addSubview(titleLabel)
         titleLabel.anchor(top: topAnchor, left: leftAnchor, bottom: nil, right: nil, paddingTop: 0, paddingLeft: 2, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
         addSubview(combineNotificationLabel)
@@ -209,8 +220,22 @@ class FeedCell: UICollectionViewCell, UICollectionViewDataSource, UICollectionVi
         collectionView.dataSource = self
         collectionView.backgroundColor = .white //purple
         collectionView.anchor(top: combineNotificationLabel.bottomAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 5, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
-        
+        // Gesture recognizer
+        titleLabel.isUserInteractionEnabled = true
+        combineNotificationLabel.isUserInteractionEnabled = true
+        let tappedHeader: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleHeaderTapped))
+        let tappedNotificationHeader: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleNotificationHeaderTapped))
+            titleLabel.addGestureRecognizer(tappedHeader)
+        combineNotificationLabel.addGestureRecognizer(tappedNotificationHeader)
     }
+    // MARK: -- Handling Operations
+    @objc func handleHeaderTapped() {
+        delegate?.handleHeaderCellTapped(for: self)
+    }
+    @objc func handleNotificationHeaderTapped() {
+        delegate?.handleHeaderCellTapped(for: self)
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -223,6 +248,7 @@ class FeedCell: UICollectionViewCell, UICollectionViewDataSource, UICollectionVi
         cell.backgroundColor = .white // yellow
         cell.titleBottomLabel.text = nameCombineArray[indexPath.item]
         cell.linkLabel.text = linkArray[indexPath.item]
+        cell.postImageView.sd_setImage(with: URL(string: self.timeArray[indexPath.item]))
         //            if indexPath.row == 0{
         //                cell.titleBottomLabel.text = "H&M"
         //            }

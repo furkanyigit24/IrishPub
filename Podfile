@@ -7,7 +7,7 @@ target 'FashionLine' do
 
   # Pods for FashionLine
   pod 'IQKeyboardManagerSwift'
-
+  pod 'SDWebImage', '~> 5.0'
   # add the Firebase pod for Google Analytics
   pod 'Firebase/Analytics'
   pod 'Firebase/Auth'

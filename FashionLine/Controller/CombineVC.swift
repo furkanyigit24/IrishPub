@@ -10,7 +10,9 @@ import UIKit
 import Firebase
 
 class CombineVC: UIViewController {
-
+    
+    var userName: String = ""
+    
     let fashionLineNameLabel: UILabel = {
         let rn = UILabel()
         rn.numberOfLines = 0
@@ -22,7 +24,6 @@ class CombineVC: UIViewController {
     let welcomeLabel: UILabel = {
         let rn = UILabel()
         rn.numberOfLines = 0
-        rn.text = "Merhaba"
         rn.font = UIFont.init(name: "SFProDisplay-Regular", size: 34)
         rn.textColor = UIColor(hexString: "#000000")
         return rn
@@ -67,17 +68,6 @@ class CombineVC: UIViewController {
         pp.layer.borderColor = UIColor(hexString: "#707070").cgColor
         pp.layer.borderWidth = 1
         pp.backgroundColor = UIColor(hexString: "#FFFFFF")
-        return pp
-    }()
-    let imageButton: UIButton = {
-        let pp = UIButton(type: .system)
-        pp.setImage(UIImage(named: "artistImage")?.withRenderingMode(.alwaysOriginal), for: .normal)
-        return pp
-    }()
-    let artistLabel: UILabel = {
-        let pp = UILabel()
-        pp.font = UIFont.init(name: "SFProDisplay-Regular", size: 13)
-        pp.text = "Stil Mentorları"
         return pp
     }()
     let signedUpMainMessage: UILabel = {
@@ -165,6 +155,19 @@ class CombineVC: UIViewController {
                             print("Default")
                         }
                     }
+                    if key == "KişiselBilgiler" {
+                        guard let stringKey = value as? [String:String] else { return }
+                        for (key,value) in stringKey {
+                            guard let name = key as? String else { return }
+                            switch name {
+                            case "Ad":
+                                print(value)
+                                self.userName = value
+                            default:
+                                print("Default")
+                            }
+                        }
+                    }
                 }
                 self.reloadInputViews()
         }
@@ -178,18 +181,13 @@ class CombineVC: UIViewController {
         fashionLineNameLabel.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 82, paddingLeft: 25, paddingBottom: 0, paddingRight: 157, width: 0, height: 0)
         view.addSubview(horizontalLine1)
         horizontalLine1.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 126.5, paddingLeft: 23.5, paddingBottom: 0, paddingRight: 23.5, width: 0, height: 1)
-        // Image button
-        view.addSubview(imageButton)
-        imageButton.anchor(top: horizontalLine1.bottomAnchor, left: nil, bottom: nil, right: view.rightAnchor, paddingTop: 38.5, paddingLeft: 0, paddingBottom: 0, paddingRight: 26, width: 59, height: 65)
-        // Artist label
-        view.addSubview(artistLabel)
-        artistLabel.anchor(top: imageButton.bottomAnchor, left: nil, bottom: nil, right: view.rightAnchor, paddingTop: 5, paddingLeft: 0, paddingBottom: 0, paddingRight: 26, width: 0, height: 0)
         // Welcome Label
         view.addSubview(welcomeLabel)
-        welcomeLabel.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: nil, right: nil, paddingTop: 149, paddingLeft: 30.5, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
+        welcomeLabel.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 149, paddingLeft: 30.5, paddingBottom: 0, paddingRight: 10, width: 0, height: 0)
+        welcomeLabel.text = "Merhaba \(userName) :)"
         // Email Label
         view.addSubview(toWhereTextField)
-        toWhereTextField.anchor(top: artistLabel.bottomAnchor, left: view.leftAnchor, bottom: nil, right: nil, paddingTop: 60, paddingLeft: 1, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
+        toWhereTextField.anchor(top: welcomeLabel.bottomAnchor, left: view.leftAnchor, bottom: nil, right: nil, paddingTop: 60, paddingLeft: 1, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
         view.addSubview(horizontalLine2)
         horizontalLine2.anchor(top: toWhereTextField.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 2.5, paddingLeft: 1, paddingBottom: 0, paddingRight: 1, width: 0, height: 1)
         // Name Label
@@ -222,8 +220,6 @@ class CombineVC: UIViewController {
         horizontalLine4.removeFromSuperview()
         combineTextField.removeFromSuperview()
         horizontalLine3.removeFromSuperview()
-        imageButton.removeFromSuperview()
-        artistLabel.removeFromSuperview()
         welcomeLabel.removeFromSuperview()
         toWhereTextField.removeFromSuperview()
         horizontalLine2.removeFromSuperview()

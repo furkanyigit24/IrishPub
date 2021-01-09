@@ -13,6 +13,8 @@ private let reuseIdentifier = "Cell"
 private let feedHeader = "FeedHeader"
 
 class FeedVC: UICollectionViewController, UICollectionViewDelegateFlowLayout, UITabBarControllerDelegate {
+    
+    var transferredValue: String?
     var bottomTitle = Users.sharedInstance
     
     override func viewWillAppear(_ animated: Bool) {
@@ -25,7 +27,8 @@ class FeedVC: UICollectionViewController, UICollectionViewDelegateFlowLayout, UI
         collectionView.backgroundColor = .white
         navigationController?.navigationBar.isHidden = true
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Log Out", style: .plain, target: self, action: #selector(handleLogut))
-        
+        let delegate = FeedCell()
+        delegate.transferDelegate = self
         // Do any additional setup after loading the view.
     }
     @objc func handleLogut() {
@@ -108,6 +111,7 @@ class FeedVC: UICollectionViewController, UICollectionViewDelegateFlowLayout, UI
         // Configure the cell
         if indexPath.row == 0 {
             cell.titleLabel.text = "Kombin Önerilerim"
+            cell.delegate = self
             return cell
         }
         else if indexPath.row == 1 {
@@ -130,7 +134,23 @@ class FeedVC: UICollectionViewController, UICollectionViewDelegateFlowLayout, UI
         return header
     }
 }
-extension FeedVC: FeedHeaderCellDelegate {
+extension FeedVC: FeedHeaderCellDelegate, CombinesSuggestionsHeaderTDelegate, TransferDelegate{
+    
+    func transferValueOfRequest(request: String) {
+        transferredValue = request
+    }
+    
+    func handleHeaderCellTapped(for cell: FeedCell) {
+        print("header delegated")
+        switch transferredValue {
+        case "requested":
+            let combineDetailVC = CombineDetailVC()
+            navigationController?.pushViewController(combineDetailVC, animated: true)
+        default:
+            print("Default")
+        }
+    }
+    
     func handleProfilePicTapped(for cell: FeedHeaderCell) {
         let profileVC = WardrobeVC()
         navigationController?.pushViewController(profileVC, animated: true)

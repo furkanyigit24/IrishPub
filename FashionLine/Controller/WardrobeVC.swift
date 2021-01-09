@@ -8,7 +8,6 @@
 
 import UIKit
 import Firebase
-var flag: String?
 class WardrobeVC: UIViewController {
     // MARK: - Properties
     lazy var contentViewSize = CGSize(width: self.view.frame.width, height: 1.2 * self.view.frame.height)
@@ -30,7 +29,7 @@ class WardrobeVC: UIViewController {
         return view
     }()
     
-    let signUpButton: UIButton = {
+    let refreshButton: UIButton = {
         let pp = UIButton(type: .system)
         pp.setTitle("Güncelle", for: .normal)
         pp.titleLabel?.font = UIFont.init(name: "SFProText-Regular", size: 17)
@@ -40,48 +39,15 @@ class WardrobeVC: UIViewController {
         pp.backgroundColor = UIColor(hexString: "#FFFFFF")
         return pp
     }()
-    let signInButton: UIButton = {
+    let logOutButton: UIButton = {
         let pp = UIButton(type: .system)
-        pp.setTitle("Sil", for: .normal)
+        pp.setTitle("Çıkış yap", for: .normal)
         pp.titleLabel?.font = UIFont.init(name: "SFProText-Regular", size: 17)
         pp.setTitleColor(UIColor(hexString: "#E61515"), for: UIControl.State.normal)
         pp.layer.borderColor = UIColor(hexString: "#707070").cgColor
         pp.layer.borderWidth = 1
         pp.backgroundColor = UIColor(hexString: "#FFFFFF")
         return pp
-    }()
-    let quickLabel: UILabel = {
-        let rn = UILabel()
-        rn.numberOfLines = 0
-        rn.text = "Oylamaya sunduğunuz kombininiz 24 saat sonra otomatik olarak silinir"
-        rn.font = UIFont.init(name: "SFProDisplay-RegularItalic", size: 15)
-        rn.textColor = UIColor(hexString: "#707070")
-        return rn
-    }()
-    let userNameLabel: UILabel = {
-        let tf = UILabel()
-        tf.text = "Ashley"
-        tf.backgroundColor = UIColor(white: 0, alpha: 0.0)
-        tf.font = UIFont.init(name: "SFProText-MediumItalic-SemiBold", size: 14)
-        tf.textColor = UIColor(hexString: "#000000")
-        return tf
-    }()
-    let conceptLabel: UILabel = {
-        let tf = UILabel()
-        tf.text = "Bir akşam yemeğine davetliyim. 3 Kız bu yemeğe gidiyoruz."
-        tf.numberOfLines = 0
-        tf.backgroundColor = UIColor(white: 0, alpha: 0.0)
-        tf.font = UIFont.init(name: "SFProText-Regular", size: 14)
-        tf.textColor = UIColor(hexString: "#707070")
-        return tf
-    }()
-    let pointLabel: UILabel = {
-        let tf = UILabel()
-        tf.text = "Puanın: 8.8"
-        tf.numberOfLines = 1
-        tf.font = UIFont.init(name: "SFProText-Bold", size: 14)
-        tf.textColor = UIColor(hexString: "#000000")
-        return tf
     }()
     let fashionLineNameLabel: UILabel = {
         let rn = UILabel()
@@ -91,11 +57,12 @@ class WardrobeVC: UIViewController {
         rn.textColor = UIColor(hexString: "#E61515", alpha: 0.82)
         return rn
     }()
-    let welcomeLabel: UILabel = {
+    let supportLabel: UILabel = {
         let rn = UILabel()
         rn.numberOfLines = 0
-        rn.text = "Yorumlardaki Güncel Kombinim"
-        rn.font = UIFont.init(name: "SFProDisplay-Regular", size: 34)
+        rn.text = "destek@aloha-labs.com"
+        rn.textAlignment = .center
+        rn.font = UIFont.init(name: "SFProDisplay-Regular", size: 20)
         rn.textColor = UIColor(hexString: "#000000")
         return rn
     }()
@@ -162,21 +129,6 @@ class WardrobeVC: UIViewController {
         tf.backgroundColor = UIColor(white: 0, alpha: 0.0)
         tf.font = UIFont.init(name: "SFProText-MediumItalic", size: 14)
         return tf
-    }()
-    lazy var profileImageView: CustomImageView = {
-        let iv = CustomImageView()
-        iv.contentMode = .scaleAspectFill
-        iv.clipsToBounds = true
-        iv.backgroundColor = .lightGray
-        iv.layer.cornerRadius = 22.5
-        iv.clipsToBounds = true
-        
-        return iv
-    }()
-    let profilePicture: UIButton = {
-        let pp = UIButton(type: .system)
-        pp.setImage(UIImage(named: "profilePicture")?.withRenderingMode(.alwaysOriginal), for: .normal)
-        return pp
     }()
     let horizontalLine1: UIView = {
         let hl = UIView()
@@ -254,41 +206,9 @@ class WardrobeVC: UIViewController {
         fashionLineNameLabel.anchor(top: containerView.topAnchor, left: containerView.leftAnchor, bottom: nil, right: containerView.rightAnchor, paddingTop: 82, paddingLeft: 25, paddingBottom: 0, paddingRight: 157, width: 0, height: 0)
         containerView.addSubview(horizontalLine1)
         horizontalLine1.anchor(top: containerView.topAnchor, left: containerView.leftAnchor, bottom: nil, right: containerView.rightAnchor, paddingTop: 126.5, paddingLeft: 23.5, paddingBottom: 0, paddingRight: 23.5, width: 0, height: 1)
-        // Logout label
-        containerView.addSubview(profilePicture)
-        profilePicture.anchor(top: nil, left: nil, bottom: horizontalLine1.bottomAnchor, right: containerView.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 9.5, paddingRight: 24, width: 30, height: 30)
-        profilePicture.layer.cornerRadius = 15
-        profilePicture.addTarget(self, action: #selector(handleLogutTapped), for: .touchUpInside)
-        // Welcome Label
-        containerView.addSubview(welcomeLabel)
-        welcomeLabel.anchor(top: containerView.topAnchor, left: containerView.leftAnchor, bottom: nil, right: containerView.rightAnchor, paddingTop: 130, paddingLeft: 15, paddingBottom: 0, paddingRight: 77.5, width: 0, height: 0)
-        // Quick Label
-        containerView.addSubview(quickLabel)
-        quickLabel.anchor(top: welcomeLabel.bottomAnchor, left: containerView.leftAnchor, bottom: nil, right: containerView.rightAnchor, paddingTop: 5, paddingLeft: 15, paddingBottom: 0, paddingRight: 105, width: 0, height: 0)
-        // Profile Image View
-        containerView.addSubview(profileImageView)
-        profileImageView.anchor(top: quickLabel.bottomAnchor, left: containerView.leftAnchor, bottom: nil, right: nil, paddingTop: 15, paddingLeft: 26, paddingBottom: 0, paddingRight: 0, width: 45, height: 45)
-        // Name & Concept & Point
-        containerView.addSubview(userNameLabel)
-        userNameLabel.anchor(top: quickLabel.bottomAnchor, left: profileImageView.rightAnchor, bottom: nil, right: nil, paddingTop: 8, paddingLeft: 12, paddingBottom: 0, paddingRight: 99.5, width: 0, height: 0)
-        //        containerView.addSubview(horizontalLine9)
-        //        horizontalLine9.anchor(top: userNameLabel.bottomAnchor, left: containerView.leftAnchor, bottom: nil, right: containerView.rightAnchor, paddingTop: 2.5, paddingLeft: 55.5, paddingBottom: 0, paddingRight: 99.5, width: 0, height: 1)
-        containerView.addSubview(conceptLabel)
-        conceptLabel.anchor(top: userNameLabel.bottomAnchor, left: profileImageView.rightAnchor, bottom: nil, right: containerView.rightAnchor, paddingTop: 2, paddingLeft: 12, paddingBottom: 0, paddingRight: 37, width: 217, height: 39)
-        containerView.addSubview(pointLabel)
-        pointLabel.anchor(top: conceptLabel.bottomAnchor, left: containerView.leftAnchor, bottom: nil, right: nil, paddingTop: 2, paddingLeft: 83, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
-        //        containerView.addSubview(horizontalLine10)
-        //        horizontalLine10.anchor(top: conceptLabel.bottomAnchor, left: containerView.leftAnchor, bottom: nil, right: containerView.rightAnchor, paddingTop: 2.5, paddingLeft: 55.5, paddingBottom: 0, paddingRight: 99.5, width: 0, height: 1)
-        
-        // SignIn Button
-        containerView.addSubview(signInButton)
-        signInButton.anchor(top: pointLabel.bottomAnchor, left: nil, bottom: nil, right: nil, paddingTop: 18.5, paddingLeft: 38, paddingBottom: 0, paddingRight: 57, width: 185, height: 28)
-        signInButton.centerXAnchor.constraint(equalTo: containerView.centerXAnchor).isActive = true
-        signInButton.layer.cornerRadius = 14
-        signInButton.addTarget(self, action: #selector(deleteTapped), for: .touchUpInside)
         // Get membership now
         containerView.addSubview(getMembershipNow)
-        getMembershipNow.anchor(top: signInButton.bottomAnchor, left: containerView.leftAnchor, bottom: nil, right: containerView.rightAnchor, paddingTop: 40, paddingLeft: 38, paddingBottom: 0, paddingRight: 54, width: 0, height: 0)
+        getMembershipNow.anchor(top: fashionLineNameLabel.bottomAnchor, left: containerView.leftAnchor, bottom: nil, right: containerView.rightAnchor, paddingTop: 40, paddingLeft: 38, paddingBottom: 0, paddingRight: 54, width: 0, height: 0)
         // Name Label
         containerView.addSubview(nameTextField)
         nameTextField.anchor(top: getMembershipNow.bottomAnchor, left: containerView.leftAnchor, bottom: nil, right: nil, paddingTop: 5, paddingLeft: 55.5, paddingBottom: 0, paddingRight: 99.5, width: 0, height: 0)
@@ -319,17 +239,27 @@ class WardrobeVC: UIViewController {
         styleTextField.anchor(top: horizontalLine7.bottomAnchor, left: containerView.leftAnchor, bottom: nil, right: nil, paddingTop: 7.5, paddingLeft: 55.5, paddingBottom: 0, paddingRight: 99.5, width: 0, height: 0)
         containerView.addSubview(horizontalLine8)
         horizontalLine8.anchor(top: styleTextField.bottomAnchor, left: containerView.leftAnchor, bottom: nil, right: containerView.rightAnchor, paddingTop: 2.5, paddingLeft: 55.5, paddingBottom: 0, paddingRight: 99.5, width: 0, height: 1)
-        //SignUp Button
-        containerView.addSubview(signUpButton)
-        signUpButton.anchor(top: horizontalLine8.bottomAnchor, left: nil, bottom: nil, right: nil, paddingTop: 30, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 185, height: 28)
-        signUpButton.centerXAnchor.constraint(equalTo: containerView.centerXAnchor).isActive = true
-        signUpButton.layer.cornerRadius = 14
-        signUpButton.addTarget(self, action: #selector(refreshTapped), for: .touchUpInside)
+        //Refresh Button
+        containerView.addSubview(refreshButton)
+        refreshButton.anchor(top: horizontalLine8.bottomAnchor, left: nil, bottom: nil, right: nil, paddingTop: 30, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 185, height: 28)
+        refreshButton.centerXAnchor.constraint(equalTo: containerView.centerXAnchor).isActive = true
+        refreshButton.layer.cornerRadius = 14
+        refreshButton.addTarget(self, action: #selector(refreshTapped), for: .touchUpInside)
+        // Logout Button
+        containerView.addSubview(logOutButton)
+        logOutButton.anchor(top: refreshButton.bottomAnchor, left: nil, bottom: nil, right: nil, paddingTop: 20, paddingLeft: 38, paddingBottom: 0, paddingRight: 57, width: 185, height: 28)
+        logOutButton.centerXAnchor.constraint(equalTo: containerView.centerXAnchor).isActive = true
+        logOutButton.layer.cornerRadius = 14
+        logOutButton.addTarget(self, action: #selector(handleLogutTapped), for: .touchUpInside)
+        // Supoort Label
+        containerView.addSubview(supportLabel)
+        supportLabel.anchor(top: logOutButton.bottomAnchor, left: nil, bottom: nil, right: nil, paddingTop: 50, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 28)
+        supportLabel.centerXAnchor.constraint(equalTo: containerView.centerXAnchor).isActive = true
     }
     // MARK: - Handle Operations
     @objc func handleLogutTapped(){
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        alertController.addAction(UIAlertAction(title: "Log Out", style: .destructive, handler: { (_) in
+        alertController.addAction(UIAlertAction(title: "Çıkış Yap", style: .destructive, handler: { (_) in
             do {
                 try Auth.auth().signOut()
                 let loginVC = LoginVC()
@@ -342,7 +272,7 @@ class WardrobeVC: UIViewController {
             }
         }))
         
-        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alertController.addAction(UIAlertAction(title: "İptal", style: .cancel, handler: nil))
         present(alertController, animated: true, completion: nil)
     }
     @objc func refreshTapped(){
@@ -388,10 +318,5 @@ class WardrobeVC: UIViewController {
         else {
             makeAlert(titleInput: "Hata", messageInput: "Tüm bilgileri doldurmalısın :)")
         }
-    }
-    @objc func deleteTapped(){
-        
-        // Remove
-        
     }
 }

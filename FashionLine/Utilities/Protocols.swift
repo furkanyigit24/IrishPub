@@ -14,3 +14,12 @@ protocol FeedHeaderCellDelegate{
 protocol SubCustomCellDelegate{
     func handleCellTapped(for cell: SubCustomCell)
 }
+protocol CombinesSuggestionsHeaderTDelegate{
+    func handleHeaderCellTapped(for cell: FeedCell)
+}
+protocol CombineDetailCellDelegate{
+    func handleCellTapped(for cell: CombineDetailCell)
+}
+protocol CombinesOfDayDelegate {
+    func handleCellTapped(for cell: CombinesSubCustomCell)
+}
