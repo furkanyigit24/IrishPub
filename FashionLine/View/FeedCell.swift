@@ -70,6 +70,19 @@ class FeedCell: UICollectionViewCell, UICollectionViewDataSource, UICollectionVi
         lb.translatesAutoresizingMaskIntoConstraints = false
         return lb
     }()
+    let detailsButton: UIButton = {
+        let button = UIButton(type: .system)
+        let attributedTitle = NSMutableAttributedString(string: "Ayrıntılar >", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14), NSAttributedString.Key.foregroundColor: UIColor.lightGray])
+        
+//        let imageAttachment = NSTextAttachment()
+//        imageAttachment.image = UIImage(named: "right_arrow_shadow")
+//        let imageString = NSAttributedString( attachment: imageAttachment)
+
+//        attributedTitle.append(imageString)
+        button.setAttributedTitle(attributedTitle, for: .normal)
+        
+        return button
+    }()
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.snapshotListener()
@@ -176,6 +189,7 @@ class FeedCell: UICollectionViewCell, UICollectionViewDataSource, UICollectionVi
     fileprivate func pendingRequest() {
         combineNotificationLabel.isHidden = true
         collectionView.removeFromSuperview()
+        detailsButton.removeFromSuperview()
         addSubview(titleLabel)
         titleLabel.anchor(top: topAnchor, left: leftAnchor, bottom: nil, right: nil, paddingTop: 0, paddingLeft: 2, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
         addSubview(combineNotificationLabelNotSentYet)
@@ -192,6 +206,7 @@ class FeedCell: UICollectionViewCell, UICollectionViewDataSource, UICollectionVi
     fileprivate func NotSentRequest() {
         combineNotificationLabel.isHidden = true
         collectionView.removeFromSuperview()
+        detailsButton.removeFromSuperview()
         addSubview(titleLabel)
         titleLabel.anchor(top: topAnchor, left: leftAnchor, bottom: nil, right: nil, paddingTop: 0, paddingLeft: 2, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
         addSubview(combineNotificationLabelNotSentYet)
@@ -225,14 +240,21 @@ class FeedCell: UICollectionViewCell, UICollectionViewDataSource, UICollectionVi
         combineNotificationLabel.isUserInteractionEnabled = true
         let tappedHeader: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleHeaderTapped))
         let tappedNotificationHeader: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleNotificationHeaderTapped))
-            titleLabel.addGestureRecognizer(tappedHeader)
+        titleLabel.addGestureRecognizer(tappedHeader)
         combineNotificationLabel.addGestureRecognizer(tappedNotificationHeader)
+        // Details
+        addSubview(detailsButton)
+        detailsButton.anchor(top: topAnchor, left: nil, bottom: nil, right: rightAnchor, paddingTop: 20, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 10)
+        detailsButton.addTarget(self, action: #selector(handleDetailHeaderTapped), for: .touchUpInside)
     }
     // MARK: -- Handling Operations
     @objc func handleHeaderTapped() {
         delegate?.handleHeaderCellTapped(for: self)
     }
     @objc func handleNotificationHeaderTapped() {
+        delegate?.handleHeaderCellTapped(for: self)
+    }
+    @objc func handleDetailHeaderTapped() {
         delegate?.handleHeaderCellTapped(for: self)
     }
     

@@ -301,7 +301,6 @@ class WardrobeVC: UIViewController {
                 "Saati": nameTextField.text,
                 "StilistYorumu": nameTextField.text
             ],
-            "Request": "notRequested"
         ]
         
         if nameLabel != "" && heightLabel != "" && sexLabel != "" && weightLabel != "" && styleLabel != "" && ageLabel != ""{

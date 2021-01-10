@@ -33,8 +33,8 @@ class MainVC: UITabBarController, UITabBarControllerDelegate {
         let feedVC = constructNavController(unselectedImage: darkStarImage, selectedImage:
             redStarImage, rootViewController: FeedVC(collectionViewLayout: UICollectionViewFlowLayout()))
         // search feed controller
-        guard let darkAddButtonImage = UIImage(named: "darkAddButton")?.withRenderingMode(.alwaysOriginal) else { return }
-        guard let redAddButtonImage = UIImage(named: "redAddButton")?.withRenderingMode(.alwaysOriginal) else { return }
+        guard let darkAddButtonImage = UIImage(named: "TabBarCombine")?.withRenderingMode(.alwaysOriginal) else { return }
+        guard let redAddButtonImage = UIImage(named: "TabBarCombineRed")?.withRenderingMode(.alwaysOriginal) else { return }
         let combineVC = constructNavController(unselectedImage: darkAddButtonImage, selectedImage: redAddButtonImage, rootViewController: CombineVC())
         // view controllers to be added to tab controller
         viewControllers = [feedVC, combineVC]
