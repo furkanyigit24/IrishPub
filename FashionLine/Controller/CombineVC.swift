@@ -183,8 +183,8 @@ class CombineVC: UIViewController {
         horizontalLine1.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 126.5, paddingLeft: 23.5, paddingBottom: 0, paddingRight: 23.5, width: 0, height: 1)
         // Welcome Label
         view.addSubview(welcomeLabel)
-        welcomeLabel.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 149, paddingLeft: 30.5, paddingBottom: 0, paddingRight: 10, width: 0, height: 0)
-        welcomeLabel.text = "Merhaba \(userName) :)"
+        welcomeLabel.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 149, paddingLeft: 25, paddingBottom: 0, paddingRight: 10, width: 0, height: 0)
+        welcomeLabel.text = "Merhaba \(userName)"
         // Email Label
         view.addSubview(toWhereTextField)
         toWhereTextField.anchor(top: welcomeLabel.bottomAnchor, left: view.leftAnchor, bottom: nil, right: nil, paddingTop: 60, paddingLeft: 1, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
@@ -281,6 +281,10 @@ class CombineVC: UIViewController {
                 }
             }
             _ = self.navigationController?.popViewController(animated: true)
+            toWhereTextField.text = ""
+            timeTextField.text = ""
+            combineTextField.text = ""
+            noteTextField.text = ""
         }
         else {
             makeAlert(titleInput: "Hata", messageInput: "Tüm bilgileri doldurmalısın :)")
