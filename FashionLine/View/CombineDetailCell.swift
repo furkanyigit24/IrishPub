@@ -20,6 +20,15 @@ class CombineDetailCell: UITableViewCell {
         
         return iv
     }()
+    let titleLabel: UILabel = {
+        let lb  = UILabel()
+        lb.textAlignment = .left
+        lb.numberOfLines = 0
+        lb.font = UIFont.boldSystemFont(ofSize: 12)
+        lb.font = UIFont.boldSystemFont(ofSize: 12)
+        lb.translatesAutoresizingMaskIntoConstraints = false
+        return lb
+    }()
     let subTitleLabel: UILabel = {
         let lb  = UILabel()
         lb.textAlignment = .left
@@ -45,8 +54,11 @@ class CombineDetailCell: UITableViewCell {
         postImageView.layer.cornerRadius = 20
         postImageView.clipsToBounds = true
         
+        contentView.addSubview(titleLabel)
+        titleLabel.anchor(top: topAnchor, left: postImageView.rightAnchor, bottom: nil, right: rightAnchor, paddingTop: 26, paddingLeft: 12, paddingBottom: 0, paddingRight: 37, width: 0, height: 0)
+        
         contentView.addSubview(subTitleLabel)
-        subTitleLabel.anchor(top: topAnchor, left: postImageView.rightAnchor, bottom: nil, right: rightAnchor, paddingTop: 5, paddingLeft: 12, paddingBottom: 0, paddingRight: 37, width: 0, height: 120)
+        subTitleLabel.anchor(top: titleLabel.bottomAnchor, left: postImageView.rightAnchor, bottom: nil, right: rightAnchor, paddingTop: 5, paddingLeft: 12, paddingBottom: 0, paddingRight: 37, width: 0, height: 0)
         // Gesture Recognizer for cell
         let tappedCell: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleCellTapped))
         self.addGestureRecognizer(tappedCell)

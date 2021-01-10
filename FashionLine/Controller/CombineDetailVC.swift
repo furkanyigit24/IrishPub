@@ -111,6 +111,7 @@ class CombineDetailVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: combineDetailCell, for: indexPath) as! CombineDetailCell
         
+        cell.titleLabel.text = nameCombineArray[indexPath.item]
         cell.subTitleLabel.text = stylerCommentArray[indexPath.item]
         cell.postImageView.sd_setImage(with: URL(string: self.timeArray[indexPath.item]))
         cell.linkLabel.text = linkArray[indexPath.item]
