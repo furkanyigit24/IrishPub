@@ -97,7 +97,7 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     }()
     let signUpButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Sign Up", for: .normal)
+        button.setTitle("Giriş Yap", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = UIColor(hexString: "#B4F4BB")
         button.layer.cornerRadius = 5
