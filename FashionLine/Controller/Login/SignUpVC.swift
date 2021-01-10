@@ -225,7 +225,10 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
                             print("Document successfully written!")
                         }
                     }
-                    _ = self.navigationController?.popViewController(animated: true)
+                    guard let mainTabVC = UIApplication.shared.keyWindow?.rootViewController as? MainVC else { return }
+                
+                    mainTabVC.configureViewControllers()
+                    self.dismiss(animated: true, completion: nil)
                 }
             }
         }
