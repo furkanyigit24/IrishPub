@@ -25,3 +25,17 @@ class Users{
     var ageArray = [String]()
     var passwordArray = [String]()
 }
+class Admin {
+    static let sharedInstance = Admin()
+    var userName:String?
+    var height: String?
+    var weight: String?
+    var sex: String?
+    var email: String?
+    var style: String?
+    var age: String?
+    var toWhere: String?
+    var time: String?
+    var styleRequest: String?
+    var note: String?
+}

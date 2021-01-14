@@ -23,6 +23,10 @@
 		DC799A1925AA01E40037E9B1 /* CombineDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC799A1825AA01E40037E9B1 /* CombineDetailVC.swift */; };
 		DC799A1B25AA021F0037E9B1 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC799A1A25AA021F0037E9B1 /* HeaderView.swift */; };
 		DC799A1D25AA02560037E9B1 /* CombineDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC799A1C25AA02560037E9B1 /* CombineDetailCell.swift */; };
+		DC799A2025AB310E0037E9B1 /* AdminVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC799A1F25AB310E0037E9B1 /* AdminVC.swift */; };
+		DC799A2325AB33EB0037E9B1 /* AdminCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC799A2225AB33EB0037E9B1 /* AdminCell.swift */; };
+		DC799A2525AB4AC60037E9B1 /* AdminDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC799A2425AB4AC60037E9B1 /* AdminDetailVC.swift */; };
+		DC799A2725ADB66B0037E9B1 /* CombineDesignVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC799A2625ADB66B0037E9B1 /* CombineDesignVC.swift */; };
 		DCA10F0C2592761700DD22DD /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCA10F0B2592761700DD22DD /* Protocols.swift */; };
 		DCA10F0E25934D1100DD22DD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DCA10F0D25934D0F00DD22DD /* GoogleService-Info.plist */; };
 		DCB5B9ED25A46E230079BEB0 /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCB5B9EC25A46E230079BEB0 /* SignUpVC.swift */; };
@@ -156,6 +160,10 @@
 		DC799A1825AA01E40037E9B1 /* CombineDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineDetailVC.swift; sourceTree = "<group>"; };
 		DC799A1A25AA021F0037E9B1 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		DC799A1C25AA02560037E9B1 /* CombineDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineDetailCell.swift; sourceTree = "<group>"; };
+		DC799A1F25AB310E0037E9B1 /* AdminVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminVC.swift; sourceTree = "<group>"; };
+		DC799A2225AB33EB0037E9B1 /* AdminCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminCell.swift; sourceTree = "<group>"; };
+		DC799A2425AB4AC60037E9B1 /* AdminDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminDetailVC.swift; sourceTree = "<group>"; };
+		DC799A2625ADB66B0037E9B1 /* CombineDesignVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineDesignVC.swift; sourceTree = "<group>"; };
 		DCA10F0B2592761700DD22DD /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		DCA10F0D25934D0F00DD22DD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DCB5B9EC25A46E230079BEB0 /* SignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
@@ -232,6 +240,7 @@
 		DC101661249121D0000B4D81 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				DC799A2125AB33D10037E9B1 /* AdminView */,
 				DC10166624927C2C000B4D81 /* FeedHeaderCell.swift */,
 				DC10166224912231000B4D81 /* FeedCell.swift */,
 				DC10166824951A7B000B4D81 /* SubCustomCell.swift */,
@@ -330,6 +339,24 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
+		DC799A1E25AB30920037E9B1 /* AdminController */ = {
+			isa = PBXGroup;
+			children = (
+				DC799A1F25AB310E0037E9B1 /* AdminVC.swift */,
+				DC799A2425AB4AC60037E9B1 /* AdminDetailVC.swift */,
+				DC799A2625ADB66B0037E9B1 /* CombineDesignVC.swift */,
+			);
+			path = AdminController;
+			sourceTree = "<group>";
+		};
+		DC799A2125AB33D10037E9B1 /* AdminView */ = {
+			isa = PBXGroup;
+			children = (
+				DC799A2225AB33EB0037E9B1 /* AdminCell.swift */,
+			);
+			path = AdminView;
+			sourceTree = "<group>";
+		};
 		DCCD056D248BCFC400105231 = {
 			isa = PBXGroup;
 			children = (
@@ -372,6 +399,7 @@
 		DCCD05A9248BE52A00105231 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				DC799A1E25AB30920037E9B1 /* AdminController */,
 				DCCD05AE248BF40000105231 /* Login */,
 				DCCD05B1248BFA5E00105231 /* MainVC.swift */,
 				DCCD05B6248EB1B000105231 /* FeedVC.swift */,
@@ -661,15 +689,19 @@
 				DC10166324912231000B4D81 /* FeedCell.swift in Sources */,
 				DCCD057E248BCFC400105231 /* ViewController.swift in Sources */,
 				DC799A1B25AA021F0037E9B1 /* HeaderView.swift in Sources */,
+				DC799A2025AB310E0037E9B1 /* AdminVC.swift in Sources */,
 				DCCD05B7248EB1B000105231 /* FeedVC.swift in Sources */,
 				DC799A1925AA01E40037E9B1 /* CombineDetailVC.swift in Sources */,
 				DCCD05B5248E9D5300105231 /* Extensions.swift in Sources */,
 				DCFA33522594D3C600680B23 /* Users.swift in Sources */,
 				DC10166B24957A2B000B4D81 /* CombinesOfDay.swift in Sources */,
 				DCCD05B2248BFA5E00105231 /* MainVC.swift in Sources */,
+				DC799A2525AB4AC60037E9B1 /* AdminDetailVC.swift in Sources */,
 				DCCD05BB248EB2FB00105231 /* WardrobeVC.swift in Sources */,
+				DC799A2725ADB66B0037E9B1 /* CombineDesignVC.swift in Sources */,
 				DC799A1D25AA02560037E9B1 /* CombineDetailCell.swift in Sources */,
 				DC101665249125F2000B4D81 /* CustomImageView.swift in Sources */,
+				DC799A2325AB33EB0037E9B1 /* AdminCell.swift in Sources */,
 				DCCD057A248BCFC400105231 /* AppDelegate.swift in Sources */,
 				DCCD05B0248BF42500105231 /* LoginVC.swift in Sources */,
 				DCCD057C248BCFC400105231 /* SceneDelegate.swift in Sources */,
@@ -837,13 +869,15 @@
 			baseConfigurationReference = 67C64BA1FE6F2D2DF4802C76 /* Pods-FashionLine.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6Y3VCWC9N3;
 				INFOPLIST_FILE = FashionLine/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = FashionLineLabs.FashionLine;
+				PRODUCT_BUNDLE_IDENTIFIER = FashionLineLabs.FashionLine.FurkanYigitAkyildiz;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -855,13 +889,15 @@
 			baseConfigurationReference = 43841F17F90B225AF78DD743 /* Pods-FashionLine.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6Y3VCWC9N3;
 				INFOPLIST_FILE = FashionLine/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = FashionLineLabs.FashionLine;
+				PRODUCT_BUNDLE_IDENTIFIER = FashionLineLabs.FashionLine.FurkanYigitAkyildiz;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -875,6 +911,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6Y3VCWC9N3;
 				INFOPLIST_FILE = FashionLineTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -897,6 +934,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6Y3VCWC9N3;
 				INFOPLIST_FILE = FashionLineTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -918,6 +956,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6Y3VCWC9N3;
 				INFOPLIST_FILE = FashionLineUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -938,6 +977,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6Y3VCWC9N3;
 				INFOPLIST_FILE = FashionLineUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

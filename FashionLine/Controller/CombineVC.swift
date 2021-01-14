@@ -248,29 +248,15 @@ class CombineVC: UIViewController {
         let db = Firestore.firestore()
         let uuidDocument = UUID().uuidString
         
-        let userData: [String: Any] =  [ "Combines": [
-        "1.kombin": [
-        "Ad": toWhereLabel,
+        let userData: [String: Any] =  [
+        "Kombin": [
+        "Adı": toWhereLabel,
         "Linki": timeLabel,
         "Saati": combineLabel,
         "StilistYorumu": noteLabel
         ],
-        "2.kombin": [
-        "Ad": "",
-        "Linki": "",
-        "Saati": "",
-        "StilistYorumu": ""
-        ],
-        "3.kombin": [
-        "Ad": "",
-        "Linki": "",
-        "Saati": "",
-        "StilistYorumu": ""
-        ],
-        ],
         "Request": "pendingRequest"
         ]
-        
         if toWhereLabel != "" && timeLabel != "" && combineLabel != "" && noteLabel != ""{
             
             db.collection("Kullanıcılar").document("\(Auth.auth().currentUser!.email!.uppercased())").setData(userData, merge: true) { err in

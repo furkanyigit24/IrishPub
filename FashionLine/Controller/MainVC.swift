@@ -18,13 +18,35 @@ class MainVC: UITabBarController, UITabBarControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.delegate = self
+        if Auth.auth().currentUser?.email == "FORDMUSTANG@HOTMAIL.COM"{
+            // home feed controller
+            guard let darkStarImage = UIImage(named: "darkStar")?.withRenderingMode(.alwaysOriginal) else { return }
+            guard let redStarImage = UIImage(named: "redStar")?.withRenderingMode(.alwaysOriginal) else { return }
+            
+            let feedVC = constructNavController(unselectedImage: darkStarImage, selectedImage:
+            redStarImage, rootViewController: FeedVC(collectionViewLayout: UICollectionViewFlowLayout()))
+            
+            viewControllers = [feedVC]
+            
+        }else{
         configureViewControllers()
         // user validation
         checkIfUserIsLoggedIn()
         self.selectedIndex = 0
+        }
     }
     
     func configureViewControllers() {
+        if Auth.auth().currentUser?.email?.uppercased() == "FORDMUSTANG@HOTMAIL.COM"{
+            // home feed controller
+            guard let darkStarImage = UIImage(named: "darkStar")?.withRenderingMode(.alwaysOriginal) else { return }
+            guard let redStarImage = UIImage(named: "redStar")?.withRenderingMode(.alwaysOriginal) else { return }
+            
+            let feedVC = constructNavController(unselectedImage: darkStarImage, selectedImage: redStarImage, rootViewController: AdminVC())
+            
+            viewControllers = [feedVC]
+            
+        }else{
         
         // home feed controller
         guard let darkStarImage = UIImage(named: "darkStar")?.withRenderingMode(.alwaysOriginal) else { return }
@@ -41,6 +63,7 @@ class MainVC: UITabBarController, UITabBarControllerDelegate {
         
         // tab bar tint color
         tabBar.tintColor = .black
+        }
     }
     // construct navigation controllers
     func constructNavController(unselectedImage: UIImage, selectedImage: UIImage, rootViewController: UIViewController = UIViewController()) -> UINavigationController {

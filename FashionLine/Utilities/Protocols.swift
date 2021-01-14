@@ -23,3 +23,6 @@ protocol CombineDetailCellDelegate{
 protocol CombinesOfDayDelegate {
     func handleCellTapped(for cell: CombinesSubCustomCell)
 }
+protocol AdminDetailCellDelegate{
+    func handleCellTapped(for cell: AdminCell)
+}
