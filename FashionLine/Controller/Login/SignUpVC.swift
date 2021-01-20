@@ -16,10 +16,11 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     // MARK: - Properties
     
     var imageSelected = false
-    
+    let pickerView = UIPickerView()
+    let yourStyleGuy = ["Spor", "Klasik", "Dar", "Geniş", "İtalyan kesim", "İngiliz dikişi"]
     let plusPhotoBtn: UIButton = {
         let button = UIButton(type: .system)
-//        button.setImage(#imageLiteral(resourceName: "darkAddButton").withRenderingMode(.alwaysOriginal), for: .normal)
+        //        button.setImage(#imageLiteral(resourceName: "darkAddButton").withRenderingMode(.alwaysOriginal), for: .normal)
         button.addTarget(self, action: #selector(handleSelectProfilePhoto), for: .touchUpInside)
         return button
     }()
@@ -128,12 +129,11 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         self.sexTextField.delegate = self
         self.ageTextField.delegate = self
         self.styleTextField.delegate = self
+        
+        createPickerView()
+        dismissPickerView()
         // background color
         view.backgroundColor = .white
-        
-//        view.addSubview(plusPhotoBtn)
-//        plusPhotoBtn.anchor(top: view.topAnchor, left: nil, bottom: nil, right: nil, paddingTop: 40, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 140, height: 140)
-//        plusPhotoBtn.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
         configureViewComponents()
         
@@ -245,8 +245,7 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
             heightTextField.hasText,
             weightTextField.hasText,
             sexTextField.hasText,
-            ageTextField.hasText,
-            styleTextField.hasText else {
+            ageTextField.hasText else {
                 signUpButton.isEnabled = false
                 signUpButton.backgroundColor = UIColor(hexString: "#B4F4BB")
                 return
@@ -266,5 +265,41 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         
         view.addSubview(stackView)
         stackView.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 150, paddingLeft: 40, paddingBottom: 0, paddingRight: 40, width: 0, height: 400)
+    }
+    func createPickerView() {
+        let pickerView = UIPickerView()
+        pickerView.delegate = self
+        pickerView.backgroundColor = UIColor(hexString: "#B4F4BB")
+        styleTextField.inputView = pickerView
+    }
+    func dismissPickerView() {
+        let toolBar = UIToolbar()
+        toolBar.sizeToFit()
+        let button = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(self.action))
+        toolBar.setItems([button], animated: true)
+        toolBar.isUserInteractionEnabled = true
+        styleTextField.inputAccessoryView = toolBar
+    }
+    @objc func action() {
+        view.endEditing(true)
+    }
+}
+extension SignUpVC: UIPickerViewDelegate, UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return yourStyleGuy.count
+    }
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return yourStyleGuy[row]
+    }
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        styleTextField.text = yourStyleGuy[row]
+    }
+    func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
+
+        return NSAttributedString(string: yourStyleGuy[row], attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
     }
 }

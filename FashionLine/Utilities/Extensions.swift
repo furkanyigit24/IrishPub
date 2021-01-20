@@ -38,6 +38,22 @@ extension UIView {
             heightAnchor.constraint(equalToConstant: height).isActive = true
         }
     }
+    func addBlurEffect()
+    {
+        let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.light)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = self.bounds
+        blurEffectView.translatesAutoresizingMaskIntoConstraints = false
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight] // for supporting device rotation
+        self.addSubview(blurEffectView)
+    }
+    func removeBlurEffect() {
+      for view in self.subviews {
+        if let view = view as? UIVisualEffectView {
+          view.removeFromSuperview()
+        }
+      }
+    }
 }
 extension UIColor {
     convenience init(hexString: String, alpha: CGFloat = 1.0) {

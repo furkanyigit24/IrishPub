@@ -238,6 +238,13 @@ class AdminVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         alertController.addAction(UIAlertAction(title: "İptal", style: .cancel, handler: nil))
         present(alertController, animated: true, completion: nil)
+        
+        if let popoverController = alertController.popoverPresentationController {
+          popoverController.sourceView = self.view
+          popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
+          popoverController.permittedArrowDirections = []
+        }
+        
     }
 }
 extension AdminVC: AdminDetailCellDelegate{
