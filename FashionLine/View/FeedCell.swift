@@ -44,7 +44,7 @@ class FeedCell: UICollectionViewCell, UICollectionViewDataSource, UICollectionVi
     }()
     let combineNotificationLabel: UILabel = {
         let lb  = UILabel()
-        lb.text = "Yeni kombinleriniz ve Stilist yorumlarınız geldi!"
+        lb.text = "Yeni kombinin geldi!"
         lb.font = UIFont.init(name: "SFProDisplay-Regular", size: 14)
         lb.translatesAutoresizingMaskIntoConstraints = false
         return lb

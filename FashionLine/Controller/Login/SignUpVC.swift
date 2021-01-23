@@ -98,9 +98,9 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     }()
     let signUpButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Giriş Yap", for: .normal)
+        button.setTitle("Kaydol", for: .normal)
         button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = UIColor(hexString: "#B4F4BB")
+        button.backgroundColor = UIColor(hexString: "#FFD3D3")
         button.layer.cornerRadius = 5
         button.isEnabled = false
         button.addTarget(self, action: #selector(handleSignUp), for: .touchUpInside)
@@ -247,12 +247,12 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
             sexTextField.hasText,
             ageTextField.hasText else {
                 signUpButton.isEnabled = false
-                signUpButton.backgroundColor = UIColor(hexString: "#B4F4BB")
+                signUpButton.backgroundColor = UIColor(hexString: "#FFD3D3")
                 return
         }
         
         signUpButton.isEnabled = true
-        signUpButton.backgroundColor = UIColor(hexString: "#39CB4A")
+        signUpButton.backgroundColor = UIColor(hexString: "#E61515")
     }
     
     func configureViewComponents() {
@@ -269,13 +269,13 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     func createPickerView() {
         let pickerView = UIPickerView()
         pickerView.delegate = self
-        pickerView.backgroundColor = UIColor(hexString: "#B4F4BB")
+        pickerView.backgroundColor = .white
         styleTextField.inputView = pickerView
     }
     func dismissPickerView() {
         let toolBar = UIToolbar()
         toolBar.sizeToFit()
-        let button = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(self.action))
+        let button = UIBarButtonItem(title: "Tamam", style: .plain, target: self, action: #selector(self.action))
         toolBar.setItems([button], animated: true)
         toolBar.isUserInteractionEnabled = true
         styleTextField.inputAccessoryView = toolBar
@@ -300,6 +300,6 @@ extension SignUpVC: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
 
-        return NSAttributedString(string: yourStyleGuy[row], attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
+        return NSAttributedString(string: yourStyleGuy[row], attributes: [NSAttributedString.Key.foregroundColor: UIColor.black])
     }
 }
