@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import OneSignal
 class CombineDesignVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate{
     // MARK: - Properties
     var imageSelected1 = false
@@ -232,7 +233,7 @@ class CombineDesignVC: UIViewController, UIImagePickerControllerDelegate, UINavi
             linkOfProductTextField3.hasText,
             stylerCommentTextField3.hasText,
             imageSelected1 == true && imageSelected2 == true && imageSelected3 == true else {
-                navigationItem.rightBarButtonItem?.isEnabled = false
+                navigationItem.rightBarButtonItem?.isEnabled = true
                 return
         }
         
@@ -277,7 +278,29 @@ class CombineDesignVC: UIViewController, UIImagePickerControllerDelegate, UINavi
         stackView3.anchor(top: plusPhotoBtn3.bottomAnchor, left: nil, bottom: nil, right: nil, paddingTop: 10, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 150, height: 100)
         stackView3.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     }
-    
+    // Push Notification
+    func pushNotification(){
+        guard let userEmail = self.shared.email?.lowercased() else { return }
+        let fireStoreDatabase = Firestore.firestore()
+        fireStoreDatabase.collection("PlayerId").whereField("email", isEqualTo: userEmail).getDocuments { (snapshot, error) in
+            if error == nil {
+                if snapshot?.isEmpty == false && snapshot != nil {
+                    
+                    for document in snapshot!.documents {
+                        
+                        if let playerId = document.get("player_id") as? String {
+                            
+                            //PUSH NOTIFICATION
+                            
+                            //                            OneSignal.postNotification(["contents": ["en":"liked your post "], "include_player_ids": ["\(playerId)"]])
+                            OneSignal.postNotification(["contents": ["en": "Yeni kombinin geldi"], "include_player_ids": [playerId]])
+                        }
+                    }
+                }
+            }
+        }
+        
+    }
     @objc func handleSendCombine() {
         print("Clicked")
         
@@ -424,13 +447,14 @@ class CombineDesignVC: UIViewController, UIImagePickerControllerDelegate, UINavi
                 }
         }
         let db = Firestore.firestore()
-       if nameOfProduct1 != "" && linkOfProduct1 != "" && stylerComment1 != "" && imageSelected1 == true && nameOfProduct2 != "" && linkOfProduct2 != "" && stylerComment2 != "" && imageSelected2 == true && nameOfProduct3 != "" && linkOfProduct3 != "" && stylerComment3 != "" && imageSelected3 == true{
+       if nameOfProduct1 != ""{
             
             db.collection("Kullanıcılar").document(self.shared.email?.uppercased() ?? "").setData(userData, merge: true) { err in
                 if let err = err {
                     print("Error writing document: \(err)")
                 } else {
                     print("Document successfully written!")
+                    self.pushNotification()
                 }
             }
             _ = self.navigationController?.popViewController(animated: true)

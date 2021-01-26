@@ -8,7 +8,7 @@
 
 import UIKit
 import Firebase
-class WardrobeVC: UIViewController {
+class WardrobeVC: UIViewController, UITextFieldDelegate {
     // MARK: - Properties
     lazy var contentViewSize = CGSize(width: self.view.frame.width, height: 1.2 * self.view.frame.height)
     
@@ -60,7 +60,7 @@ class WardrobeVC: UIViewController {
     let supportLabel: UILabel = {
         let rn = UILabel()
         rn.numberOfLines = 0
-        rn.text = "destek@aloha-labs.com"
+        rn.text = "destek@fashionline.app"
         rn.textAlignment = .center
         rn.font = UIFont.init(name: "SFProDisplay-Regular", size: 20)
         rn.textColor = UIColor(hexString: "#000000")
@@ -189,8 +189,20 @@ class WardrobeVC: UIViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        nameTextField.delegate = self
+        heightTextField.delegate = self
+        weightTextField.delegate = self
+        sexTextField.delegate = self
+        ageTextField.delegate = self
+        styleTextField.delegate = self
         tabBarController?.tabBar.isHidden = true
         configureViewComponents()
+    }
+    // Hide the keyboard when the return key pressed
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        self.hideKeyboardWhenTappedAround()
+        return true
     }
     //MARK: - View Components
     func configureViewComponents(){
@@ -200,6 +212,8 @@ class WardrobeVC: UIViewController {
         // Scroll View
         view.addSubview(scrollView)
         scrollView.addSubview(containerView)
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboardForScroll))
+        view.addGestureRecognizer(tap)
         
         // FashionLine Name Label
         containerView.addSubview(fashionLineNameLabel)
@@ -211,32 +225,32 @@ class WardrobeVC: UIViewController {
         getMembershipNow.anchor(top: fashionLineNameLabel.bottomAnchor, left: containerView.leftAnchor, bottom: nil, right: containerView.rightAnchor, paddingTop: 40, paddingLeft: 38, paddingBottom: 0, paddingRight: 54, width: 0, height: 0)
         // Name Label
         containerView.addSubview(nameTextField)
-        nameTextField.anchor(top: getMembershipNow.bottomAnchor, left: containerView.leftAnchor, bottom: nil, right: nil, paddingTop: 5, paddingLeft: 55.5, paddingBottom: 0, paddingRight: 99.5, width: 0, height: 0)
+        nameTextField.anchor(top: getMembershipNow.bottomAnchor, left: containerView.leftAnchor, bottom: nil, right: containerView.rightAnchor, paddingTop: 5, paddingLeft: 55.5, paddingBottom: 0, paddingRight: 99.5, width: 0, height: 0)
         containerView.addSubview(horizontalLine3)
         horizontalLine3.anchor(top: nameTextField.bottomAnchor, left: containerView.leftAnchor, bottom: nil, right: containerView.rightAnchor, paddingTop: 2.5, paddingLeft: 55.5, paddingBottom: 0, paddingRight: 99.5, width: 0, height: 1)
         // Height Label
         containerView.addSubview(heightTextField)
-        heightTextField.anchor(top: horizontalLine3.bottomAnchor, left: containerView.leftAnchor, bottom: nil, right: nil, paddingTop: 7.5, paddingLeft: 55.5, paddingBottom: 0, paddingRight: 99.5, width: 0, height: 0)
+        heightTextField.anchor(top: horizontalLine3.bottomAnchor, left: containerView.leftAnchor, bottom: nil, right: containerView.rightAnchor, paddingTop: 7.5, paddingLeft: 55.5, paddingBottom: 0, paddingRight: 99.5, width: 0, height: 0)
         containerView.addSubview(horizontalLine4)
         horizontalLine4.anchor(top: heightTextField.bottomAnchor, left: containerView.leftAnchor, bottom: nil, right: containerView.rightAnchor, paddingTop: 2.5, paddingLeft: 55.5, paddingBottom: 0, paddingRight: 99.5, width: 0, height: 1)
         // Weight label
         containerView.addSubview(weightTextField)
-        weightTextField.anchor(top: horizontalLine4.bottomAnchor, left: containerView.leftAnchor, bottom: nil, right: nil, paddingTop: 7.5, paddingLeft: 55.5, paddingBottom: 0, paddingRight: 99.5, width: 0, height: 0)
+        weightTextField.anchor(top: horizontalLine4.bottomAnchor, left: containerView.leftAnchor, bottom: nil, right: containerView.rightAnchor, paddingTop: 7.5, paddingLeft: 55.5, paddingBottom: 0, paddingRight: 99.5, width: 0, height: 0)
         containerView.addSubview(horizontalLine5)
         horizontalLine5.anchor(top: weightTextField.bottomAnchor, left: containerView.leftAnchor, bottom: nil, right: containerView.rightAnchor, paddingTop: 2.5, paddingLeft: 55.5, paddingBottom: 0, paddingRight: 99.5, width: 0, height: 1)
         // Sex Label
         containerView.addSubview(sexTextField)
-        sexTextField.anchor(top: horizontalLine5.bottomAnchor, left: containerView.leftAnchor, bottom: nil, right: nil, paddingTop: 7.5, paddingLeft: 55.5, paddingBottom: 0, paddingRight: 99.5, width: 0, height: 0)
+        sexTextField.anchor(top: horizontalLine5.bottomAnchor, left: containerView.leftAnchor, bottom: nil, right: containerView.rightAnchor, paddingTop: 7.5, paddingLeft: 55.5, paddingBottom: 0, paddingRight: 99.5, width: 0, height: 0)
         containerView.addSubview(horizontalLine6)
         horizontalLine6.anchor(top: sexTextField.bottomAnchor, left: containerView.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 2.5, paddingLeft: 55.5, paddingBottom: 0, paddingRight: 99.5, width: 0, height: 1)
         // Age Label
         containerView.addSubview(ageTextField)
-        ageTextField.anchor(top: horizontalLine6.bottomAnchor, left: containerView.leftAnchor, bottom: nil, right: nil, paddingTop: 7.5, paddingLeft: 55.5, paddingBottom: 0, paddingRight: 99.5, width: 0, height: 0)
+        ageTextField.anchor(top: horizontalLine6.bottomAnchor, left: containerView.leftAnchor, bottom: nil, right: containerView.rightAnchor, paddingTop: 7.5, paddingLeft: 55.5, paddingBottom: 0, paddingRight: 99.5, width: 0, height: 0)
         containerView.addSubview(horizontalLine7)
         horizontalLine7.anchor(top: ageTextField.bottomAnchor, left: containerView.leftAnchor, bottom: nil, right: containerView.rightAnchor, paddingTop: 2.5, paddingLeft: 55.5, paddingBottom: 0, paddingRight: 99.5, width: 0, height: 1)
         //Style label
         containerView.addSubview(styleTextField)
-        styleTextField.anchor(top: horizontalLine7.bottomAnchor, left: containerView.leftAnchor, bottom: nil, right: nil, paddingTop: 7.5, paddingLeft: 55.5, paddingBottom: 0, paddingRight: 99.5, width: 0, height: 0)
+        styleTextField.anchor(top: horizontalLine7.bottomAnchor, left: containerView.leftAnchor, bottom: nil, right: containerView.rightAnchor, paddingTop: 7.5, paddingLeft: 55.5, paddingBottom: 0, paddingRight: 99.5, width: 0, height: 0)
         containerView.addSubview(horizontalLine8)
         horizontalLine8.anchor(top: styleTextField.bottomAnchor, left: containerView.leftAnchor, bottom: nil, right: containerView.rightAnchor, paddingTop: 2.5, paddingLeft: 55.5, paddingBottom: 0, paddingRight: 99.5, width: 0, height: 1)
         //Refresh Button
@@ -257,7 +271,20 @@ class WardrobeVC: UIViewController {
         supportLabel.centerXAnchor.constraint(equalTo: containerView.centerXAnchor).isActive = true
     }
     // MARK: - Handle Operations
+    @objc func dismissKeyboardForScroll() {
+        view.endEditing(true)
+    }
     @objc func handleLogutTapped(){
+
+        guard let currentEmail = Auth.auth().currentUser?.email else { return }
+        let fireStoreDatabase = Firestore.firestore()
+        let playerIdDictionary = ["email" : currentEmail, "player_id" : "0"] as [String : Any]
+        
+        fireStoreDatabase.collection("PlayerId").document("\(Auth.auth().currentUser!.email!)").setData(playerIdDictionary, merge: true) { (error) in
+            if error != nil {
+                print(error?.localizedDescription)
+            }
+        }
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         alertController.addAction(UIAlertAction(title: "Çıkış Yap", style: .destructive, handler: { (_) in
             do {
@@ -267,6 +294,7 @@ class WardrobeVC: UIViewController {
                 navController.modalPresentationStyle = .fullScreen
                 self.present(navController, animated: true, completion: nil)
                 print("Succesfully loged user out")
+                
             } catch{
                 print("Failed signed out")
             }

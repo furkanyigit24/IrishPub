@@ -8,7 +8,7 @@
 
 import UIKit
 import Firebase
-
+import OneSignal
 private let reuseIdentifier = "Cell"
 private let feedHeader = "FeedHeader"
 
@@ -21,33 +21,59 @@ class FeedVC: UICollectionViewController, UICollectionViewDelegateFlowLayout, UI
         tabBarController?.tabBar.isHidden = false
         registrationOfHeaderAndCell()
     }
-    
+    let fireStoreDatabase = Firestore.firestore()
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.backgroundColor = .white
         navigationController?.navigationBar.isHidden = true
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Log Out", style: .plain, target: self, action: #selector(handleLogut))
         let delegate = FeedCell()
         delegate.transferDelegate = self
-        // Do any additional setup after loading the view.
-    }
-    @objc func handleLogut() {
-        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        alertController.addAction(UIAlertAction(title: "Log Out", style: .destructive, handler: { (_) in
-            do {
-                try Auth.auth().signOut()
-                let loginVC = LoginVC()
-                let navController = UINavigationController(rootViewController: loginVC)
-                navController.modalPresentationStyle = .fullScreen
-                self.present(navController, animated: true, completion: nil)
-                print("Succesfully loged user out")
-            } catch{
-                print("Failed signed out")
-            }
-        }))
+        // post notification
         
-        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        present(alertController, animated: true, completion: nil)
+        //        OneSignal.postNotification(["contents": ["en": "Test Message"], "include_player_ids": ["2d9cc1b1-2058-4721-8bd0-6fdfdda7706e"]])
+        
+        let status = OneSignal.getDeviceState()
+        let playerId = status?.userId
+        guard let currentEmail = Auth.auth().currentUser?.email else { return }
+        
+        if let playerNewId = playerId {
+            
+            fireStoreDatabase.collection("PlayerId").whereField("email", isEqualTo: currentEmail).getDocuments { (snapshot, error) in
+                if error == nil {
+                    if snapshot?.isEmpty == false && snapshot != nil {
+                        for document in snapshot!.documents {
+                            if let playerIDFromFirebase = document.get("player_id") as? String {
+                                let documentId = document.documentID
+                                
+                                if playerNewId != playerIDFromFirebase {
+                                    
+                                    let playerIdDictionary = ["email" : currentEmail, "player_id" : playerNewId] as! [String : Any]
+                                    
+                                    self.fireStoreDatabase.collection("PlayerId").document(currentEmail).setData(playerIdDictionary, merge: true) { (error) in
+                                        if error != nil {
+                                            print(error?.localizedDescription)
+                                        }
+                                    }
+                                    
+                                    
+                                }
+                                
+                            }
+                            
+                            
+                        }
+                    } else {
+                        let playerIdDictionary = ["email" : currentEmail, "player_id" : playerNewId] as! [String : Any]
+                        
+                        self.fireStoreDatabase.collection("PlayerId").document(currentEmail).setData(playerIdDictionary, merge: true) { (error) in
+                            if error != nil {
+                                print(error?.localizedDescription)
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
     override func viewWillDisappear(_ animated: Bool) {
         let indexPath = IndexPath(row: 0, section: 0)

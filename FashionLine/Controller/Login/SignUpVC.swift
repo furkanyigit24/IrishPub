@@ -117,15 +117,16 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         
         return button
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.hideKeyboardWhenTappedAround()
-        self.nameTextField.delegate = self
-        self.passwordSignUp.delegate = self
-        self.heightTextField.delegate = self
-        self.weightTextField.delegate = self
+        //        self.emailTextField.delegate = self
+        //        self.nameTextField.delegate = self
+        //        self.passwordSignUp.delegate = self
+        //        self.heightTextField.delegate = self
+        //        self.weightTextField.delegate = self
         self.sexTextField.delegate = self
         self.ageTextField.delegate = self
         self.styleTextField.delegate = self
@@ -142,6 +143,31 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         
     }
     
+    // Start Editing The Text Field
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        moveTextField(textField, moveDistance: -150, up: true)
+    }
+    
+    // Finish Editing The Text Field
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        moveTextField(textField, moveDistance: -150, up: false)
+    }
+    
+    // Hide the keyboard when the return key pressed
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        self.hideKeyboardWhenTappedAround()
+        return true
+    }
+    // Move the text field in a pretty animation!
+    func moveTextField(_ textField: UITextField, moveDistance: Int, up: Bool) {
+        let moveDuration = 0.3
+        let movement: CGFloat = CGFloat(up ? moveDistance : -moveDistance)
+        UIView.beginAnimations("animateTextField", context: nil)
+        UIView.setAnimationBeginsFromCurrentState(true)
+        UIView.setAnimationDuration(moveDuration)
+        self.view.frame = self.view.frame.offsetBy(dx: 0, dy: movement)
+    }
     // MARK: - UIImagePickerController
     
     /// function that handles selecting image from camera roll
@@ -226,7 +252,7 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
                         }
                     }
                     guard let mainTabVC = UIApplication.shared.keyWindow?.rootViewController as? MainVC else { return }
-                
+                    
                     mainTabVC.configureViewControllers()
                     self.dismiss(animated: true, completion: nil)
                 }
@@ -299,7 +325,7 @@ extension SignUpVC: UIPickerViewDelegate, UIPickerViewDataSource {
         styleTextField.text = yourStyleGuy[row]
     }
     func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
-
+        
         return NSAttributedString(string: yourStyleGuy[row], attributes: [NSAttributedString.Key.foregroundColor: UIColor.black])
     }
 }

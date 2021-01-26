@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-class CombineVC: UIViewController {
+class CombineVC: UIViewController, UITextFieldDelegate {
     
     var userName: String = ""
     
@@ -118,12 +118,46 @@ class CombineVC: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        // text view keyboard
+        self.hideKeyboardWhenTappedAround()
+        toWhereTextField.delegate = self
+        timeTextField.delegate = self
+        combineTextField.delegate = self
+        noteTextField.delegate = self
         // Navigation Contoller
         view.backgroundColor = .white
         navigationController?.navigationBar.isHidden = true
         snapshotListener()
         signUpButton.addTarget(self, action: #selector(sendCombine), for: .touchUpInside)
     }
+    // Start Editing The Text Field
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        moveTextField(textField, moveDistance: -150, up: true)
+    }
+    
+    // Finish Editing The Text Field
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        moveTextField(textField, moveDistance: -150, up: false)
+    }
+    
+    // Hide the keyboard when the return key pressed
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        self.hideKeyboardWhenTappedAround()
+        return true
+    }
+    // Move the text field in a pretty animation!
+    func moveTextField(_ textField: UITextField, moveDistance: Int, up: Bool) {
+        let moveDuration = 0.3
+        let movement: CGFloat = CGFloat(up ? moveDistance : -moveDistance)
+        
+        UIView.beginAnimations("animateTextField", context: nil)
+        UIView.setAnimationBeginsFromCurrentState(true)
+        UIView.setAnimationDuration(moveDuration)
+        self.view.frame = self.view.frame.offsetBy(dx: 0, dy: movement)
+        UIView.commitAnimations()
+    }
+    
     func snapshotListener(){
         let db = Firestore.firestore()
         guard var currentEmail = Auth.auth().currentUser?.email?.uppercased() as? String else{ return }

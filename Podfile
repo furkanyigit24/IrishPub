@@ -6,7 +6,6 @@ target 'FashionLine' do
   use_frameworks!
 
   # Pods for FashionLine
-  pod 'IQKeyboardManagerSwift'
   pod 'SDWebImage', '~> 5.0'
   # add the Firebase pod for Google Analytics
   pod 'Firebase/Analytics'
@@ -14,6 +13,12 @@ target 'FashionLine' do
   pod 'Firebase/Core'
   pod 'Firebase/Firestore'
   pod 'Firebase/Storage'
+  pod 'OneSignal', '>= 3.0.0', '< 4.0'
+
+target 'OneSignalNotificationServiceExtension' do
+  #only copy below line
+  pod 'OneSignal', '>= 3.0.0', '< 4.0'
+end
 
   # add pods for any other desired Firebase products
   # https://firebase.google.com/docs/ios/setup#available-pods

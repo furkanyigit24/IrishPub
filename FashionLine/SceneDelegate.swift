@@ -23,7 +23,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window = UIWindow(windowScene: windowScene)
         
         // Set this scene's window's background color.
-        self.window!.backgroundColor = UIColor.black
+        self.window!.backgroundColor = UIColor.white
         window!.overrideUserInterfaceStyle = .light
         window?.rootViewController = MainVC()
         // Make this scene's window be visible.

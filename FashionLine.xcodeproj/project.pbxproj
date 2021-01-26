@@ -8,7 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		51FDFC375EF2869BEF9D0412 /* Pods_FashionLine_FashionLineUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3341BE4B99379AA56937684 /* Pods_FashionLine_FashionLineUITests.framework */; };
-		B3CD2F183A6D1D7624639847 /* Pods_FashionLine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31700DE73D4D8BBB96E950E5 /* Pods_FashionLine.framework */; };
+		6B7B7C3C70A945F1849E2952 /* Pods_FashionLine_OneSignalNotificationServiceExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E60966C6876B042486E8253F /* Pods_FashionLine_OneSignalNotificationServiceExtension.framework */; };
+		B3CD2F183A6D1D7624639847 /* Pods_FashionLine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31700DE73D4D8BBB96E950E5 /* Pods_FashionLine.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		DC10166324912231000B4D81 /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC10166224912231000B4D81 /* FeedCell.swift */; };
 		DC101665249125F2000B4D81 /* CustomImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC101664249125F2000B4D81 /* CustomImageView.swift */; };
 		DC10166724927C2D000B4D81 /* FeedHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC10166624927C2C000B4D81 /* FeedHeaderCell.swift */; };
@@ -20,6 +21,8 @@
 		DC1016C22497E9E6000B4D81 /* SF-Pro-Text-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = DC1016B92497E6F7000B4D81 /* SF-Pro-Text-Regular.otf */; };
 		DC1016C32497EA28000B4D81 /* SF-Pro-Text-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = DC10168F2497E6E1000B4D81 /* SF-Pro-Text-Medium.otf */; };
 		DC1016C42497EB7B000B4D81 /* SF-Pro-Text-MediumItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = DC1016782497E6D6000B4D81 /* SF-Pro-Text-MediumItalic.otf */; };
+		DC3BBC1D25BCB27C00D8CE07 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC3BBC1C25BCB27C00D8CE07 /* NotificationService.swift */; };
+		DC3BBC2125BCB27C00D8CE07 /* OneSignalNotificationServiceExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = DC3BBC1A25BCB27C00D8CE07 /* OneSignalNotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		DC799A1925AA01E40037E9B1 /* CombineDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC799A1825AA01E40037E9B1 /* CombineDetailVC.swift */; };
 		DC799A1B25AA021F0037E9B1 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC799A1A25AA021F0037E9B1 /* HeaderView.swift */; };
 		DC799A1D25AA02560037E9B1 /* CombineDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC799A1C25AA02560037E9B1 /* CombineDetailCell.swift */; };
@@ -46,6 +49,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		DC3BBC1F25BCB27C00D8CE07 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DCCD056E248BCFC400105231 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DC3BBC1925BCB27C00D8CE07;
+			remoteInfo = OneSignalNotificationServiceExtension;
+		};
 		DCCD058D248BCFCE00105231 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = DCCD056E248BCFC400105231 /* Project object */;
@@ -62,6 +72,20 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		DC3BBC2225BCB27C00D8CE07 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				DC3BBC2125BCB27C00D8CE07 /* OneSignalNotificationServiceExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		12C9306F5D32822D50D3A1D0 /* Pods_FashionLineTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FashionLineTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		196AE803EDAF92615215A56D /* Pods-FashionLineTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FashionLineTests.debug.xcconfig"; path = "Target Support Files/Pods-FashionLineTests/Pods-FashionLineTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -70,6 +94,7 @@
 		67C64BA1FE6F2D2DF4802C76 /* Pods-FashionLine.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FashionLine.debug.xcconfig"; path = "Target Support Files/Pods-FashionLine/Pods-FashionLine.debug.xcconfig"; sourceTree = "<group>"; };
 		9CD4B518448B221744EEB0DC /* Pods-FashionLine-FashionLineUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FashionLine-FashionLineUITests.release.xcconfig"; path = "Target Support Files/Pods-FashionLine-FashionLineUITests/Pods-FashionLine-FashionLineUITests.release.xcconfig"; sourceTree = "<group>"; };
 		A3341BE4B99379AA56937684 /* Pods_FashionLine_FashionLineUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FashionLine_FashionLineUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DB125D76173ABC7DCD8E54CA /* Pods-FashionLine-OneSignalNotificationServiceExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FashionLine-OneSignalNotificationServiceExtension.release.xcconfig"; path = "Target Support Files/Pods-FashionLine-OneSignalNotificationServiceExtension/Pods-FashionLine-OneSignalNotificationServiceExtension.release.xcconfig"; sourceTree = "<group>"; };
 		DB79B0C63A7D4C0516730F74 /* Pods-FashionLine-FashionLineUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FashionLine-FashionLineUITests.debug.xcconfig"; path = "Target Support Files/Pods-FashionLine-FashionLineUITests/Pods-FashionLine-FashionLineUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		DC10166224912231000B4D81 /* FeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCell.swift; sourceTree = "<group>"; };
 		DC101664249125F2000B4D81 /* CustomImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomImageView.swift; sourceTree = "<group>"; };
@@ -157,6 +182,10 @@
 		DC1016BC2497E6F8000B4D81 /* SF-Pro-Display-BlackItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-BlackItalic.otf"; sourceTree = "<group>"; };
 		DC1016BD2497E6F9000B4D81 /* SF-Compact-Text-SemiboldItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Compact-Text-SemiboldItalic.otf"; sourceTree = "<group>"; };
 		DC1016BE2497E6FA000B4D81 /* SF-Pro-Rounded-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Rounded-Regular.otf"; sourceTree = "<group>"; };
+		DC3BBC1A25BCB27C00D8CE07 /* OneSignalNotificationServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = OneSignalNotificationServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC3BBC1C25BCB27C00D8CE07 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		DC3BBC1E25BCB27C00D8CE07 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DC3BBC2625BCB53900D8CE07 /* FashionLine.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FashionLine.entitlements; sourceTree = "<group>"; };
 		DC51117C25B9804700293F0C /* libSDWebImage.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libSDWebImage.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC799A1825AA01E40037E9B1 /* CombineDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineDetailVC.swift; sourceTree = "<group>"; };
 		DC799A1A25AA021F0037E9B1 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
@@ -185,9 +214,19 @@
 		DCCD05BA248EB2FB00105231 /* WardrobeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WardrobeVC.swift; sourceTree = "<group>"; };
 		DCFA33512594D3C600680B23 /* Users.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
 		DD3A4D6E055D98A9CD1ADA24 /* Pods-FashionLineTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FashionLineTests.release.xcconfig"; path = "Target Support Files/Pods-FashionLineTests/Pods-FashionLineTests.release.xcconfig"; sourceTree = "<group>"; };
+		E4A1BDD3EEB03E474288F698 /* Pods-FashionLine-OneSignalNotificationServiceExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FashionLine-OneSignalNotificationServiceExtension.debug.xcconfig"; path = "Target Support Files/Pods-FashionLine-OneSignalNotificationServiceExtension/Pods-FashionLine-OneSignalNotificationServiceExtension.debug.xcconfig"; sourceTree = "<group>"; };
+		E60966C6876B042486E8253F /* Pods_FashionLine_OneSignalNotificationServiceExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FashionLine_OneSignalNotificationServiceExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		DC3BBC1725BCB27C00D8CE07 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6B7B7C3C70A945F1849E2952 /* Pods_FashionLine_OneSignalNotificationServiceExtension.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DCCD0573248BCFC400105231 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -222,6 +261,7 @@
 				31700DE73D4D8BBB96E950E5 /* Pods_FashionLine.framework */,
 				A3341BE4B99379AA56937684 /* Pods_FashionLine_FashionLineUITests.framework */,
 				12C9306F5D32822D50D3A1D0 /* Pods_FashionLineTests.framework */,
+				E60966C6876B042486E8253F /* Pods_FashionLine_OneSignalNotificationServiceExtension.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -235,6 +275,8 @@
 				9CD4B518448B221744EEB0DC /* Pods-FashionLine-FashionLineUITests.release.xcconfig */,
 				196AE803EDAF92615215A56D /* Pods-FashionLineTests.debug.xcconfig */,
 				DD3A4D6E055D98A9CD1ADA24 /* Pods-FashionLineTests.release.xcconfig */,
+				E4A1BDD3EEB03E474288F698 /* Pods-FashionLine-OneSignalNotificationServiceExtension.debug.xcconfig */,
+				DB125D76173ABC7DCD8E54CA /* Pods-FashionLine-OneSignalNotificationServiceExtension.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -341,6 +383,15 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
+		DC3BBC1B25BCB27C00D8CE07 /* OneSignalNotificationServiceExtension */ = {
+			isa = PBXGroup;
+			children = (
+				DC3BBC1C25BCB27C00D8CE07 /* NotificationService.swift */,
+				DC3BBC1E25BCB27C00D8CE07 /* Info.plist */,
+			);
+			path = OneSignalNotificationServiceExtension;
+			sourceTree = "<group>";
+		};
 		DC799A1E25AB30920037E9B1 /* AdminController */ = {
 			isa = PBXGroup;
 			children = (
@@ -364,6 +415,7 @@
 			children = (
 				DCA10F0D25934D0F00DD22DD /* GoogleService-Info.plist */,
 				DCCD0578248BCFC400105231 /* FashionLine */,
+				DC3BBC1B25BCB27C00D8CE07 /* OneSignalNotificationServiceExtension */,
 				DCCD0577248BCFC400105231 /* Products */,
 				DC10166C2497E68B000B4D81 /* Fonts */,
 				9467855F9B358FE993EFF8BC /* Pods */,
@@ -377,6 +429,7 @@
 				DCCD0576248BCFC400105231 /* FashionLine.app */,
 				DCCD058C248BCFCE00105231 /* FashionLineTests.xctest */,
 				DCCD0597248BCFCE00105231 /* FashionLineUITests.xctest */,
+				DC3BBC1A25BCB27C00D8CE07 /* OneSignalNotificationServiceExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -384,6 +437,7 @@
 		DCCD0578248BCFC400105231 /* FashionLine */ = {
 			isa = PBXGroup;
 			children = (
+				DC3BBC2625BCB53900D8CE07 /* FashionLine.entitlements */,
 				DCCD05B3248E9D3200105231 /* Utilities */,
 				DCFA33502594D3A800680B23 /* Model */,
 				DC101661249121D0000B4D81 /* View */,
@@ -442,6 +496,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		DC3BBC1925BCB27C00D8CE07 /* OneSignalNotificationServiceExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DC3BBC2525BCB27D00D8CE07 /* Build configuration list for PBXNativeTarget "OneSignalNotificationServiceExtension" */;
+			buildPhases = (
+				FA1D27E2FC7DB3F9C304177D /* [CP] Check Pods Manifest.lock */,
+				DC3BBC1625BCB27C00D8CE07 /* Sources */,
+				DC3BBC1725BCB27C00D8CE07 /* Frameworks */,
+				DC3BBC1825BCB27C00D8CE07 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = OneSignalNotificationServiceExtension;
+			productName = OneSignalNotificationServiceExtension;
+			productReference = DC3BBC1A25BCB27C00D8CE07 /* OneSignalNotificationServiceExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		DCCD0575248BCFC400105231 /* FashionLine */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = DCCD05A0248BCFCE00105231 /* Build configuration list for PBXNativeTarget "FashionLine" */;
@@ -450,11 +522,13 @@
 				DCCD0572248BCFC400105231 /* Sources */,
 				DCCD0573248BCFC400105231 /* Frameworks */,
 				DCCD0574248BCFC400105231 /* Resources */,
-				B1B392C0D061AEE2048D7BE2 /* [CP] Embed Pods Frameworks */,
+				DC3BBC2225BCB27C00D8CE07 /* Embed App Extensions */,
+				77D70E990E59552052F64E06 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				DC3BBC2025BCB27C00D8CE07 /* PBXTargetDependency */,
 			);
 			name = FashionLine;
 			productName = FashionLine;
@@ -488,7 +562,7 @@
 				DCCD0593248BCFCE00105231 /* Sources */,
 				DCCD0594248BCFCE00105231 /* Frameworks */,
 				DCCD0595248BCFCE00105231 /* Resources */,
-				613D6F8EB0E00AF7F9F58E59 /* [CP] Embed Pods Frameworks */,
+				75E4295FF1DB3C25AEAB0D4F /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -506,10 +580,13 @@
 		DCCD056E248BCFC400105231 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1130;
+				LastSwiftUpdateCheck = 1170;
 				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = "Furkan Y.";
 				TargetAttributes = {
+					DC3BBC1925BCB27C00D8CE07 = {
+						CreatedOnToolsVersion = 11.7;
+					};
 					DCCD0575248BCFC400105231 = {
 						CreatedOnToolsVersion = 11.3.1;
 					};
@@ -539,11 +616,19 @@
 				DCCD0575248BCFC400105231 /* FashionLine */,
 				DCCD058B248BCFCE00105231 /* FashionLineTests */,
 				DCCD0596248BCFCE00105231 /* FashionLineUITests */,
+				DC3BBC1925BCB27C00D8CE07 /* OneSignalNotificationServiceExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		DC3BBC1825BCB27C00D8CE07 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DCCD0574248BCFC400105231 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -643,7 +728,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		613D6F8EB0E00AF7F9F58E59 /* [CP] Embed Pods Frameworks */ = {
+		75E4295FF1DB3C25AEAB0D4F /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -660,7 +745,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FashionLine-FashionLineUITests/Pods-FashionLine-FashionLineUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		B1B392C0D061AEE2048D7BE2 /* [CP] Embed Pods Frameworks */ = {
+		77D70E990E59552052F64E06 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -677,9 +762,39 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FashionLine/Pods-FashionLine-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		FA1D27E2FC7DB3F9C304177D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-FashionLine-OneSignalNotificationServiceExtension-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		DC3BBC1625BCB27C00D8CE07 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DC3BBC1D25BCB27C00D8CE07 /* NotificationService.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DCCD0572248BCFC400105231 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -728,6 +843,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		DC3BBC2025BCB27C00D8CE07 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DC3BBC1925BCB27C00D8CE07 /* OneSignalNotificationServiceExtension */;
+			targetProxy = DC3BBC1F25BCB27C00D8CE07 /* PBXContainerItemProxy */;
+		};
 		DCCD058E248BCFCE00105231 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = DCCD0575248BCFC400105231 /* FashionLine */;
@@ -752,6 +872,52 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		DC3BBC2325BCB27C00D8CE07 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E4A1BDD3EEB03E474288F698 /* Pods-FashionLine-OneSignalNotificationServiceExtension.debug.xcconfig */;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7LL7Q7JGQ9;
+				INFOPLIST_FILE = OneSignalNotificationServiceExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.7;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = FashionLineLabs.FashionLine.FurkanYigitAkyildiza.OneSignalNotificationServiceExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		DC3BBC2425BCB27C00D8CE07 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DB125D76173ABC7DCD8E54CA /* Pods-FashionLine-OneSignalNotificationServiceExtension.release.xcconfig */;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7LL7Q7JGQ9;
+				INFOPLIST_FILE = OneSignalNotificationServiceExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.7;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = FashionLineLabs.FashionLine.FurkanYigitAkyildiza.OneSignalNotificationServiceExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		DCCD059E248BCFCE00105231 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -870,7 +1036,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 67C64BA1FE6F2D2DF4802C76 /* Pods-FashionLine.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = FashionLine/FashionLine.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7LL7Q7JGQ9;
@@ -879,7 +1047,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = FashionLineLabs.FashionLine.FurkanYigitAkyildiz;
+				PRODUCT_BUNDLE_IDENTIFIER = FashionLineLabs.FashionLine.FurkanYigitAkyildiza;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -890,7 +1058,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 43841F17F90B225AF78DD743 /* Pods-FashionLine.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = FashionLine/FashionLine.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7LL7Q7JGQ9;
@@ -899,7 +1069,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = FashionLineLabs.FashionLine.FurkanYigitAkyildiz;
+				PRODUCT_BUNDLE_IDENTIFIER = FashionLineLabs.FashionLine.FurkanYigitAkyildiza;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -997,6 +1167,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		DC3BBC2525BCB27D00D8CE07 /* Build configuration list for PBXNativeTarget "OneSignalNotificationServiceExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DC3BBC2325BCB27C00D8CE07 /* Debug */,
+				DC3BBC2425BCB27C00D8CE07 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		DCCD0571248BCFC400105231 /* Build configuration list for PBXProject "FashionLine" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
