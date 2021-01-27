@@ -120,13 +120,40 @@ class CombineDesignVC: UIViewController, UIImagePickerControllerDelegate, UINavi
         super.viewDidLoad()
         view.backgroundColor = .white
         
-        self.nameOfProductTextField1.delegate = self
-        self.linkOfProductTextField1.delegate = self
-        self.stylerCommentTextField1.delegate = self
-        
+        self.hideKeyboardWhenTappedAround()
+        nameOfProductTextField3.delegate = self
+        linkOfProductTextField3.delegate = self
+        stylerCommentTextField3.delegate = self
+
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Kombinleri Gönder", style: .plain, target: self, action: #selector(handleSendCombine))
         
         configureViewComponents()
+    }
+    // Start Editing The Text Field
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        moveTextField(textField, moveDistance: -250, up: true)
+    }
+    
+    // Finish Editing The Text Field
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        moveTextField(textField, moveDistance: -250, up: false)
+    }
+    // Move the text field in a pretty animation!
+    func moveTextField(_ textField: UITextField, moveDistance: Int, up: Bool) {
+        let moveDuration = 0.3
+        let movement: CGFloat = CGFloat(up ? moveDistance : -moveDistance)
+        
+        UIView.beginAnimations("animateTextField", context: nil)
+        UIView.setAnimationBeginsFromCurrentState(true)
+        UIView.setAnimationDuration(moveDuration)
+        self.view.frame = self.view.frame.offsetBy(dx: 0, dy: movement)
+        UIView.commitAnimations()
+    }
+    // Hide the keyboard when the return key pressed
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        self.hideKeyboardWhenTappedAround()
+        return true
     }
     // MARK: - UIImagePickerController
     
@@ -233,7 +260,7 @@ class CombineDesignVC: UIViewController, UIImagePickerControllerDelegate, UINavi
             linkOfProductTextField3.hasText,
             stylerCommentTextField3.hasText,
             imageSelected1 == true && imageSelected2 == true && imageSelected3 == true else {
-                navigationItem.rightBarButtonItem?.isEnabled = true
+                navigationItem.rightBarButtonItem?.isEnabled = false
                 return
         }
         
@@ -447,7 +474,7 @@ class CombineDesignVC: UIViewController, UIImagePickerControllerDelegate, UINavi
                 }
         }
         let db = Firestore.firestore()
-       if nameOfProduct1 != ""{
+       if nameOfProduct1 != "" && linkOfProduct1 != "" && stylerComment1 != "" && imageSelected1 == true && nameOfProduct2 != "" && linkOfProduct2 != "" && stylerComment2 != "" && imageSelected2 == true && nameOfProduct3 != "" && linkOfProduct3 != "" && stylerComment3 != "" && imageSelected3 == true{
             
             db.collection("Kullanıcılar").document(self.shared.email?.uppercased() ?? "").setData(userData, merge: true) { err in
                 if let err = err {
