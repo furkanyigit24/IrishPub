@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-class LoginVC: UIViewController {
+class LoginVC: UIViewController, UITextFieldDelegate {
     
     // MARK: - Properties
     
@@ -79,6 +79,9 @@ class LoginVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.hideKeyboardWhenTappedAround()
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
         // background color
         view.backgroundColor = .white
         
@@ -105,7 +108,12 @@ class LoginVC: UIViewController {
         view.addSubview(dontHaveAccountButton)
         dontHaveAccountButton.anchor(top: nil, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 50)
     }
-    
+    // Hide the keyboard when the return key pressed
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        self.hideKeyboardWhenTappedAround()
+        return true
+    }
     // MARK: - Handlers
     
     @objc func handleShowSignUp() {
