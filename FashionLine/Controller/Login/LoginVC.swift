@@ -75,7 +75,14 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         
         return button
     }()
-
+    let forgetPasswordButton: UIButton = {
+        let button = UIButton(type: .system)
+        let attributedTitle = NSMutableAttributedString(string: "Şifremi unuttum? ", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14), NSAttributedString.Key.foregroundColor: UIColor.lightGray])
+        button.addTarget(self, action: #selector(handleForgetPassword), for: .touchUpInside)
+        button.setAttributedTitle(attributedTitle, for: .normal)
+        
+        return button
+    }()
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -107,6 +114,8 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         
         view.addSubview(dontHaveAccountButton)
         dontHaveAccountButton.anchor(top: nil, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 50)
+        view.addSubview(forgetPasswordButton)
+        forgetPasswordButton.anchor(top: nil, left: view.leftAnchor, bottom: dontHaveAccountButton.topAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 50, paddingRight: 0, width: 0, height: 50)
     }
     // Hide the keyboard when the return key pressed
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -120,7 +129,10 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         let signUpVC = SignUpVC()
         navigationController?.pushViewController(signUpVC, animated: true)
     }
-    
+    @objc func handleForgetPassword() {
+        let forgetPasswordVC = ForgetPasswordVC()
+        navigationController?.pushViewController(forgetPasswordVC, animated: true)
+    }
     @objc func handleLogin() {
         
         // properties
@@ -136,6 +148,10 @@ class LoginVC: UIViewController, UITextFieldDelegate {
             if let error = error {
                 print("Unable to sign user in with error", error.localizedDescription)
                 self.makeAlert(titleInput: "Error", messageInput: error.localizedDescription ?? "Error ")
+                return
+            }
+            if user != nil && !user!.user.isEmailVerified {
+                self.makeAlert(titleInput: "Hata", messageInput: "Emailinizi kontrol ediniz, ve onay linkini aç")
                 return
             }
             

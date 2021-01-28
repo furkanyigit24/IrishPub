@@ -18,7 +18,7 @@ class MainVC: UITabBarController, UITabBarControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.delegate = self
-        if Auth.auth().currentUser?.email == "OVGU@HOTMAIL.COM"{
+        if Auth.auth().currentUser?.email == "stylist@fashionline.app"{
             // home feed controller
             guard let darkStarImage = UIImage(named: "darkStar")?.withRenderingMode(.alwaysOriginal) else { return }
             guard let redStarImage = UIImage(named: "redStar")?.withRenderingMode(.alwaysOriginal) else { return }
@@ -37,7 +37,7 @@ class MainVC: UITabBarController, UITabBarControllerDelegate {
     }
     
     func configureViewControllers() {
-        if Auth.auth().currentUser?.email?.uppercased() == "OVGU@HOTMAIL.COM"{
+        if Auth.auth().currentUser?.email?.uppercased() == "stylist@fashionline.app"{
             // home feed controller
             guard let darkStarImage = UIImage(named: "darkStar")?.withRenderingMode(.alwaysOriginal) else { return }
             guard let redStarImage = UIImage(named: "redStar")?.withRenderingMode(.alwaysOriginal) else { return }
@@ -78,7 +78,7 @@ class MainVC: UITabBarController, UITabBarControllerDelegate {
         return navController
     }
     func checkIfUserIsLoggedIn() {
-        if Auth.auth().currentUser == nil {
+        if Auth.auth().currentUser == nil || !Auth.auth().currentUser!.isEmailVerified {
             DispatchQueue.main.async {
                 let loginVC = LoginVC()
                 let navController = UINavigationController(rootViewController: loginVC)

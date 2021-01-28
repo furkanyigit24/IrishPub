@@ -32,6 +32,7 @@
 		DC799A2725ADB66B0037E9B1 /* CombineDesignVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC799A2625ADB66B0037E9B1 /* CombineDesignVC.swift */; };
 		DCA10F0C2592761700DD22DD /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCA10F0B2592761700DD22DD /* Protocols.swift */; };
 		DCA10F0E25934D1100DD22DD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DCA10F0D25934D0F00DD22DD /* GoogleService-Info.plist */; };
+		DCB14ABA25C31920004F844B /* ForgetPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCB14AB925C31920004F844B /* ForgetPasswordVC.swift */; };
 		DCB5B9ED25A46E230079BEB0 /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCB5B9EC25A46E230079BEB0 /* SignUpVC.swift */; };
 		DCCD057A248BCFC400105231 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCCD0579248BCFC400105231 /* AppDelegate.swift */; };
 		DCCD057C248BCFC400105231 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCCD057B248BCFC400105231 /* SceneDelegate.swift */; };
@@ -196,6 +197,7 @@
 		DC799A2625ADB66B0037E9B1 /* CombineDesignVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineDesignVC.swift; sourceTree = "<group>"; };
 		DCA10F0B2592761700DD22DD /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		DCA10F0D25934D0F00DD22DD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		DCB14AB925C31920004F844B /* ForgetPasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgetPasswordVC.swift; sourceTree = "<group>"; };
 		DCB5B9EC25A46E230079BEB0 /* SignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
 		DCCD0576248BCFC400105231 /* FashionLine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FashionLine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCCD0579248BCFC400105231 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -471,6 +473,7 @@
 			children = (
 				DCCD05AF248BF42500105231 /* LoginVC.swift */,
 				DCB5B9EC25A46E230079BEB0 /* SignUpVC.swift */,
+				DCB14AB925C31920004F844B /* ForgetPasswordVC.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -807,6 +810,7 @@
 				DCCD057E248BCFC400105231 /* ViewController.swift in Sources */,
 				DC799A1B25AA021F0037E9B1 /* HeaderView.swift in Sources */,
 				DC799A2025AB310E0037E9B1 /* AdminVC.swift in Sources */,
+				DCB14ABA25C31920004F844B /* ForgetPasswordVC.swift in Sources */,
 				DCCD05B7248EB1B000105231 /* FeedVC.swift in Sources */,
 				DC799A1925AA01E40037E9B1 /* CombineDetailVC.swift in Sources */,
 				DCCD05B5248E9D5300105231 /* Extensions.swift in Sources */,

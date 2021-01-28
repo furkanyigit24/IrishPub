@@ -140,14 +140,10 @@ class CombineDesignVC: UIViewController, UIImagePickerControllerDelegate, UINavi
     }
     // Move the text field in a pretty animation!
     func moveTextField(_ textField: UITextField, moveDistance: Int, up: Bool) {
-        let moveDuration = 0.3
         let movement: CGFloat = CGFloat(up ? moveDistance : -moveDistance)
-        
-        UIView.beginAnimations("animateTextField", context: nil)
-        UIView.setAnimationBeginsFromCurrentState(true)
-        UIView.setAnimationDuration(moveDuration)
-        self.view.frame = self.view.frame.offsetBy(dx: 0, dy: movement)
-        UIView.commitAnimations()
+        UIView.animate(withDuration: 0.3, animations: { () -> Void in
+            self.view.frame = self.view.frame.offsetBy(dx: 0, dy: movement)
+        })
     }
     // Hide the keyboard when the return key pressed
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

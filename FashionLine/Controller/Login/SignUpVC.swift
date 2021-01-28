@@ -161,12 +161,10 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     }
     // Move the text field in a pretty animation!
     func moveTextField(_ textField: UITextField, moveDistance: Int, up: Bool) {
-        let moveDuration = 0.3
         let movement: CGFloat = CGFloat(up ? moveDistance : -moveDistance)
-        UIView.beginAnimations("animateTextField", context: nil)
-        UIView.setAnimationBeginsFromCurrentState(true)
-        UIView.setAnimationDuration(moveDuration)
-        self.view.frame = self.view.frame.offsetBy(dx: 0, dy: movement)
+        UIView.animate(withDuration: 0.3, animations: { () -> Void in
+            self.view.frame = self.view.frame.offsetBy(dx: 0, dy: movement)
+        })
     }
     // MARK: - UIImagePickerController
     
@@ -209,7 +207,20 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     @objc func handleShowLogin() {
         _ = navigationController?.popViewController(animated: true)
     }
-    
+    private var authUser : User? {
+        return Auth.auth().currentUser
+    }
+
+    public func sendVerificationMail() {
+        if self.authUser != nil && !self.authUser!.isEmailVerified {
+            self.authUser!.sendEmailVerification(completion: { (error) in
+                // Notify the user that the mail has sent or couldn't because of an error.
+            })
+        }
+        else {
+            // Either the user is not available, or the user is already verified.
+        }
+    }
     @objc func handleSignUp(){
         guard let emailLabel = emailTextField.text?.uppercased() else { return }
         guard let passwordLabel = passwordSignUp.text else { return }
@@ -249,12 +260,24 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
                             print("Error writing document: \(err)")
                         } else {
                             print("Document successfully written!")
+                            self.sendVerificationMail()
                         }
                     }
-                    guard let mainTabVC = UIApplication.shared.keyWindow?.rootViewController as? MainVC else { return }
+                    // Create the alert controller
+                    let alertController = UIAlertController(title: "E-Postanızı kontrol ediniz", message: "E-postanıza gelen onay linkine tıklayarak hesabınızı aktif haline getiriniz", preferredStyle: .alert)
                     
-                    mainTabVC.configureViewControllers()
-                    self.dismiss(animated: true, completion: nil)
+                    // Create the actions
+                    let okAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default) {
+                        UIAlertAction in
+                        NSLog("OK Pressed")
+                        self.handleShowLogin()
+                    }
+                    // Add the actions
+                    alertController.addAction(okAction)
+
+                    // Present the controller
+                    self.present(alertController, animated: true, completion: nil)
+
                 }
             }
         }
