@@ -1,0 +1,81 @@
+
+{
+    "LoginVC": {
+        "forgetPassword": "Şifremi unuttum",
+        "signUp": "Kaydol",
+        "login": "Giriş Yap",
+        "dontHaveAnAccount": "Henüz bir hesabın yok mu? ",
+        "password": "Şifre",
+        "linkError": "E-postanızı kontrol ediniz ve bağlantıyı açınız",
+        "email": "E-posta",
+        "error": "Hata"
+    },
+    "SignUpVC": {
+        "email": "E-posta",
+        "password": "Şifre",
+        "nameSurname": "Ad / Soyad",
+        "height": "Boy",
+        "weight": "Kilo",
+        "sex": "Cinsiyet",
+        "age": "Yaş",
+        "styleType": "Ne tarz giyinmekten hoşlanırsın ?",
+        "slim": "Slim",
+        "formal": "Formal",
+        "sport": "Sport",
+        "regular": "Regular",
+        "done": "Tamam",
+        "signUp": "Kaydol",
+        "checkEmail": "E-posta gelen kutunuzu kontrol edin ve aktivasyon için bağlantıya tıklayın",
+        "error": "Hata",
+        "usernamePassword": "Kullanıcı adı / Şifre geçersiz",
+        "check": "E-postanızı kontrol ediniz",
+        "alreadyHaveAnAccount": "Zaten hesabın var mı ? ",
+        "signIn": "Giriş Yap"
+    },
+    "PasswordVC": {
+        "email": "E-posta",
+        "reset": "Şifreyi sıfırla",
+        "error": "Hata",
+        "errorReset": "Şifreniz sıfırlanamadı",
+        "instructions": "Parola sıfırlama talimatları e-posta hesabınıza gönderildi",
+        "click": "Lütfen bağlantıyı açınız ve talimatları uygulayınız"
+    },
+    "FeedVC": {
+        "suggestions": "Kombin Önerilerim",
+        "combinesOfDay": "Günün Kombinleri"
+    },
+    "CombineVC": {
+        "hello": "Merhaba",
+        "toWhere": "Nereye gidiyorsun ?",
+        "time": "Saat kaçta gidiyorsun ? ",
+        "combine": "Nasıl bir kombin istersiniz ? ",
+        "notes": "Eklemek istediğiniz notlar ? ",
+        "request": "Kombin Oluştur",
+        "mainMessage": "Harika !",
+        "subMessage": "Mentorlarımız sizin için en iyi kombinleri seçmeye başladı bile.",
+        "error": "Hata",
+        "fill": "Tüm bilgileri doldurmalısınız"
+    },
+    "WardrobeVC": {
+        "information": "Kişisel Bilgiler",
+        "nameSurname": "Ad / Soyad",
+        "height": "Boy",
+        "weight": "Kilo",
+        "sex": "Cinsiyet",
+        "age": "Yaş",
+        "styleType": "NE tarz giyinmeyi seversin ?",
+        "refresh": "Yenile",
+        "logOut": "Çıkış Yap",
+        "cancel": "İptal",
+        "error": "Hata",
+        "fill": "Tüm bilgileri doldurmalısınız"
+    },
+    "FeedCell": {
+        "sent": "Harika ! Kombin isteğinizi aldık.",
+        "subLabel": "Hemen aşşağıdaki kombin sekmesine tıklayarak, kombin talep edebilirsiniz",
+        "notYet": "Henüz bir istek oluşturmadın",
+        "mentor": "Mentorlarımız  talebinizi analiz etmeye ve kombinlerinizi hazırlamaya başladı.",
+        "arrived": "Yeni kombinler geldi !",
+        "details": "Ayrıntılar >"
+    }
+}

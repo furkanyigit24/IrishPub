@@ -16,6 +16,8 @@ protocol TransferDelegate{
 }
 
 class FeedCell: UICollectionViewCell, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    // MARK: Properties
+    var langFile = Localization.shared
     var delegate: CombinesSuggestionsHeaderTDelegate?
     var transferDelegate: TransferDelegate?
     var shared = Users.sharedInstance
@@ -37,14 +39,12 @@ class FeedCell: UICollectionViewCell, UICollectionViewDataSource, UICollectionVi
     }()
     let titleLabel: UILabel = {
         let lb  = UILabel()
-        lb.text = "Section Title"
-        lb.font = UIFont.init(name: "SFProDisplay-Regular", size: 34)
+        lb.font = UIFont.init(name: "SFProDisplay-Regular", size: 30)
         lb.translatesAutoresizingMaskIntoConstraints = false
         return lb
     }()
     let combineNotificationLabel: UILabel = {
         let lb  = UILabel()
-        lb.text = "Yeni kombinin geldi!"
         lb.font = UIFont.init(name: "SFProDisplay-Regular", size: 14)
         lb.translatesAutoresizingMaskIntoConstraints = false
         return lb
@@ -72,15 +72,6 @@ class FeedCell: UICollectionViewCell, UICollectionViewDataSource, UICollectionVi
     }()
     let detailsButton: UIButton = {
         let button = UIButton(type: .system)
-        let attributedTitle = NSMutableAttributedString(string: "Ayrıntılar >", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14), NSAttributedString.Key.foregroundColor: UIColor.lightGray])
-        
-//        let imageAttachment = NSTextAttachment()
-//        imageAttachment.image = UIImage(named: "right_arrow_shadow")
-//        let imageString = NSAttributedString( attachment: imageAttachment)
-
-//        attributedTitle.append(imageString)
-        button.setAttributedTitle(attributedTitle, for: .normal)
-        
         return button
     }()
     override init(frame: CGRect) {
@@ -193,11 +184,11 @@ class FeedCell: UICollectionViewCell, UICollectionViewDataSource, UICollectionVi
         addSubview(titleLabel)
         titleLabel.anchor(top: topAnchor, left: leftAnchor, bottom: nil, right: nil, paddingTop: 0, paddingLeft: 2, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
         addSubview(combineNotificationLabelNotSentYet)
-        combineNotificationLabelNotSentYet.text = "Harika! Kombin isteğini Aldık."
-        combineNotificationLabelNotSentYet.anchor(top: titleLabel.bottomAnchor, left: leftAnchor, bottom: nil, right: nil, paddingTop: 49, paddingLeft: 75, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
+        combineNotificationLabelNotSentYet.text = langFile.format("FeedCell", "sent")
+        combineNotificationLabelNotSentYet.anchor(top: titleLabel.bottomAnchor, left: leftAnchor, bottom: nil, right: nil, paddingTop: 49, paddingLeft: 25, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
         addSubview(combineNotificationSubLabelNotSentYet)
-        combineNotificationSubLabelNotSentYet.text = "Hemen aşağıdaki Kombin sekmesine tıklayarak kombin talebinde bulunabilirsin!"
-        combineNotificationSubLabelNotSentYet.anchor(top: combineNotificationLabelNotSentYet.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, paddingTop: 10, paddingLeft: 75, paddingBottom: 0, paddingRight: 54, width: 0, height: 0)
+        combineNotificationSubLabelNotSentYet.text = langFile.format("FeedCell", "mentor")
+        combineNotificationSubLabelNotSentYet.anchor(top: combineNotificationLabelNotSentYet.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, paddingTop: 10, paddingLeft: 25, paddingBottom: 0, paddingRight: 54, width: 0, height: 0)
         //Collection View
         addSubview(combineNotificationLabel)
         combineNotificationLabel.anchor(top: titleLabel.bottomAnchor, left: leftAnchor, bottom: nil, right: nil, paddingTop: 8, paddingLeft: 2, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
@@ -210,11 +201,11 @@ class FeedCell: UICollectionViewCell, UICollectionViewDataSource, UICollectionVi
         addSubview(titleLabel)
         titleLabel.anchor(top: topAnchor, left: leftAnchor, bottom: nil, right: nil, paddingTop: 0, paddingLeft: 2, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
         addSubview(combineNotificationLabelNotSentYet)
-        combineNotificationLabelNotSentYet.text = "Henüz Bir istekte bulunmandın."
-        combineNotificationLabelNotSentYet.anchor(top: titleLabel.bottomAnchor, left: leftAnchor, bottom: nil, right: nil, paddingTop: 49, paddingLeft: 75, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
+        combineNotificationLabelNotSentYet.text = langFile.format("FeedCell", "notYet")
+        combineNotificationLabelNotSentYet.anchor(top: titleLabel.bottomAnchor, left: leftAnchor, bottom: nil, right: nil, paddingTop: 49, paddingLeft: 25, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
         addSubview(combineNotificationSubLabelNotSentYet)
-        combineNotificationSubLabelNotSentYet.text = "Hemen aşağıdaki Kombin sekmesine tıklayarak kombin talebinde bulunabilirsin!"
-        combineNotificationSubLabelNotSentYet.anchor(top: combineNotificationLabelNotSentYet.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, paddingTop: 10, paddingLeft: 75, paddingBottom: 0, paddingRight: 54, width: 0, height: 0)
+        combineNotificationSubLabelNotSentYet.text = langFile.format("FeedCell", "subLabel")
+        combineNotificationSubLabelNotSentYet.anchor(top: combineNotificationLabelNotSentYet.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, paddingTop: 10, paddingLeft: 25, paddingBottom: 0, paddingRight: 54, width: 0, height: 0)
         //Collection View
         addSubview(combineNotificationLabel)
         combineNotificationLabel.anchor(top: titleLabel.bottomAnchor, left: leftAnchor, bottom: nil, right: nil, paddingTop: 8, paddingLeft: 2, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
@@ -226,6 +217,7 @@ class FeedCell: UICollectionViewCell, UICollectionViewDataSource, UICollectionVi
         titleLabel.anchor(top: topAnchor, left: leftAnchor, bottom: nil, right: nil, paddingTop: 0, paddingLeft: 2, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
         addSubview(combineNotificationLabel)
         combineNotificationLabel.anchor(top: titleLabel.bottomAnchor, left: leftAnchor, bottom: nil, right: nil, paddingTop: 8, paddingLeft: 2, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
+        combineNotificationLabel.text = langFile.format("FeedCell", "arrived")
         addSubview(titleBottomLabel)
         titleBottomLabel.anchor(top: nil, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 0, paddingLeft: 5, paddingBottom: 5, paddingRight: 5, width: 0, height: 0)
         //Collection View
@@ -245,6 +237,8 @@ class FeedCell: UICollectionViewCell, UICollectionViewDataSource, UICollectionVi
         // Details
         addSubview(detailsButton)
         detailsButton.anchor(top: topAnchor, left: nil, bottom: nil, right: rightAnchor, paddingTop: 20, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 10)
+        let attributedTitle = NSMutableAttributedString(string: self.langFile.format("FeedCell", "details"), attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14), NSAttributedString.Key.foregroundColor: UIColor.lightGray])
+        detailsButton.setAttributedTitle(attributedTitle, for: .normal)
         detailsButton.addTarget(self, action: #selector(handleDetailHeaderTapped), for: .touchUpInside)
     }
     // MARK: -- Handling Operations

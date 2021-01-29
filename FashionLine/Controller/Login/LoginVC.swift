@@ -12,7 +12,7 @@ import Firebase
 class LoginVC: UIViewController, UITextFieldDelegate {
     
     // MARK: - Properties
-    
+    var langFile = Localization.shared
     let logoContainerView: UIView = {
         let view = UIView()
         let logoImageView = UIImageView(image: #imageLiteral(resourceName: "Instagram_logo_white"))
@@ -34,7 +34,6 @@ class LoginVC: UIViewController, UITextFieldDelegate {
     }()
     let emailTextField: UITextField = {
         let tf = UITextField()
-        tf.placeholder = "E-Posta"
         tf.backgroundColor = UIColor(white: 0, alpha: 0.03)
         tf.borderStyle = .roundedRect
         tf.textColor = .white
@@ -45,7 +44,6 @@ class LoginVC: UIViewController, UITextFieldDelegate {
     
     let passwordTextField: UITextField = {
         let tf = UITextField()
-        tf.placeholder = "Şifre"
         tf.backgroundColor = UIColor(white: 0, alpha: 0.03)
         tf.borderStyle = .roundedRect
         tf.font = UIFont.systemFont(ofSize: 14)
@@ -57,7 +55,6 @@ class LoginVC: UIViewController, UITextFieldDelegate {
     
     let loginButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Giriş Yap", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = UIColor(red: 149/255, green: 204/255, blue: 244/255, alpha: 1)
         button.addTarget(self, action: #selector(handleLogin), for: .touchUpInside)
@@ -68,24 +65,18 @@ class LoginVC: UIViewController, UITextFieldDelegate {
     
     let dontHaveAccountButton: UIButton = {
         let button = UIButton(type: .system)
-        let attributedTitle = NSMutableAttributedString(string: "Henüz hesabın yok mu?  ", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14), NSAttributedString.Key.foregroundColor: UIColor.lightGray])
-        attributedTitle.append(NSAttributedString(string: "Kaydol", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 14), NSAttributedString.Key.foregroundColor: UIColor.white]))
         button.addTarget(self, action: #selector(handleShowSignUp), for: .touchUpInside)
-        button.setAttributedTitle(attributedTitle, for: .normal)
-        
         return button
     }()
     let forgetPasswordButton: UIButton = {
         let button = UIButton(type: .system)
-        let attributedTitle = NSMutableAttributedString(string: "Şifremi unuttum? ", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14), NSAttributedString.Key.foregroundColor: UIColor.lightGray])
         button.addTarget(self, action: #selector(handleForgetPassword), for: .touchUpInside)
-        button.setAttributedTitle(attributedTitle, for: .normal)
-        
         return button
     }()
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        langFile.getLangFile()
         self.hideKeyboardWhenTappedAround()
         emailTextField.delegate = self
         passwordTextField.delegate = self
@@ -151,7 +142,7 @@ class LoginVC: UIViewController, UITextFieldDelegate {
                 return
             }
             if user != nil && !user!.user.isEmailVerified {
-                self.makeAlert(titleInput: "Hata", messageInput: "Emailinizi kontrol ediniz, ve onay linkini aç")
+                self.makeAlert(titleInput: self.langFile.format("LoginVC", "error"), messageInput: self.langFile.format("LoginVC", "linkError"))
                 return
             }
             
@@ -183,7 +174,19 @@ class LoginVC: UIViewController, UITextFieldDelegate {
     func configureViewComponents() {
         
         let stackView = UIStackView(arrangedSubviews: [emailTextField, passwordTextField, loginButton])
+        // Json decoding
+        emailTextField.placeholder = langFile.format("LoginVC", "email")
+        passwordTextField.placeholder = langFile.format("LoginVC", "password")
+        loginButton.setTitle(langFile.format("LoginVC", "login"), for: .normal)
         
+        let attributedTitleOfPassword = NSMutableAttributedString(string: langFile.format("LoginVC", "forgetPassword"), attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14), NSAttributedString.Key.foregroundColor: UIColor.lightGray])
+        forgetPasswordButton.setAttributedTitle(attributedTitleOfPassword, for: .normal)
+        
+        let attributedTitle = NSMutableAttributedString(string: langFile.format("LoginVC", "dontHaveAnAccount"), attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14), NSAttributedString.Key.foregroundColor: UIColor.lightGray])
+        attributedTitle.append(NSAttributedString(string: langFile.format("LoginVC", "signUp"), attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 14), NSAttributedString.Key.foregroundColor: UIColor.white]))
+        dontHaveAccountButton.setAttributedTitle(attributedTitle, for: .normal)
+        
+        // Stack view arrangements
         stackView.axis = .vertical
         stackView.spacing = 10
         stackView.distribution = .fillEqually

@@ -10,9 +10,9 @@ import UIKit
 import Firebase
 class ForgetPasswordVC: UIViewController {
     
+    var langFile = Localization.shared
     let emailTextField: UITextField = {
         let tf = UITextField()
-        tf.placeholder = "E-Posta"
         tf.backgroundColor = UIColor(white: 0, alpha: 0.03)
         tf.borderStyle = .roundedRect
         tf.textColor = .black
@@ -22,7 +22,6 @@ class ForgetPasswordVC: UIViewController {
     }()
     let forgetPasswordButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Şifremi sıfırla", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = UIColor(hexString: "#FFD3D3", alpha: 1)
         button.addTarget(self, action: #selector(handleForgetPassword), for: .touchUpInside)
@@ -39,7 +38,8 @@ class ForgetPasswordVC: UIViewController {
     func configureViewComponents() {
         
         let stackView = UIStackView(arrangedSubviews: [emailTextField, forgetPasswordButton])
-        
+        emailTextField.placeholder = langFile.format("PasswordVC", "email")
+        forgetPasswordButton.setTitle(langFile.format("PasswordVC", "reset"), for: .normal)
         stackView.axis = .vertical
         stackView.spacing = 10
         stackView.distribution = .fillEqually
@@ -67,12 +67,12 @@ class ForgetPasswordVC: UIViewController {
         Auth.auth().sendPasswordReset(withEmail: emailTextField.text!) { error in
             DispatchQueue.main.async {
                 if self.emailTextField.text?.isEmpty==true || error != nil {
-                    let resetFailedAlert = UIAlertController(title: "Şifre sıfırlama gerçekleşemedi", message: "Error: \(String(describing: error?.localizedDescription))", preferredStyle: .alert)
+                    let resetFailedAlert = UIAlertController(title: self.langFile.format("PasswordVC", "errorReset"), message: "Error: \(String(describing: error?.localizedDescription))", preferredStyle: .alert)
                     resetFailedAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                     self.present(resetFailedAlert, animated: true, completion: nil)
                 }
                 if error == nil && self.emailTextField.text?.isEmpty==false{
-                    let resetEmailAlertSent = UIAlertController(title: "Şifre sıfırlama E-postası gönderildi", message: "Lütfen gönderilen E-posta daki linke tıklayarak talimatları gerçekleştriniz", preferredStyle: .alert)
+                    let resetEmailAlertSent = UIAlertController(title: self.langFile.format("PasswordVC", "instructions"), message: self.langFile.format("PasswordVC", "click"), preferredStyle: .alert)
                     resetEmailAlertSent.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                     self.present(resetEmailAlertSent, animated: true, completion: nil)
                 }

@@ -1,0 +1,81 @@
+
+{
+    "LoginVC": {
+        "forgetPassword": "Forget password",
+        "signUp": "Sign Up",
+        "login": "Log In",
+        "dontHaveAnAccount": "Don't have an account? ",
+        "password": "Password",
+        "linkError": "Check your email, and open the link",
+        "email": "Email",
+        "error": "Error"
+    },
+    "SignUpVC": {
+        "email": "Email",
+        "password": "Password",
+        "nameSurname": "Name / Surname",
+        "height": "Height",
+        "weight": "Weight",
+        "sex": "Sex",
+        "age": "Age",
+        "styleType": "What style do you like to dress ?",
+        "slim": "Slim",
+        "formal": "Formal",
+        "sport": "Sport",
+        "regular": "Regular",
+        "done": "Done",
+        "signUp": "Sign Up",
+        "checkEmail": "Check your email inbox, and click the link for activation",
+        "error": "Error",
+        "usernamePassword": "Username/Pasword is invalid",
+        "check": "Check Email",
+        "alreadyHaveAnAccount": "Already have an account ? ",
+        "signIn": "Sign In"
+    },
+    "PasswordVC": {
+        "email": "Email",
+        "reset": "Reset password",
+        "error": "Error",
+        "errorReset": "Couldn't reset your password",
+        "instructions": "Password reset instructions have been sent to your email account",
+        "click": "Please open the link, and follow the instructions"
+    },
+    "FeedVC": {
+        "suggestions": "Combine Suggestions",
+        "combinesOfDay": "Combines of Day"
+    },
+    "CombineVC": {
+        "hello": "Hello",
+        "toWhere": "Where will you be going ?",
+        "time": "What time will you go ? ",
+        "combine": "What kind of combine would you like to have ? ",
+        "notes": "Would you like to add any notes ? ",
+        "request": "Request combine",
+        "mainMessage": "Fabolous !",
+        "subMessage": "Our mentors have already begun to choose the best combinations for you.",
+        "error": "Error",
+        "fill": "You must fill in all the information"
+    },
+    "WardrobeVC": {
+        "information": "Personal Information",
+        "nameSurname": "Name / Surname",
+        "height": "Height",
+        "weight": "Weight",
+        "sex": "Sex",
+        "age": "Age",
+        "styleType": "What style do you like to dress ?",
+        "refresh": "Refresh",
+        "logOut": "Log Out",
+        "cancel": "Cancel",
+        "error": "Error",
+        "fill": "You must fill in all the information"
+    },
+    "FeedCell": {
+        "sent": "Fabolous ! We've recived your request.",
+        "subLabel": "You can request a combination for the Combine tab below.",
+        "notYet": "You haven't made a request yet.",
+        "mentor": "Our mentors have already begun to analyze your request and prepare your combines.",
+        "arrived": "The combines have arrived !",
+        "details": "Details >"
+    }
+}

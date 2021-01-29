@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 class WardrobeVC: UIViewController, UITextFieldDelegate {
     // MARK: - Properties
+    var langFile = Localization.shared
     lazy var contentViewSize = CGSize(width: self.view.frame.width, height: 1.2 * self.view.frame.height)
     
     lazy var scrollView: UIScrollView = {
@@ -31,7 +32,6 @@ class WardrobeVC: UIViewController, UITextFieldDelegate {
     
     let refreshButton: UIButton = {
         let pp = UIButton(type: .system)
-        pp.setTitle("Güncelle", for: .normal)
         pp.titleLabel?.font = UIFont.init(name: "SFProText-Regular", size: 17)
         pp.setTitleColor(UIColor(hexString: "#E61515"), for: UIControl.State.normal)
         pp.layer.borderColor = UIColor(hexString: "#707070").cgColor
@@ -41,7 +41,6 @@ class WardrobeVC: UIViewController, UITextFieldDelegate {
     }()
     let logOutButton: UIButton = {
         let pp = UIButton(type: .system)
-        pp.setTitle("Çıkış yap", for: .normal)
         pp.titleLabel?.font = UIFont.init(name: "SFProText-Regular", size: 17)
         pp.setTitleColor(UIColor(hexString: "#E61515"), for: UIControl.State.normal)
         pp.layer.borderColor = UIColor(hexString: "#707070").cgColor
@@ -69,63 +68,54 @@ class WardrobeVC: UIViewController, UITextFieldDelegate {
     let getMembershipNow: UILabel = {
         let rn = UILabel()
         rn.numberOfLines = 0
-        rn.text = "Kişisel Bilgilerim"
         rn.font = UIFont.init(name: "SFProDisplay-RegularItalic", size: 23)
         rn.textColor = UIColor(hexString: "#707070")
         return rn
     }()
     let eMailTextField: UITextField = {
         let tf = UITextField()
-        tf.placeholder = "E-posta"
         tf.backgroundColor = UIColor(white: 0, alpha: 0.0)
         tf.font = UIFont.init(name: "SFProText-MediumItalic", size: 14)
         return tf
     }()
     let nameTextField: UITextField = {
         let tf = UITextField()
-        tf.placeholder = "Adın"
         tf.backgroundColor = UIColor(white: 0, alpha: 0.0)
         tf.font = UIFont.init(name: "SFProText-MediumItalic", size: 14)
         return tf
     }()
     let passwordSignUp: UITextField = {
         let tf = UITextField()
-        tf.placeholder = "şifre"
         tf.backgroundColor = UIColor(white: 0, alpha: 0.0)
         tf.font = UIFont.init(name: "SFProText-MediumItalic", size: 14)
         return tf
     }()
     let heightTextField: UITextField = {
         let tf = UITextField()
-        tf.placeholder = "Boyun"
         tf.backgroundColor = UIColor(white: 0, alpha: 0.0)
         tf.font = UIFont.init(name: "SFProText-MediumItalic", size: 14)
         return tf
     }()
     let weightTextField: UITextField = {
         let tf = UITextField()
-        tf.placeholder = "Kilon"
         tf.backgroundColor = UIColor(white: 0, alpha: 0.0)
         tf.font = UIFont.init(name: "SFProText-MediumItalic", size: 14)
         return tf
     }()
     let sexTextField: UITextField = {
         let tf = UITextField()
-        tf.placeholder = "Cinsiyet"
         tf.backgroundColor = UIColor(white: 0, alpha: 0.0)
         tf.font = UIFont.init(name: "SFProText-MediumItalic", size: 14)
         return tf
     }()
     let ageTextField: UITextField = {
         let tf = UITextField()
-        tf.placeholder = "Yaşın"
         tf.backgroundColor = UIColor(white: 0, alpha: 0.0)
         tf.font = UIFont.init(name: "SFProText-MediumItalic", size: 14)
         return tf
     }()
     let styleTextField: UITextField = {
         let tf = UITextField()
-        tf.placeholder = "Ne tür giyinmeyi seversin"
         tf.backgroundColor = UIColor(white: 0, alpha: 0.0)
         tf.font = UIFont.init(name: "SFProText-MediumItalic", size: 14)
         return tf
@@ -220,37 +210,44 @@ class WardrobeVC: UIViewController, UITextFieldDelegate {
         fashionLineNameLabel.anchor(top: containerView.topAnchor, left: containerView.leftAnchor, bottom: nil, right: containerView.rightAnchor, paddingTop: 82, paddingLeft: 25, paddingBottom: 0, paddingRight: 157, width: 0, height: 0)
         containerView.addSubview(horizontalLine1)
         horizontalLine1.anchor(top: containerView.topAnchor, left: containerView.leftAnchor, bottom: nil, right: containerView.rightAnchor, paddingTop: 126.5, paddingLeft: 23.5, paddingBottom: 0, paddingRight: 23.5, width: 0, height: 1)
-        // Get membership now
+        // Information
         containerView.addSubview(getMembershipNow)
         getMembershipNow.anchor(top: fashionLineNameLabel.bottomAnchor, left: containerView.leftAnchor, bottom: nil, right: containerView.rightAnchor, paddingTop: 40, paddingLeft: 38, paddingBottom: 0, paddingRight: 54, width: 0, height: 0)
+        getMembershipNow.text = langFile.format("WardrobeVC", "information")
         // Name Label
         containerView.addSubview(nameTextField)
         nameTextField.anchor(top: getMembershipNow.bottomAnchor, left: containerView.leftAnchor, bottom: nil, right: containerView.rightAnchor, paddingTop: 5, paddingLeft: 55.5, paddingBottom: 0, paddingRight: 99.5, width: 0, height: 0)
+        nameTextField.placeholder = langFile.format("WardrobeVC", "nameSurname")
         containerView.addSubview(horizontalLine3)
         horizontalLine3.anchor(top: nameTextField.bottomAnchor, left: containerView.leftAnchor, bottom: nil, right: containerView.rightAnchor, paddingTop: 2.5, paddingLeft: 55.5, paddingBottom: 0, paddingRight: 99.5, width: 0, height: 1)
         // Height Label
         containerView.addSubview(heightTextField)
         heightTextField.anchor(top: horizontalLine3.bottomAnchor, left: containerView.leftAnchor, bottom: nil, right: containerView.rightAnchor, paddingTop: 7.5, paddingLeft: 55.5, paddingBottom: 0, paddingRight: 99.5, width: 0, height: 0)
+        heightTextField.placeholder = langFile.format("WardrobeVC", "height")
         containerView.addSubview(horizontalLine4)
         horizontalLine4.anchor(top: heightTextField.bottomAnchor, left: containerView.leftAnchor, bottom: nil, right: containerView.rightAnchor, paddingTop: 2.5, paddingLeft: 55.5, paddingBottom: 0, paddingRight: 99.5, width: 0, height: 1)
         // Weight label
         containerView.addSubview(weightTextField)
         weightTextField.anchor(top: horizontalLine4.bottomAnchor, left: containerView.leftAnchor, bottom: nil, right: containerView.rightAnchor, paddingTop: 7.5, paddingLeft: 55.5, paddingBottom: 0, paddingRight: 99.5, width: 0, height: 0)
+        weightTextField.placeholder = langFile.format("WardrobeVC", "weight")
         containerView.addSubview(horizontalLine5)
         horizontalLine5.anchor(top: weightTextField.bottomAnchor, left: containerView.leftAnchor, bottom: nil, right: containerView.rightAnchor, paddingTop: 2.5, paddingLeft: 55.5, paddingBottom: 0, paddingRight: 99.5, width: 0, height: 1)
         // Sex Label
         containerView.addSubview(sexTextField)
         sexTextField.anchor(top: horizontalLine5.bottomAnchor, left: containerView.leftAnchor, bottom: nil, right: containerView.rightAnchor, paddingTop: 7.5, paddingLeft: 55.5, paddingBottom: 0, paddingRight: 99.5, width: 0, height: 0)
+        sexTextField.placeholder = langFile.format("WardrobeVC", "sex")
         containerView.addSubview(horizontalLine6)
         horizontalLine6.anchor(top: sexTextField.bottomAnchor, left: containerView.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 2.5, paddingLeft: 55.5, paddingBottom: 0, paddingRight: 99.5, width: 0, height: 1)
         // Age Label
         containerView.addSubview(ageTextField)
         ageTextField.anchor(top: horizontalLine6.bottomAnchor, left: containerView.leftAnchor, bottom: nil, right: containerView.rightAnchor, paddingTop: 7.5, paddingLeft: 55.5, paddingBottom: 0, paddingRight: 99.5, width: 0, height: 0)
+        ageTextField.placeholder = langFile.format("WardrobeVC", "age")
         containerView.addSubview(horizontalLine7)
         horizontalLine7.anchor(top: ageTextField.bottomAnchor, left: containerView.leftAnchor, bottom: nil, right: containerView.rightAnchor, paddingTop: 2.5, paddingLeft: 55.5, paddingBottom: 0, paddingRight: 99.5, width: 0, height: 1)
         //Style label
         containerView.addSubview(styleTextField)
         styleTextField.anchor(top: horizontalLine7.bottomAnchor, left: containerView.leftAnchor, bottom: nil, right: containerView.rightAnchor, paddingTop: 7.5, paddingLeft: 55.5, paddingBottom: 0, paddingRight: 99.5, width: 0, height: 0)
+        styleTextField.placeholder = langFile.format("WardrobeVC", "styleType")
         containerView.addSubview(horizontalLine8)
         horizontalLine8.anchor(top: styleTextField.bottomAnchor, left: containerView.leftAnchor, bottom: nil, right: containerView.rightAnchor, paddingTop: 2.5, paddingLeft: 55.5, paddingBottom: 0, paddingRight: 99.5, width: 0, height: 1)
         //Refresh Button
@@ -258,12 +255,14 @@ class WardrobeVC: UIViewController, UITextFieldDelegate {
         refreshButton.anchor(top: horizontalLine8.bottomAnchor, left: nil, bottom: nil, right: nil, paddingTop: 30, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 185, height: 28)
         refreshButton.centerXAnchor.constraint(equalTo: containerView.centerXAnchor).isActive = true
         refreshButton.layer.cornerRadius = 14
+        refreshButton.setTitle(self.langFile.format("WardrobeVC", "refresh"), for: .normal)
         refreshButton.addTarget(self, action: #selector(refreshTapped), for: .touchUpInside)
         // Logout Button
         containerView.addSubview(logOutButton)
         logOutButton.anchor(top: refreshButton.bottomAnchor, left: nil, bottom: nil, right: nil, paddingTop: 20, paddingLeft: 38, paddingBottom: 0, paddingRight: 57, width: 185, height: 28)
         logOutButton.centerXAnchor.constraint(equalTo: containerView.centerXAnchor).isActive = true
         logOutButton.layer.cornerRadius = 14
+        logOutButton.setTitle(self.langFile.format("WardrobeVC", "logOut"), for: .normal)
         logOutButton.addTarget(self, action: #selector(handleLogutTapped), for: .touchUpInside)
         // Supoort Label
         containerView.addSubview(supportLabel)
@@ -286,7 +285,7 @@ class WardrobeVC: UIViewController, UITextFieldDelegate {
             }
         }
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        alertController.addAction(UIAlertAction(title: "Çıkış Yap", style: .destructive, handler: { (_) in
+        alertController.addAction(UIAlertAction(title: self.langFile.format("WardrobeVC", "logOut"), style: .destructive, handler: { (_) in
             do {
                 try Auth.auth().signOut()
                 let loginVC = LoginVC()
@@ -300,13 +299,13 @@ class WardrobeVC: UIViewController, UITextFieldDelegate {
             }
         }))
         
-        alertController.addAction(UIAlertAction(title: "İptal", style: .cancel, handler: nil))
+        alertController.addAction(UIAlertAction(title: self.langFile.format("WardrobeVC", "cancel"), style: .cancel, handler: nil))
         present(alertController, animated: true, completion: nil)
         if let popoverController = alertController.popoverPresentationController {
             popoverController.sourceView = self.view
             popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
             popoverController.permittedArrowDirections = []
-            alertController.addAction(UIAlertAction(title: "İptal", style: .default, handler: nil))
+            alertController.addAction(UIAlertAction(title: self.langFile.format("WardrobeVC", "cancel"), style: .default, handler: nil))
         }
     }
     @objc func refreshTapped(){
@@ -349,7 +348,7 @@ class WardrobeVC: UIViewController, UITextFieldDelegate {
             _ = self.navigationController?.popViewController(animated: true)
         }
         else {
-            makeAlert(titleInput: "Hata", messageInput: "Tüm bilgileri doldurmalısın :)")
+            makeAlert(titleInput: self.langFile.format("WardrobeVC", "error"), messageInput: self.langFile.format("WardrobeVC", "fill"))
         }
     }
 }

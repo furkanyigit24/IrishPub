@@ -15,9 +15,10 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     
     // MARK: - Properties
     
+    var langFile = Localization.shared
     var imageSelected = false
     let pickerView = UIPickerView()
-    let yourStyleGuy = ["Spor", "Klasik", "Dar", "Geniş", "İtalyan kesim", "İngiliz dikişi"]
+    var yourStyleGuy: [String] = []
     let plusPhotoBtn: UIButton = {
         let button = UIButton(type: .system)
         //        button.setImage(#imageLiteral(resourceName: "darkAddButton").withRenderingMode(.alwaysOriginal), for: .normal)
@@ -26,7 +27,6 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     }()
     let nameTextField: UITextField = {
         let tf = UITextField()
-        tf.placeholder = "Ad / Soyad"
         tf.backgroundColor = UIColor(white: 0, alpha: 0.03)
         tf.borderStyle = .roundedRect
         tf.font = UIFont.systemFont(ofSize: 14)
@@ -35,7 +35,6 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     }()
     let emailTextField: UITextField = {
         let tf = UITextField()
-        tf.placeholder = "E-posta"
         tf.backgroundColor = UIColor(white: 0, alpha: 0.03)
         tf.borderStyle = .roundedRect
         tf.font = UIFont.systemFont(ofSize: 14)
@@ -44,7 +43,6 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     }()
     let passwordSignUp: UITextField = {
         let tf = UITextField()
-        tf.placeholder = "şifre"
         tf.backgroundColor = UIColor(white: 0, alpha: 0.03)
         tf.borderStyle = .roundedRect
         tf.font = UIFont.systemFont(ofSize: 14)
@@ -53,7 +51,6 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     }()
     let heightTextField: UITextField = {
         let tf = UITextField()
-        tf.placeholder = "Boyun"
         tf.backgroundColor = UIColor(white: 0, alpha: 0.03)
         tf.borderStyle = .roundedRect
         tf.font = UIFont.systemFont(ofSize: 14)
@@ -62,7 +59,6 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     }()
     let weightTextField: UITextField = {
         let tf = UITextField()
-        tf.placeholder = "Kilon"
         tf.backgroundColor = UIColor(white: 0, alpha: 0.03)
         tf.borderStyle = .roundedRect
         tf.font = UIFont.systemFont(ofSize: 14)
@@ -71,7 +67,6 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     }()
     let sexTextField: UITextField = {
         let tf = UITextField()
-        tf.placeholder = "Cinsiyet"
         tf.backgroundColor = UIColor(white: 0, alpha: 0.03)
         tf.borderStyle = .roundedRect
         tf.font = UIFont.systemFont(ofSize: 14)
@@ -80,7 +75,6 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     }()
     let ageTextField: UITextField = {
         let tf = UITextField()
-        tf.placeholder = "Yaşın"
         tf.backgroundColor = UIColor(white: 0, alpha: 0.03)
         tf.borderStyle = .roundedRect
         tf.font = UIFont.systemFont(ofSize: 14)
@@ -89,7 +83,6 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     }()
     let styleTextField: UITextField = {
         let tf = UITextField()
-        tf.placeholder = "Ne tür giyinmeyi seversin"
         tf.backgroundColor = UIColor(white: 0, alpha: 0.03)
         tf.borderStyle = .roundedRect
         tf.font = UIFont.systemFont(ofSize: 14)
@@ -98,7 +91,6 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     }()
     let signUpButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Kaydol", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = UIColor(hexString: "#FFD3D3")
         button.layer.cornerRadius = 5
@@ -109,12 +101,7 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     
     let alreadyHaveAccountButton: UIButton = {
         let button = UIButton(type: .system)
-        
-        let attributedTitle = NSMutableAttributedString(string: "Zaten hesabın var mı ? ", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14), NSAttributedString.Key.foregroundColor: UIColor.lightGray])
-        attributedTitle.append(NSAttributedString(string: "Giriş Yap", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 14), NSAttributedString.Key.foregroundColor: UIColor(red: 17/255, green: 154/255, blue: 237/255, alpha: 1)]))
-        button.addTarget(self, action: #selector(handleShowLogin), for: .touchUpInside)
-        button.setAttributedTitle(attributedTitle, for: .normal)
-        
+        button.addTarget(self, action: #selector(handleShowLogin), for: .touchUpInside)        
         return button
     }()
     
@@ -264,7 +251,7 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
                         }
                     }
                     // Create the alert controller
-                    let alertController = UIAlertController(title: "E-Postanızı kontrol ediniz", message: "E-postanıza gelen onay linkine tıklayarak hesabınızı aktif haline getiriniz", preferredStyle: .alert)
+                    let alertController = UIAlertController(title: self.langFile.format("SignUpVC", "check"), message: self.langFile.format("SignUpVC", "checkEmail"), preferredStyle: .alert)
                     
                     // Create the actions
                     let okAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default) {
@@ -282,7 +269,7 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
             }
         }
         else {
-            makeAlert(titleInput: "Error", messageInput: "Username/Pasword is invalid")
+            makeAlert(titleInput: self.langFile.format("SignUpVC", "error"), messageInput: self.langFile.format("SignUpVC", "usernamePassword"))
         }
     }
     @objc func formValidation() {
@@ -307,7 +294,22 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     func configureViewComponents() {
         
         let stackView = UIStackView(arrangedSubviews: [emailTextField, passwordSignUp, nameTextField, heightTextField, weightTextField, sexTextField, ageTextField, styleTextField, signUpButton])
+        // Json decoding
+        emailTextField.placeholder = langFile.format("SignUpVC", "email")
+        passwordSignUp.placeholder = langFile.format("SignUpVC", "password")
+        nameTextField.placeholder = langFile.format("SignUpVC", "nameSurname")
+        heightTextField.placeholder = langFile.format("SignUpVC", "height")
+        weightTextField.placeholder = langFile.format("SignUpVC", "weight")
+        sexTextField.placeholder = langFile.format("SignUpVC", "sex")
+        ageTextField.placeholder = langFile.format("SignUpVC", "age")
+        styleTextField.placeholder = langFile.format("SignUpVC", "styleType")
+        self.yourStyleGuy = [langFile.format("SignUpVC", "slim"), langFile.format("SignUpVC", "formal"), langFile.format("SignUpVC", "regular"), langFile.format("SignUpVC", "sport")]
+        signUpButton.setTitle(langFile.format("SignUpVC", "signUp"), for: .normal)
+        let attributedTitle = NSMutableAttributedString(string: langFile.format("SignUpVC", "alreadyHaveAnAccount"), attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14), NSAttributedString.Key.foregroundColor: UIColor.lightGray])
+        attributedTitle.append(NSAttributedString(string: langFile.format("SignUpVC", "signIn"), attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 14), NSAttributedString.Key.foregroundColor: UIColor(red: 17/255, green: 154/255, blue: 237/255, alpha: 1)]))
+        alreadyHaveAccountButton.setAttributedTitle(attributedTitle, for: .normal)
         
+        // Stack view arrangements
         stackView.axis = .vertical
         stackView.spacing = 20
         stackView.distribution = .fillEqually
@@ -324,7 +326,7 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     func dismissPickerView() {
         let toolBar = UIToolbar()
         toolBar.sizeToFit()
-        let button = UIBarButtonItem(title: "Tamam", style: .plain, target: self, action: #selector(self.action))
+        let button = UIBarButtonItem(title: self.langFile.format("SignUpVC", "done"), style: .plain, target: self, action: #selector(self.action))
         toolBar.setItems([button], animated: true)
         toolBar.isUserInteractionEnabled = true
         styleTextField.inputAccessoryView = toolBar

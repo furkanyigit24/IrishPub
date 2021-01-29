@@ -14,6 +14,8 @@ private let feedHeader = "FeedHeader"
 
 class FeedVC: UICollectionViewController, UICollectionViewDelegateFlowLayout, UITabBarControllerDelegate {
     
+    var langFile = Localization.shared
+    public var lang: [String: Any] = [:]
     var transferredValue: String?
     var bottomTitle = Users.sharedInstance
     
@@ -28,14 +30,41 @@ class FeedVC: UICollectionViewController, UICollectionViewDelegateFlowLayout, UI
         navigationController?.navigationBar.isHidden = true
         let delegate = FeedCell()
         delegate.transferDelegate = self
-        // post notification
-        
-        //        OneSignal.postNotification(["contents": ["en": "Test Message"], "include_player_ids": ["2d9cc1b1-2058-4721-8bd0-6fdfdda7706e"]])
         
         let status = OneSignal.getDeviceState()
         let playerId = status?.userId
         guard let currentEmail = Auth.auth().currentUser?.email else { return }
         
+        notificationArrangements(playerId, currentEmail)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        let indexPath = IndexPath(row: 0, section: 0)
+        collectionView.deleteItems(at: [indexPath])
+        registrationOfHeaderAndCell()
+        
+    }
+    override func viewDidDisappear(_ animated: Bool) {
+        let indexPath = IndexPath(row: 0, section: 0)
+        collectionView.deleteItems(at: [indexPath])
+        registrationOfHeaderAndCell()
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        registrationOfHeaderAndCell()
+        registrationOfHeaderAndCell()
+    }
+    fileprivate func registrationOfHeaderAndCell() {
+        // Uncomment the following line to preserve selection between presentations
+        // self.clearsSelectionOnViewWillAppear = false
+        
+        // Register cell classes
+        self.collectionView!.register(FeedCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        self.collectionView!.register(CombinesOfDay.self, forCellWithReuseIdentifier: combinesSubCellId)
+        self.collectionView!.register(FeedHeaderCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: feedHeader)
+        // Do any additional setup after loading the view.
+    }
+    // MARK: - Notifications
+    fileprivate func notificationArrangements(_ playerId: String?, _ currentEmail: String) {
         if let playerNewId = playerId {
             
             fireStoreDatabase.collection("PlayerId").whereField("email", isEqualTo: currentEmail).getDocuments { (snapshot, error) in
@@ -75,42 +104,6 @@ class FeedVC: UICollectionViewController, UICollectionViewDelegateFlowLayout, UI
             }
         }
     }
-    override func viewWillDisappear(_ animated: Bool) {
-        let indexPath = IndexPath(row: 0, section: 0)
-        collectionView.deleteItems(at: [indexPath])
-        registrationOfHeaderAndCell()
-        
-    }
-    override func viewDidDisappear(_ animated: Bool) {
-        let indexPath = IndexPath(row: 0, section: 0)
-        collectionView.deleteItems(at: [indexPath])
-        registrationOfHeaderAndCell()
-    }
-    override func viewDidAppear(_ animated: Bool) {
-        registrationOfHeaderAndCell()
-        registrationOfHeaderAndCell()
-    }
-    fileprivate func registrationOfHeaderAndCell() {
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-        
-        // Register cell classes
-        self.collectionView!.register(FeedCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-        self.collectionView!.register(CombinesOfDay.self, forCellWithReuseIdentifier: combinesSubCellId)
-        self.collectionView!.register(FeedHeaderCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: feedHeader)
-        // Do any additional setup after loading the view.
-    }
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using [segue destinationViewController].
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
     // MARK: - UICollectionViewFlowLayout
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = view.frame.width * 0.9555
@@ -136,12 +129,12 @@ class FeedVC: UICollectionViewController, UICollectionViewDelegateFlowLayout, UI
         let combinesCell = collectionView.dequeueReusableCell(withReuseIdentifier: combinesSubCellId, for: indexPath) as! CombinesOfDay
         // Configure the cell
         if indexPath.row == 0 {
-            cell.titleLabel.text = "Kombin Önerilerim"
+            cell.titleLabel.text = langFile.format("FeedVC", "suggestions")
             cell.delegate = self
             return cell
         }
         else if indexPath.row == 1 {
-            combinesCell.titleLabel.text = "Günün Kombinleri"
+            combinesCell.titleLabel.text = langFile.format("FeedVC", "combinesOfDay")
             return combinesCell
         }
         return cell

@@ -31,7 +31,7 @@ class CombinesOfDay: UICollectionViewCell, UICollectionViewDataSource, UICollect
     let titleLabel: UILabel = {
         let lb  = UILabel()
         lb.text = "Section Title"
-        lb.font = UIFont.init(name: "SFProDisplay-Regular", size: 34)
+        lb.font = UIFont.init(name: "SFProDisplay-Regular", size: 30)
         lb.translatesAutoresizingMaskIntoConstraints = false
         return lb
     }()

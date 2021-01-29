@@ -9,7 +9,11 @@
 import UIKit
 import Firebase
 class MainVC: UITabBarController, UITabBarControllerDelegate {
+    
+    
     var singletonShared = Users.sharedInstance
+    var langFile = Localization.shared
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
@@ -17,6 +21,7 @@ class MainVC: UITabBarController, UITabBarControllerDelegate {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        langFile.getLangFile()
         self.delegate = self
         if Auth.auth().currentUser?.email == "stylist@fashionline.app"{
             // home feed controller

@@ -11,8 +11,9 @@ import Firebase
 
 class CombineVC: UIViewController, UITextFieldDelegate {
     
+    // MARK: - Properties
     var userName: String = ""
-    
+    var langFile = Localization.shared
     let fashionLineNameLabel: UILabel = {
         let rn = UILabel()
         rn.numberOfLines = 0
@@ -30,7 +31,6 @@ class CombineVC: UIViewController, UITextFieldDelegate {
     }()
     let toWhereTextField: UITextField = {
         let tf = UITextField()
-        tf.placeholder = "Nereye Gideceksin?"
         tf.backgroundColor = UIColor(white: 0, alpha: 0.0)
         tf.font = UIFont.init(name: "SFProText-Regular", size: 20)
         tf.font = UIFont.systemFont(ofSize: 14)
@@ -38,7 +38,6 @@ class CombineVC: UIViewController, UITextFieldDelegate {
     }()
     let timeTextField: UITextField = {
         let tf = UITextField()
-        tf.placeholder = "Saat kaçta gideceksin?"
         tf.backgroundColor = UIColor(white: 0, alpha: 0.0)
         tf.font = UIFont.init(name: "SFProText-Regular", size: 20)
         tf.font = UIFont.systemFont(ofSize: 14)
@@ -46,7 +45,6 @@ class CombineVC: UIViewController, UITextFieldDelegate {
     }()
     let combineTextField: UITextField = {
         let tf = UITextField()
-        tf.placeholder = "Nasıl bir kombin istersin?"
         tf.backgroundColor = UIColor(white: 0, alpha: 0.0)
         tf.font = UIFont.init(name: "SFProText-Regular", size: 20)
         tf.font = UIFont.systemFont(ofSize: 14)
@@ -54,7 +52,6 @@ class CombineVC: UIViewController, UITextFieldDelegate {
     }()
     let noteTextField: UITextField = {
         let tf = UITextField()
-        tf.placeholder = "Eklemek istediğin notlar"
         tf.backgroundColor = UIColor(white: 0, alpha: 0.0)
         tf.font = UIFont.init(name: "SFProText-Regular", size: 20)
         tf.font = UIFont.systemFont(ofSize: 14)
@@ -62,7 +59,6 @@ class CombineVC: UIViewController, UITextFieldDelegate {
     }()
     let signUpButton: UIButton = {
         let pp = UIButton(type: .system)
-        pp.setTitle("Kombin oluştur", for: .normal)
         pp.titleLabel?.font = UIFont.init(name: "SFProText-Regular", size: 17)
         pp.setTitleColor(UIColor(hexString: "#E61515"), for: UIControl.State.normal)
         pp.layer.borderColor = UIColor(hexString: "#707070").cgColor
@@ -73,7 +69,6 @@ class CombineVC: UIViewController, UITextFieldDelegate {
     let signedUpMainMessage: UILabel = {
         let rn = UILabel()
         rn.numberOfLines = 0
-        rn.text = "Harika!"
         rn.textAlignment = .center
         rn.font = UIFont.init(name: "SFProDisplay-Regular", size: 40)
         rn.textColor = UIColor(hexString: "#000000")
@@ -82,7 +77,6 @@ class CombineVC: UIViewController, UITextFieldDelegate {
     let signedUpSubMessage: UILabel = {
         let rn = UILabel()
         rn.numberOfLines = 0
-        rn.text = "Mentorlarımız senin içinen güzel kombinleri seçmeye başladılar bile!"
         rn.textAlignment = .center
         rn.font = UIFont.init(name: "SFProDisplay-Regular", size: 23)
         rn.textColor = UIColor(hexString: "#000000")
@@ -214,30 +208,35 @@ class CombineVC: UIViewController, UITextFieldDelegate {
         // Welcome Label
         view.addSubview(welcomeLabel)
         welcomeLabel.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 149, paddingLeft: 25, paddingBottom: 0, paddingRight: 10, width: 0, height: 0)
-        welcomeLabel.text = "Merhaba \(userName)"
-        // Email Label
+        welcomeLabel.text = "\(self.langFile.format("CombineVC", "hello")) \(userName)"
+        // To where Label
         view.addSubview(toWhereTextField)
         toWhereTextField.anchor(top: welcomeLabel.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 60, paddingLeft: 1, paddingBottom: 0, paddingRight: 1, width: 0, height: 0)
+        toWhereTextField.placeholder = langFile.format("CombineVC", "toWhere")
         view.addSubview(horizontalLine2)
         horizontalLine2.anchor(top: toWhereTextField.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 2.5, paddingLeft: 1, paddingBottom: 0, paddingRight: 1, width: 0, height: 1)
-        // Name Label
+        // Time Label
         view.addSubview(timeTextField)
         timeTextField.anchor(top: horizontalLine2.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 27, paddingLeft: 1, paddingBottom: 0, paddingRight: 1, width: 0, height: 0)
+        timeTextField.placeholder = langFile.format("CombineVC", "time")
         view.addSubview(horizontalLine3)
         horizontalLine3.anchor(top: timeTextField.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 2.5, paddingLeft: 1, paddingBottom: 0, paddingRight: 1, width: 0, height: 1)
-        // Height Label
+        // Combine Label
         view.addSubview(combineTextField)
         combineTextField.anchor(top: horizontalLine3.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 27, paddingLeft: 1, paddingBottom: 0, paddingRight: 1, width: 0, height: 0)
+        combineTextField.placeholder = langFile.format("CombineVC", "combine")
         view.addSubview(horizontalLine4)
         horizontalLine4.anchor(top: combineTextField.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 2.5, paddingLeft: 1, paddingBottom: 0, paddingRight: 1, width: 0, height: 1)
-        // Weight label
+        // Note label
         view.addSubview(noteTextField)
         noteTextField.anchor(top: horizontalLine4.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 27, paddingLeft: 1, paddingBottom: 0, paddingRight: 1, width: 0, height: 0)
+        noteTextField.placeholder = langFile.format("CombineVC", "notes")
         view.addSubview(horizontalLine5)
         horizontalLine5.anchor(top: noteTextField.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 2.5, paddingLeft: 1, paddingBottom: 0, paddingRight: 1, width: 0, height: 1)
-        //SignUp Button
+        //Request combine button
         view.addSubview(signUpButton)
         signUpButton.anchor(top: horizontalLine5.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 30, paddingLeft: 38, paddingBottom: 0, paddingRight: 57, width: 280, height: 44)
+        signUpButton.setTitle(self.langFile.format("CombineVC", "request"), for: .normal)
         signUpButton.layer.cornerRadius = 22
     }
     fileprivate func sentView() {
@@ -261,12 +260,14 @@ class CombineVC: UIViewController, UITextFieldDelegate {
         horizontalLine1.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 126.5, paddingLeft: 23.5, paddingBottom: 0, paddingRight: 23.5, width: 0, height: 1)
         // Main message & Sub message
         view.addSubview(signedUpMainMessage)
-        signedUpMainMessage.anchor(top: horizontalLine1.bottomAnchor, left: view.leftAnchor, bottom: nil, right: nil, paddingTop: 156.5, paddingLeft: 109, paddingBottom: 0, paddingRight: 0, width: 118, height: 48)
+        signedUpMainMessage.anchor(top: horizontalLine1.bottomAnchor, left: view.leftAnchor, bottom: nil, right: nil, paddingTop: 156.5, paddingLeft: 45, paddingBottom: 0, paddingRight: 0, width: 118, height: 48)
         signedUpMainMessage.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        signedUpMainMessage.text = langFile.format("CombineVC", "mainMessage")
         
         view.addSubview(signedUpSubMessage)
         signedUpSubMessage.anchor(top: signedUpMainMessage.bottomAnchor, left: view.leftAnchor, bottom: nil, right: nil, paddingTop: 24, paddingLeft: 45, paddingBottom: 0, paddingRight: 0, width: 280, height: 84)
         signedUpSubMessage.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        signedUpSubMessage.text = langFile.format("CombineVC", "subMessage")
     }
     
     @objc func sendCombine(){
@@ -303,7 +304,7 @@ class CombineVC: UIViewController, UITextFieldDelegate {
             noteTextField.text = ""
         }
         else {
-            makeAlert(titleInput: "Hata", messageInput: "Tüm bilgileri doldurmalısın :)")
+            makeAlert(titleInput: self.langFile.format("CombineVC", "error"), messageInput: self.langFile.format("CombineVC", "fill"))
         }
     }
 }

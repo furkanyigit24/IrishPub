@@ -33,6 +33,9 @@
 		DCA10F0C2592761700DD22DD /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCA10F0B2592761700DD22DD /* Protocols.swift */; };
 		DCA10F0E25934D1100DD22DD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DCA10F0D25934D0F00DD22DD /* GoogleService-Info.plist */; };
 		DCB14ABA25C31920004F844B /* ForgetPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCB14AB925C31920004F844B /* ForgetPasswordVC.swift */; };
+		DCB14ABC25C4086A004F844B /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCB14ABB25C4086A004F844B /* Localization.swift */; };
+		DCB14ABE25C409C7004F844B /* localizable-en.json in Resources */ = {isa = PBXBuildFile; fileRef = DCB14ABD25C409C7004F844B /* localizable-en.json */; };
+		DCB14AC025C409DB004F844B /* localizable-tr.json in Resources */ = {isa = PBXBuildFile; fileRef = DCB14ABF25C409DB004F844B /* localizable-tr.json */; };
 		DCB5B9ED25A46E230079BEB0 /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCB5B9EC25A46E230079BEB0 /* SignUpVC.swift */; };
 		DCCD057A248BCFC400105231 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCCD0579248BCFC400105231 /* AppDelegate.swift */; };
 		DCCD057C248BCFC400105231 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCCD057B248BCFC400105231 /* SceneDelegate.swift */; };
@@ -198,6 +201,9 @@
 		DCA10F0B2592761700DD22DD /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		DCA10F0D25934D0F00DD22DD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DCB14AB925C31920004F844B /* ForgetPasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgetPasswordVC.swift; sourceTree = "<group>"; };
+		DCB14ABB25C4086A004F844B /* Localization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Localization.swift; sourceTree = "<group>"; };
+		DCB14ABD25C409C7004F844B /* localizable-en.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "localizable-en.json"; sourceTree = "<group>"; };
+		DCB14ABF25C409DB004F844B /* localizable-tr.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "localizable-tr.json"; sourceTree = "<group>"; };
 		DCB5B9EC25A46E230079BEB0 /* SignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
 		DCCD0576248BCFC400105231 /* FashionLine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FashionLine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCCD0579248BCFC400105231 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -484,6 +490,9 @@
 				DCCD05B4248E9D5300105231 /* Extensions.swift */,
 				DC101664249125F2000B4D81 /* CustomImageView.swift */,
 				DCA10F0B2592761700DD22DD /* Protocols.swift */,
+				DCB14ABB25C4086A004F844B /* Localization.swift */,
+				DCB14ABD25C409C7004F844B /* localizable-en.json */,
+				DCB14ABF25C409DB004F844B /* localizable-tr.json */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -641,7 +650,9 @@
 				DCA10F0E25934D1100DD22DD /* GoogleService-Info.plist in Resources */,
 				DC1016C22497E9E6000B4D81 /* SF-Pro-Text-Regular.otf in Resources */,
 				DC1016C12497E964000B4D81 /* SF-Pro-Display-Regular.otf in Resources */,
+				DCB14ABE25C409C7004F844B /* localizable-en.json in Resources */,
 				DC1016C02497E8DD000B4D81 /* SF-Pro-Display-RegularItalic.otf in Resources */,
+				DCB14AC025C409DB004F844B /* localizable-tr.json in Resources */,
 				DC1016BF2497E820000B4D81 /* SF-Pro-Display-Bold.otf in Resources */,
 				DCCD0586248BCFCD00105231 /* LaunchScreen.storyboard in Resources */,
 				DCCD0583248BCFCD00105231 /* Assets.xcassets in Resources */,
@@ -820,6 +831,7 @@
 				DC799A2525AB4AC60037E9B1 /* AdminDetailVC.swift in Sources */,
 				DCCD05BB248EB2FB00105231 /* WardrobeVC.swift in Sources */,
 				DC799A2725ADB66B0037E9B1 /* CombineDesignVC.swift in Sources */,
+				DCB14ABC25C4086A004F844B /* Localization.swift in Sources */,
 				DC799A1D25AA02560037E9B1 /* CombineDetailCell.swift in Sources */,
 				DC101665249125F2000B4D81 /* CustomImageView.swift in Sources */,
 				DC799A2325AB33EB0037E9B1 /* AdminCell.swift in Sources */,
