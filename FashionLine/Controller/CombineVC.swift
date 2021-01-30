@@ -8,12 +8,13 @@
 
 import UIKit
 import Firebase
-
+import OneSignal
 class CombineVC: UIViewController, UITextFieldDelegate {
     
     // MARK: - Properties
     var userName: String = ""
     var langFile = Localization.shared
+    var shared = Admin.sharedInstance
     let fashionLineNameLabel: UILabel = {
         let rn = UILabel()
         rn.numberOfLines = 0
@@ -269,7 +270,26 @@ class CombineVC: UIViewController, UITextFieldDelegate {
         signedUpSubMessage.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         signedUpSubMessage.text = langFile.format("CombineVC", "subMessage")
     }
-    
+    // Push Notification
+    func pushNotification(){
+        let userEmail = "stylist@fashionline.app"
+        let fireStoreDatabase = Firestore.firestore()
+        fireStoreDatabase.collection("PlayerIdOfStylist").whereField("email", isEqualTo: userEmail).getDocuments { (snapshot, error) in
+            if error == nil {
+                if snapshot?.isEmpty == false && snapshot != nil {
+                    
+                    for document in snapshot!.documents {
+                        
+                        if let playerId = document.get("player_id") as? String {
+                            
+                            //PUSH NOTIFICATION
+                            OneSignal.postNotification(["contents": ["en": "Yeni kombin isteği geldi"], "include_player_ids": [playerId]])
+                        }
+                    }
+                }
+            }
+        }
+    }
     @objc func sendCombine(){
         guard let toWhereLabel = toWhereTextField.text else { return }
         guard let timeLabel = timeTextField.text else { return }
@@ -302,6 +322,7 @@ class CombineVC: UIViewController, UITextFieldDelegate {
             timeTextField.text = ""
             combineTextField.text = ""
             noteTextField.text = ""
+            pushNotification()
         }
         else {
             makeAlert(titleInput: self.langFile.format("CombineVC", "error"), messageInput: self.langFile.format("CombineVC", "fill"))

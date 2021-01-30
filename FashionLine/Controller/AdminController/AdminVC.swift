@@ -8,13 +8,13 @@
 
 import UIKit
 import Firebase
-
+import OneSignal
 let adminTableViewCell = "AdminTableViewCell"
 
 class AdminVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var shared = Admin.sharedInstance
-    
+    let fireStoreDatabase = Firestore.firestore()
     var userNameArray = [String]()
     var heightArray = [String]()
     var weightArray = [String]()
@@ -62,6 +62,52 @@ class AdminVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         // Call Firebase
         getDataFromFirestore()
        // requestedListener()
+        let status = OneSignal.getDeviceState()
+        let playerId = status?.userId
+        guard let currentEmail = Auth.auth().currentUser?.email else { return }
+        
+        notificationArrangements(playerId, currentEmail)
+    }
+    // MARK: - Notifications
+    fileprivate func notificationArrangements(_ playerId: String?, _ currentEmail: String) {
+        if let playerNewId = playerId {
+    
+            fireStoreDatabase.collection("PlayerIdOfStylist").whereField("email", isEqualTo: currentEmail).getDocuments { (snapshot, error) in
+                if error == nil {
+                    if snapshot?.isEmpty == false && snapshot != nil {
+                        for document in snapshot!.documents {
+                            if let playerIDFromFirebase = document.get("player_id") as? String {
+                                let documentId = document.documentID
+                                
+                                if playerNewId != playerIDFromFirebase {
+                                    
+                                    let playerIdDictionary = ["email" : currentEmail, "player_id" : playerNewId] as! [String : Any]
+                                    
+                                    self.fireStoreDatabase.collection("PlayerId").document(currentEmail).setData(playerIdDictionary, merge: true) { (error) in
+                                        if error != nil {
+                                            print(error?.localizedDescription)
+                                        }
+                                    }
+                                    
+                                    
+                                }
+                                
+                            }
+                            
+                            
+                        }
+                    } else {
+                        let playerIdDictionary = ["email" : currentEmail, "player_id" : playerNewId] as! [String : Any]
+                        
+                        self.fireStoreDatabase.collection("PlayerIdOfStylist").document(currentEmail).setData(playerIdDictionary, merge: true) { (error) in
+                            if error != nil {
+                                print(error?.localizedDescription)
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
     // MARK: -- Firestore Data
     func getDataFromFirestore(){
@@ -222,6 +268,17 @@ class AdminVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     // MARK: - Handle operations
     @objc func HandleLogOut(){
+        
+        guard let currentEmail = Auth.auth().currentUser?.email else { return }
+        let fireStoreDatabase = Firestore.firestore()
+        let playerIdDictionary = ["email" : currentEmail, "player_id" : "0"] as [String : Any]
+        
+        fireStoreDatabase.collection("PlayerIdOfStylist").document("\(Auth.auth().currentUser!.email!)").setData(playerIdDictionary, merge: true) { (error) in
+            if error != nil {
+                print(error?.localizedDescription)
+            }
+        }
+        
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         alertController.addAction(UIAlertAction(title: "Çıkış Yap", style: .destructive, handler: { (_) in
             do {

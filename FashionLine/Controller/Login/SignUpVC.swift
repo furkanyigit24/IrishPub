@@ -18,7 +18,15 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     var langFile = Localization.shared
     var imageSelected = false
     let pickerView = UIPickerView()
+    let agePickerView = UIPickerView()
+    let sexPickerView = UIPickerView()
+    let weightPickerView = UIPickerView()
+    let heightPickerView = UIPickerView()
     var yourStyleGuy: [String] = []
+    var agePicker: [String] = []
+    var sexPicker: [String] = []
+    var weightPicker = [String]()
+    var heightPicker = [String]()
     let plusPhotoBtn: UIButton = {
         let button = UIButton(type: .system)
         //        button.setImage(#imageLiteral(resourceName: "darkAddButton").withRenderingMode(.alwaysOriginal), for: .normal)
@@ -118,12 +126,12 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         self.ageTextField.delegate = self
         self.styleTextField.delegate = self
         
-        createPickerView()
-        dismissPickerView()
         // background color
         view.backgroundColor = .white
         
         configureViewComponents()
+        createPickerView()
+        dismissPickerView()
         
         view.addSubview(alreadyHaveAccountButton)
         alreadyHaveAccountButton.anchor(top: nil, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 50)
@@ -303,7 +311,17 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         sexTextField.placeholder = langFile.format("SignUpVC", "sex")
         ageTextField.placeholder = langFile.format("SignUpVC", "age")
         styleTextField.placeholder = langFile.format("SignUpVC", "styleType")
-        self.yourStyleGuy = [langFile.format("SignUpVC", "slim"), langFile.format("SignUpVC", "formal"), langFile.format("SignUpVC", "regular"), langFile.format("SignUpVC", "sport")]
+        self.yourStyleGuy = [langFile.format("SignUpVC", "classic"), langFile.format("SignUpVC", "romantic"), langFile.format("SignUpVC", "elegant"), langFile.format("SignUpVC", "natural"), langFile.format("SignUpVC", "attractive"), langFile.format("SignUpVC", "dramatic"), langFile.format("SignUpVC", "creative"), langFile.format("SignUpVC", "minimalistic")]
+        self.sexPicker = [langFile.format("SignUpVC", "female"),langFile.format("SignUpVC", "male"),langFile.format("SignUpVC", "identify")]
+        for i in 0 ... 120 {
+            weightPicker.append("\(i+30) kg")
+        }
+        for i in 0 ... 170 {
+            heightPicker.append("\(i+50) cm")
+        }
+        for i in 0 ... 82 {
+            agePicker.append("\(i+18)")
+        }
         signUpButton.setTitle(langFile.format("SignUpVC", "signUp"), for: .normal)
         let attributedTitle = NSMutableAttributedString(string: langFile.format("SignUpVC", "alreadyHaveAnAccount"), attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14), NSAttributedString.Key.foregroundColor: UIColor.lightGray])
         attributedTitle.append(NSAttributedString(string: langFile.format("SignUpVC", "signIn"), attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 14), NSAttributedString.Key.foregroundColor: UIColor(red: 17/255, green: 154/255, blue: 237/255, alpha: 1)]))
@@ -318,10 +336,26 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         stackView.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 150, paddingLeft: 40, paddingBottom: 0, paddingRight: 40, width: 0, height: 400)
     }
     func createPickerView() {
-        let pickerView = UIPickerView()
+        agePickerView.delegate = self
+        heightPickerView.delegate = self
+        weightPickerView.delegate = self
+        sexPickerView.delegate = self
         pickerView.delegate = self
         pickerView.backgroundColor = .white
+        agePickerView.backgroundColor = .white
+        heightPickerView.backgroundColor = .white
+        weightPickerView.backgroundColor = .white
+        sexPickerView.backgroundColor = .white
+        pickerView.selectRow(2, inComponent: 0, animated: true)
+        sexPickerView.selectRow(2, inComponent: 0, animated: true)
+        weightPickerView.selectRow(20, inComponent: 0, animated: true)
+        agePickerView.selectRow(3, inComponent: 0, animated: true)
+        heightPickerView.selectRow(105, inComponent: 0, animated: true)
+        heightTextField.inputView = heightPickerView
+        weightTextField.inputView = weightPickerView
         styleTextField.inputView = pickerView
+        sexTextField.inputView = sexPickerView
+        ageTextField.inputView = agePickerView
     }
     func dismissPickerView() {
         let toolBar = UIToolbar()
@@ -330,6 +364,10 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         toolBar.setItems([button], animated: true)
         toolBar.isUserInteractionEnabled = true
         styleTextField.inputAccessoryView = toolBar
+        sexTextField.inputAccessoryView = toolBar
+        heightTextField.inputAccessoryView = toolBar
+        weightTextField.inputAccessoryView = toolBar
+        ageTextField.inputAccessoryView = toolBar
     }
     @objc func action() {
         view.endEditing(true)
@@ -341,16 +379,62 @@ extension SignUpVC: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        if pickerView == sexPickerView{
+            return sexPicker.count
+        }else if pickerView == agePickerView{
+            return agePicker.count
+        }
+        else if pickerView == heightPickerView{
+            return heightPicker.count
+        }else if pickerView == weightPickerView{
+            return weightPicker.count
+        }
+        else{
         return yourStyleGuy.count
+        }
     }
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        if pickerView == sexPickerView{
+            return sexPicker[row]
+        }else if pickerView == agePickerView{
+            return agePicker[row]
+        }
+        else if pickerView == heightPickerView{
+            return heightPicker[row]
+        }else if pickerView == weightPickerView{
+            return weightPicker[row]
+        }else {
         return yourStyleGuy[row]
+        }
     }
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        if pickerView == sexPickerView{
+            sexTextField.text = sexPicker[row]
+        }else if pickerView == agePickerView{
+            ageTextField.text = agePicker[row]
+        }
+        else if pickerView == heightPickerView{
+            heightTextField.text = heightPicker[row]
+        }else if pickerView == weightPickerView{
+            weightTextField.text = weightPicker[row]
+        }
+        else{
         styleTextField.text = yourStyleGuy[row]
+        }
     }
     func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
-        
+        if pickerView == sexPickerView{
+          return NSAttributedString(string: sexPicker[row], attributes: [NSAttributedString.Key.foregroundColor: UIColor.black])
+        }else if pickerView == agePickerView{
+          return NSAttributedString(string: agePicker[row], attributes: [NSAttributedString.Key.foregroundColor: UIColor.black])
+        }
+        else if pickerView == heightPickerView{
+          return NSAttributedString(string: heightPicker[row], attributes: [NSAttributedString.Key.foregroundColor: UIColor.black])
+        }else if pickerView == weightPickerView{
+          return NSAttributedString(string: weightPicker[row], attributes: [NSAttributedString.Key.foregroundColor: UIColor.black])
+        }
+        else{
         return NSAttributedString(string: yourStyleGuy[row], attributes: [NSAttributedString.Key.foregroundColor: UIColor.black])
+        }
     }
 }

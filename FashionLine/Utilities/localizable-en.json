@@ -19,10 +19,17 @@
         "sex": "Sex",
         "age": "Age",
         "styleType": "What style do you like to dress ?",
-        "slim": "Slim",
-        "formal": "Formal",
-        "sport": "Sport",
-        "regular": "Regular",
+        "female": "Female",
+        "male": "Male",
+        "identify": "Do not want to identify",
+        "classic": "Classic",
+        "romantic": "Romantic",
+        "elegant": "Elegant",
+        "natural": "Natural",
+        "attractive": "Attractive",
+        "dramatic": "Dramatic",
+        "creative": "Creative",
+        "minimalistic": "Minimalistic",
         "done": "Done",
         "signUp": "Sign Up",
         "checkEmail": "Check your email inbox, and click the link for activation",
@@ -41,16 +48,16 @@
         "click": "Please open the link, and follow the instructions"
     },
     "FeedVC": {
-        "suggestions": "Combine Suggestions",
-        "combinesOfDay": "Combines of Day"
+        "suggestions": "Outfit Suggestions",
+        "combinesOfDay": "Outfits of Day"
     },
     "CombineVC": {
         "hello": "Hello",
         "toWhere": "Where will you be going ?",
         "time": "What time will you go ? ",
-        "combine": "What kind of combine would you like to have ? ",
+        "combine": "What kind of outfit would you like to have ? ",
         "notes": "Would you like to add any notes ? ",
-        "request": "Request combine",
+        "request": "Request outfit",
         "mainMessage": "Fabolous !",
         "subMessage": "Our mentors have already begun to choose the best combinations for you.",
         "error": "Error",
@@ -72,10 +79,10 @@
     },
     "FeedCell": {
         "sent": "Fabolous ! We've recived your request.",
-        "subLabel": "You can request a combination for the Combine tab below.",
+        "subLabel": "You can request a outfits for the Combine tab below.",
         "notYet": "You haven't made a request yet.",
-        "mentor": "Our mentors have already begun to analyze your request and prepare your combines.",
-        "arrived": "The combines have arrived !",
+        "mentor": "Our mentors have already begun to analyze your request and prepare your outfits.",
+        "arrived": "The outfits have arrived !",
         "details": "Details >"
     }
 }

@@ -13,6 +13,17 @@ class WardrobeVC: UIViewController, UITextFieldDelegate {
     var langFile = Localization.shared
     lazy var contentViewSize = CGSize(width: self.view.frame.width, height: 1.2 * self.view.frame.height)
     
+    let pickerView = UIPickerView()
+    let agePickerView = UIPickerView()
+    let sexPickerView = UIPickerView()
+    let weightPickerView = UIPickerView()
+    let heightPickerView = UIPickerView()
+    var yourStyleGuy: [String] = []
+    var agePicker: [String] = []
+    var sexPicker: [String] = []
+    var weightPicker = [String]()
+    var heightPicker = [String]()
+    
     lazy var scrollView: UIScrollView = {
         let view = UIScrollView(frame: .zero)
         view.backgroundColor = .white
@@ -187,12 +198,51 @@ class WardrobeVC: UIViewController, UITextFieldDelegate {
         styleTextField.delegate = self
         tabBarController?.tabBar.isHidden = true
         configureViewComponents()
+        createPickerView()
+        dismissPickerView()
     }
     // Hide the keyboard when the return key pressed
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         self.hideKeyboardWhenTappedAround()
         return true
+    }
+    func createPickerView() {
+        agePickerView.delegate = self
+        heightPickerView.delegate = self
+        weightPickerView.delegate = self
+        sexPickerView.delegate = self
+        pickerView.delegate = self
+        pickerView.backgroundColor = .white
+        agePickerView.backgroundColor = .white
+        heightPickerView.backgroundColor = .white
+        weightPickerView.backgroundColor = .white
+        sexPickerView.backgroundColor = .white
+        pickerView.selectRow(2, inComponent: 0, animated: true)
+        sexPickerView.selectRow(2, inComponent: 0, animated: true)
+        weightPickerView.selectRow(20, inComponent: 0, animated: true)
+        agePickerView.selectRow(3, inComponent: 0, animated: true)
+        heightPickerView.selectRow(105, inComponent: 0, animated: true)
+        heightTextField.inputView = heightPickerView
+        weightTextField.inputView = weightPickerView
+        styleTextField.inputView = pickerView
+        sexTextField.inputView = sexPickerView
+        ageTextField.inputView = agePickerView
+    }
+    func dismissPickerView() {
+        let toolBar = UIToolbar()
+        toolBar.sizeToFit()
+        let button = UIBarButtonItem(title: self.langFile.format("SignUpVC", "done"), style: .plain, target: self, action: #selector(self.action))
+        toolBar.setItems([button], animated: true)
+        toolBar.isUserInteractionEnabled = true
+        styleTextField.inputAccessoryView = toolBar
+        sexTextField.inputAccessoryView = toolBar
+        heightTextField.inputAccessoryView = toolBar
+        weightTextField.inputAccessoryView = toolBar
+        ageTextField.inputAccessoryView = toolBar
+    }
+    @objc func action() {
+        view.endEditing(true)
     }
     //MARK: - View Components
     func configureViewComponents(){
@@ -268,6 +318,18 @@ class WardrobeVC: UIViewController, UITextFieldDelegate {
         containerView.addSubview(supportLabel)
         supportLabel.anchor(top: logOutButton.bottomAnchor, left: nil, bottom: nil, right: nil, paddingTop: 50, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 28)
         supportLabel.centerXAnchor.constraint(equalTo: containerView.centerXAnchor).isActive = true
+        // Picker View
+        self.yourStyleGuy = [langFile.format("SignUpVC", "classic"), langFile.format("SignUpVC", "romantic"), langFile.format("SignUpVC", "elegant"), langFile.format("SignUpVC", "natural"), langFile.format("SignUpVC", "attractive"), langFile.format("SignUpVC", "dramatic"), langFile.format("SignUpVC", "creative"), langFile.format("SignUpVC", "minimalistic")]
+        self.sexPicker = [langFile.format("SignUpVC", "female"),langFile.format("SignUpVC", "male"),langFile.format("SignUpVC", "identify")]
+        for i in 0 ... 120 {
+            weightPicker.append("\(i+30) kg")
+        }
+        for i in 0 ... 170 {
+            heightPicker.append("\(i+50) cm")
+        }
+        for i in 0 ... 82 {
+            agePicker.append("\(i+18)")
+        }
     }
     // MARK: - Handle Operations
     @objc func dismissKeyboardForScroll() {
@@ -349,6 +411,71 @@ class WardrobeVC: UIViewController, UITextFieldDelegate {
         }
         else {
             makeAlert(titleInput: self.langFile.format("WardrobeVC", "error"), messageInput: self.langFile.format("WardrobeVC", "fill"))
+        }
+    }
+}
+extension WardrobeVC: UIPickerViewDelegate, UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        if pickerView == sexPickerView{
+            return sexPicker.count
+        }else if pickerView == agePickerView{
+            return agePicker.count
+        }
+        else if pickerView == heightPickerView{
+            return heightPicker.count
+        }else if pickerView == weightPickerView{
+            return weightPicker.count
+        }
+        else{
+        return yourStyleGuy.count
+        }
+    }
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        if pickerView == sexPickerView{
+            return sexPicker[row]
+        }else if pickerView == agePickerView{
+            return agePicker[row]
+        }
+        else if pickerView == heightPickerView{
+            return heightPicker[row]
+        }else if pickerView == weightPickerView{
+            return weightPicker[row]
+        }else {
+        return yourStyleGuy[row]
+        }
+    }
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        if pickerView == sexPickerView{
+            sexTextField.text = sexPicker[row]
+        }else if pickerView == agePickerView{
+            ageTextField.text = agePicker[row]
+        }
+        else if pickerView == heightPickerView{
+            heightTextField.text = heightPicker[row]
+        }else if pickerView == weightPickerView{
+            weightTextField.text = weightPicker[row]
+        }
+        else{
+        styleTextField.text = yourStyleGuy[row]
+        }
+    }
+    func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
+        if pickerView == sexPickerView{
+          return NSAttributedString(string: sexPicker[row], attributes: [NSAttributedString.Key.foregroundColor: UIColor.black])
+        }else if pickerView == agePickerView{
+          return NSAttributedString(string: agePicker[row], attributes: [NSAttributedString.Key.foregroundColor: UIColor.black])
+        }
+        else if pickerView == heightPickerView{
+          return NSAttributedString(string: heightPicker[row], attributes: [NSAttributedString.Key.foregroundColor: UIColor.black])
+        }else if pickerView == weightPickerView{
+          return NSAttributedString(string: weightPicker[row], attributes: [NSAttributedString.Key.foregroundColor: UIColor.black])
+        }
+        else{
+        return NSAttributedString(string: yourStyleGuy[row], attributes: [NSAttributedString.Key.foregroundColor: UIColor.black])
         }
     }
 }

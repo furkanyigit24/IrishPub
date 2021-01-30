@@ -23,7 +23,7 @@ class MainVC: UITabBarController, UITabBarControllerDelegate {
         super.viewDidLoad()
         langFile.getLangFile()
         self.delegate = self
-        if Auth.auth().currentUser?.email == "stylist@fashionline.app"{
+        if Auth.auth().currentUser?.email == "STYLIST@FASHIONLINE.APP"{
             // home feed controller
             guard let darkStarImage = UIImage(named: "darkStar")?.withRenderingMode(.alwaysOriginal) else { return }
             guard let redStarImage = UIImage(named: "redStar")?.withRenderingMode(.alwaysOriginal) else { return }
@@ -42,7 +42,7 @@ class MainVC: UITabBarController, UITabBarControllerDelegate {
     }
     
     func configureViewControllers() {
-        if Auth.auth().currentUser?.email?.uppercased() == "stylist@fashionline.app"{
+        if Auth.auth().currentUser?.email?.uppercased() == "STYLIST@FASHIONLINE.APP"{
             // home feed controller
             guard let darkStarImage = UIImage(named: "darkStar")?.withRenderingMode(.alwaysOriginal) else { return }
             guard let redStarImage = UIImage(named: "redStar")?.withRenderingMode(.alwaysOriginal) else { return }
