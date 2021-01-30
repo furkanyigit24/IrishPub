@@ -49,7 +49,7 @@
     },
     "FeedVC": {
         "suggestions": "Outfit Suggestions",
-        "combinesOfDay": "Outfits of Day"
+        "combinesOfDay": "Outfits of the Day"
     },
     "CombineVC": {
         "hello": "Hello",
@@ -57,7 +57,7 @@
         "time": "What time will you go ? ",
         "combine": "What kind of outfit would you like to have ? ",
         "notes": "Would you like to add any notes ? ",
-        "request": "Request outfit",
+        "request": "Request Outfit",
         "mainMessage": "Fabolous !",
         "subMessage": "Our mentors have already begun to choose the best combinations for you.",
         "error": "Error",
@@ -71,7 +71,7 @@
         "sex": "Sex",
         "age": "Age",
         "styleType": "What style do you like to dress ?",
-        "refresh": "Refresh",
+        "refresh": "Update",
         "logOut": "Log Out",
         "cancel": "Cancel",
         "error": "Error",
@@ -79,7 +79,7 @@
     },
     "FeedCell": {
         "sent": "Fabolous ! We've recived your request.",
-        "subLabel": "You can request a outfits for the Combine tab below.",
+        "subLabel": "You can request an outfit for the Combine tab below.",
         "notYet": "You haven't made a request yet.",
         "mentor": "Our mentors have already begun to analyze your request and prepare your outfits.",
         "arrived": "The outfits have arrived !",

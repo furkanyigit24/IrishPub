@@ -212,25 +212,25 @@ class CombineVC: UIViewController, UITextFieldDelegate {
         welcomeLabel.text = "\(self.langFile.format("CombineVC", "hello")) \(userName)"
         // To where Label
         view.addSubview(toWhereTextField)
-        toWhereTextField.anchor(top: welcomeLabel.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 60, paddingLeft: 1, paddingBottom: 0, paddingRight: 1, width: 0, height: 0)
+        toWhereTextField.anchor(top: welcomeLabel.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 60, paddingLeft: 10, paddingBottom: 0, paddingRight: 1, width: 0, height: 0)
         toWhereTextField.placeholder = langFile.format("CombineVC", "toWhere")
         view.addSubview(horizontalLine2)
         horizontalLine2.anchor(top: toWhereTextField.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 2.5, paddingLeft: 1, paddingBottom: 0, paddingRight: 1, width: 0, height: 1)
         // Time Label
         view.addSubview(timeTextField)
-        timeTextField.anchor(top: horizontalLine2.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 27, paddingLeft: 1, paddingBottom: 0, paddingRight: 1, width: 0, height: 0)
+        timeTextField.anchor(top: horizontalLine2.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 27, paddingLeft: 10, paddingBottom: 0, paddingRight: 1, width: 0, height: 0)
         timeTextField.placeholder = langFile.format("CombineVC", "time")
         view.addSubview(horizontalLine3)
         horizontalLine3.anchor(top: timeTextField.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 2.5, paddingLeft: 1, paddingBottom: 0, paddingRight: 1, width: 0, height: 1)
         // Combine Label
         view.addSubview(combineTextField)
-        combineTextField.anchor(top: horizontalLine3.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 27, paddingLeft: 1, paddingBottom: 0, paddingRight: 1, width: 0, height: 0)
+        combineTextField.anchor(top: horizontalLine3.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 27, paddingLeft: 10, paddingBottom: 0, paddingRight: 1, width: 0, height: 0)
         combineTextField.placeholder = langFile.format("CombineVC", "combine")
         view.addSubview(horizontalLine4)
         horizontalLine4.anchor(top: combineTextField.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 2.5, paddingLeft: 1, paddingBottom: 0, paddingRight: 1, width: 0, height: 1)
         // Note label
         view.addSubview(noteTextField)
-        noteTextField.anchor(top: horizontalLine4.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 27, paddingLeft: 1, paddingBottom: 0, paddingRight: 1, width: 0, height: 0)
+        noteTextField.anchor(top: horizontalLine4.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 27, paddingLeft: 10, paddingBottom: 0, paddingRight: 1, width: 0, height: 0)
         noteTextField.placeholder = langFile.format("CombineVC", "notes")
         view.addSubview(horizontalLine5)
         horizontalLine5.anchor(top: noteTextField.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 2.5, paddingLeft: 1, paddingBottom: 0, paddingRight: 1, width: 0, height: 1)

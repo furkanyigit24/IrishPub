@@ -86,6 +86,15 @@ class FeedVC: UICollectionViewController, UICollectionViewDelegateFlowLayout, UI
                                     
                                     
                                 }
+                                if playerIDFromFirebase == "0" {
+                                    let playerIdDictionary = ["email" : currentEmail, "player_id" : playerNewId] as! [String : Any]
+                                    
+                                    self.fireStoreDatabase.collection("PlayerIdOfStylist").document(currentEmail).setData(playerIdDictionary, merge: true) { (error) in
+                                        if error != nil {
+                                            print(error?.localizedDescription)
+                                        }
+                                    }
+                                }
                                 
                             }
                             

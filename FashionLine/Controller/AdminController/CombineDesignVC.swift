@@ -316,7 +316,7 @@ class CombineDesignVC: UIViewController, UIImagePickerControllerDelegate, UINavi
                             //PUSH NOTIFICATION
                             
                             //                            OneSignal.postNotification(["contents": ["en":"liked your post "], "include_player_ids": ["\(playerId)"]])
-                            OneSignal.postNotification(["contents": ["en": "Yeni kombinin geldi"], "include_player_ids": [playerId]])
+                            OneSignal.postNotification(["contents": ["en": "Yeni kombinin geldi!"], "include_player_ids": [playerId]])
                         }
                     }
                 }
